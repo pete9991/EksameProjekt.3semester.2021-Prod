@@ -5,8 +5,4 @@
         <RootNamespace>Core</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="IServices" />
-    </ItemGroup>
-
 </Project>
