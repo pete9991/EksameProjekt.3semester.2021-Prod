@@ -13,4 +13,8 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Morales.BookingSystem.EntityFramework\Morales.BookingSystem.EntityFramework.csproj" />
+    </ItemGroup>
+
 </Project>
