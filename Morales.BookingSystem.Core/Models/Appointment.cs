@@ -4,13 +4,13 @@ namespace Core.Models
 {
     public class Appointment
     {
-        public int id { get; set; }
-        public int customerid { get; set; }
-        public int employeeid { get; set; }
-        public string type { get; set; }
-        public float date { get; set; }
-        public int duration { get; set; }
-        private List<int> treatments;
+        public int Id { get; set; }
+        public int Customerid { get; set; }
+        public int Employeeid { get; set; }
+        public string Sex { get; set; }
+        public float Date { get; set; }
+        public int Duration { get; set; }
+        private List<int> TreatmentsId;
     }
 }
     
