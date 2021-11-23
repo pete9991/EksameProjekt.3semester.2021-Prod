@@ -10,7 +10,7 @@ namespace Core.Models
         public string type { get; set; }
         public float date { get; set; }
         public int duration { get; set; }
-        private List<int> treatments;
+        private List<Treatments> GetTreatment;
     }
 }
     
