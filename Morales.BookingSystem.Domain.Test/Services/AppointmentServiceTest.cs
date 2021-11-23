@@ -125,16 +125,16 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void CreateAppointment_WithParam_ReturnsTrueWhenCompleted()
         {
-            var testaAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
+            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
-                .Setup(r => r.CreateAppointment(testaAppointment))
+                .Setup(r => r.CreateAppointment(testAppointment))
                 .Returns(true);
             var appointmentService = new AppointmentService(mockRepo.Object);
 
-            appointmentService.CreateAppointment(testaAppointment);
+            appointmentService.CreateAppointment(testAppointment);
             
-            Assert.Equal(true,appointmentService.CreateAppointment(testaAppointment));
+            Assert.True(appointmentService.CreateAppointment(testAppointment));
         }
 
         #endregion
@@ -171,12 +171,46 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
 
         #endregion
+
+        #region Delete Appointment Test
         
+        
+
+        #endregion
+
+        #region Get Appointment From Hairdresser Test
+        
+        [Fact]
+        public void GetAppointmentsFromHairdresser_WithNoParams_CallAppointmentRepositoryOnce()
+        {
+            var employeeId = 1;
+            var serviceMock = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(serviceMock.Object);
+
+            appointmentService.GetAppointmentsFromHairdresser(employeeId);
+            
+            serviceMock.Verify(r => r.GetAppointmentFromHairdresser(),Times.Once);
+        }
+
+        [Fact]
+        public void GetAppointmentsFromHairdresser_WithNoParam_ReturnAllAppointmentsAsList()
+        {
+            var expected = new List<Appointment> {new Appointment {Employeeid = 1}};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.GetAppointmentFromHairdresser())
+                .Returns(expected);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.GetAppointmentsFromHairdresser(employeeId:1);
+            
+            Assert.Equal(expected, appointmentService.GetAppointmentsFromHairdresser(employeeId:1), new AppointmentComparer());
+
+        }
+        
+        #endregion
     }
     
-    
-    
-
     public class AppointmentComparer : IEqualityComparer<Appointment>
     {
         public bool Equals(Appointment x, Appointment y)

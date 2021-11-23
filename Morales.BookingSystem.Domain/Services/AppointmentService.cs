@@ -13,7 +13,7 @@ namespace Morales.BookingSystem.Domain.Services
         {
             if (appointmentRepository == null)
             {
-                throw new InvalidDataException("A AppointmentService need an a  appointmentRepository");
+                throw new InvalidDataException("A AppointmentService need an a appointmentRepository");
             }
 
             _appointmentRepository = appointmentRepository;
@@ -47,7 +47,7 @@ namespace Morales.BookingSystem.Domain.Services
         
         public List<Appointment> GetAppointmentsFromHairdresser(int employeeId)
         {
-            throw new System.NotImplementedException();
+            return _appointmentRepository.GetAppointmentFromHairdresser();
         }
     }
 }
