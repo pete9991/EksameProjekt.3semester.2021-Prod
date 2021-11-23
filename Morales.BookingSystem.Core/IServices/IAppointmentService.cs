@@ -5,13 +5,15 @@ namespace Core.IServices
 {
     public interface IAppointmentService
     {
-        List<Appointment> GetAppointments();
-        public Appointment ReadById(int i);
+        List<Appointment> GetAllAppointments();
+        Appointment ReadById(int appointmentId);
         
-        bool Create(Appointment appointment);
+        bool CreateAppointment (Appointment appointmentToCreate);
         
-        Appointment UpdateById(int id, string newName);
+        Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment);
 
-        bool Delete(int product);  
+        bool DeleteAppointment(int deletedAppointmentId);
+
+        List<Appointment> GetAppointmentsFromHairdresser(int employeeId);
     }
 }
