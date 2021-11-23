@@ -1,7 +1,6 @@
 namespace Morales.BookingSystem.Domain.IRepositories
 {
-    public class temp
+    public interface IAppointmentRepository
     {
-        
     }
 }
