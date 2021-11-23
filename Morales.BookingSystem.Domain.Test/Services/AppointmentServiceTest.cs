@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using Core.IServices;
+using Core.Models;
 using Moq;
 using Morales.BookingSystem.Domain.IRepositories;
 using Morales.BookingSystem.Domain.Services;
@@ -9,6 +12,8 @@ namespace Morales.BookingSystem.Domain.Test.Services
 {
     public class AppointmentServiceTest
     {
+        #region Appointment Service Initalization Test
+        
         [Fact]
         public void AppointmentService_IsIAppointmentService()
         {
@@ -30,6 +35,162 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var exception = Assert
                 .Throws<InvalidDataException>(() => new AppointmentService(null));
             Assert.Equal("A AppointmentService need an a  appointmentRepository", exception.Message);
+        }
+        #endregion
+
+        #region Appointment Service GetAll Test
+
+
+        [Fact]
+        public void GetAllAppointments_WithNoParams_CallsAppointmentRepositoryOnce()
+        {
+            //Arrange
+            var serviceMock = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(serviceMock.Object);
+            
+            //Act
+            appointmentService.GetAllAppointments();
+            
+            //Assert
+            serviceMock.Verify(r => r.readAllAppointments(),Times.Once);
+        }
+
+        [Fact]
+        public void GetAllAppointment_NoParam_ReturnAllAppointmentsAsList()
+        {
+            //Arrange
+            var expected = new List<Appointment> {new Appointment {Customerid = 1, Employeeid = 1}};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.readAllAppointments())
+                .Returns(expected);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            
+            //Act
+            appointmentService.GetAllAppointments();
+            
+            //Assert
+            Assert.Equal(expected, appointmentService.GetAllAppointments(), new AppointmentComparer());
+        }
+
+        #endregion
+
+        #region ReadById Test
+
+        [Fact]
+        public void ReadById_WithParams_CallAppointmentRepositoryOnce()
+        {
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentId = 1;
+
+            appointmentService.ReadById(appointmentId);
+            
+            mockRepo.Verify(r => r.ReadById(appointmentId),Times.Once);
+        }
+
+        [Fact]
+        public void ReadById_WithParam_ReturnsSingleAppointment()
+        {
+            var expected = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.ReadById(expected.Id))
+                .Returns(expected);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentId = 1;
+
+            appointmentService.ReadById(appointmentId);
+            
+            Assert.Equal(expected, appointmentService.ReadById(expected.Id), new AppointmentComparer());
+
+        }
+
+        #endregion
+
+        #region Create Appointment Test
+
+        [Fact]
+        public void CreateAppointment_WithParam_CallsAppointmentRepositoryOnce()
+        {
+            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.CreateAppointment(testAppointment);
+            
+            mockRepo.Verify(r => r.CreateAppointment(testAppointment), Times.Once);
+        }
+
+        [Fact]
+        public void CreateAppointment_WithParam_ReturnsTrueWhenCompleted()
+        {
+            var testaAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.CreateAppointment(testaAppointment))
+                .Returns(true);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.CreateAppointment(testaAppointment);
+            
+            Assert.Equal(true,appointmentService.CreateAppointment(testaAppointment));
+        }
+
+        #endregion
+
+        #region Update Appointment Test
+
+        [Fact]
+        public void UpdateAppointment_WithParam_CallsAppointmentRepositoryOnce()
+        {
+            var appointmentToUpdateId = 1;
+            var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.UpdateById(appointmentToUpdateId,updatedAppointment);
+            
+            mockRepo.Verify(r => r.UpdateById(appointmentToUpdateId, updatedAppointment), Times.Once);
+        }
+
+        [Fact]
+        public void UpdateAppointment_WithParam_ReturnsAppointment()
+        {
+            var appointmentToUpdateId = 1;
+            var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.UpdateById(appointmentToUpdateId, updatedAppointment))
+                .Returns(updatedAppointment);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.UpdateById(appointmentToUpdateId, updatedAppointment);
+            
+            Assert.Equal(updatedAppointment, appointmentService.UpdateById(appointmentToUpdateId,updatedAppointment), new AppointmentComparer());
+        }
+
+        #endregion
+        
+    }
+    
+    
+    
+
+    public class AppointmentComparer : IEqualityComparer<Appointment>
+    {
+        public bool Equals(Appointment x, Appointment y)
+        {
+            if (ReferenceEquals(x, y)) return true;
+            if (ReferenceEquals(x, null)) return false;
+            if (ReferenceEquals(y, null)) return false;
+            if (x.GetType() != y.GetType()) return false;
+            return x.Id == y.Id && x.Customerid == y.Customerid && x.Employeeid == y.Employeeid && x.Sex == y.Sex && x.Date.Equals(y.Date) && x.Duration == y.Duration;
+        }
+
+        public int GetHashCode(Appointment obj)
+        {
+            return HashCode.Combine(obj.Id, obj.Customerid, obj.Employeeid, obj.Sex, obj.Date, obj.Duration);
         }
     }
 }

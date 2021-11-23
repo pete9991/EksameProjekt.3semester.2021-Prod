@@ -21,29 +21,30 @@ namespace Morales.BookingSystem.Domain.Services
 
         public List<Appointment> GetAllAppointments()
         {
-            throw new System.NotImplementedException();
+            return _appointmentRepository.readAllAppointments();
         }
 
         public Appointment ReadById(int appointmentId)
         {
-            throw new System.NotImplementedException();
+            return _appointmentRepository.ReadById(appointmentId);
         }
 
         public bool CreateAppointment(Appointment appointmentToCreate)
         {
-            throw new System.NotImplementedException();
+            return _appointmentRepository.CreateAppointment(appointmentToCreate);
         }
 
         public Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment)
         {
-            throw new System.NotImplementedException();
+            return _appointmentRepository.UpdateById(appointmentToUpdateId, updatedAppointment);
         }
 
         public bool DeleteAppointment(int deletedAppointmentId)
         {
             throw new System.NotImplementedException();
         }
-
+        
+        
         public List<Appointment> GetAppointmentsFromHairdresser(int employeeId)
         {
             throw new System.NotImplementedException();
