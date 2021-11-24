@@ -115,5 +115,31 @@ namespace Morales.BookingSystem.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        public ActionResult<AccountDto> UpdateAccount(int id, [FromBody] AccountDto accountToUpdate)
+        {
+            try
+            {
+                if (id != accountToUpdate.Id)
+                {
+                    return BadRequest("ID in parameters must the same as in object");
+                }
+
+                return Ok(_accountservice.UpdateAccount(new Account()
+                {
+                    Email = accountToUpdate.Email,
+                    Id = accountToUpdate.Id,
+                    Name = accountToUpdate.Name,
+                    PhoneNumber = accountToUpdate.PhoneNumber,
+                    Sex = accountToUpdate.Sex,
+                    Type = accountToUpdate.Type
+                }));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }
