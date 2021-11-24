@@ -44,8 +44,11 @@ namespace Morales.BookingSystem
             {
                 opt.UseSqlite("Data Source=main.db"); 
             });
+            
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +99,16 @@ namespace Morales.BookingSystem
                     PhoneNumber = "658987",
                     Sex = "Homie",
                     Type = "Employee"
+                });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 1, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    sex = "Yes Please"
+                });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 2, CustomerId = 1, EmployeeId = 3, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    sex = "Yes Please"
                 });
                 mainDbContext.SaveChanges();
 
