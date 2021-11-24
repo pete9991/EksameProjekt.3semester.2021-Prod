@@ -129,12 +129,12 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.CreateAppointment(testAppointment))
-                .Returns(true);
+                .Returns(new Appointment());
             var appointmentService = new AppointmentService(mockRepo.Object);
 
             appointmentService.CreateAppointment(testAppointment);
             
-            Assert.True(appointmentService.CreateAppointment(testAppointment));
+            Assert.NotNull(appointmentService.CreateAppointment(testAppointment));
         }
 
         #endregion
@@ -187,10 +187,10 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
 
         [Fact]
-        public void DeleteAppointment_WithParam_ReturnAppointmentAsList()
+        public void DeleteAppointment_WithParam_ReturnAppointment()
         {
             var testId = 1;
-            var expected = true;
+            var expected = new Appointment();
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.DeleteAppointment(testId))
@@ -199,13 +199,9 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
             appointmentService.DeleteAppointment(testId);
             
-            Assert.Equal(expected, appointmentService.DeleteAppointment(testId));
+            Assert.NotNull(appointmentService.DeleteAppointment(testId));
         }
         
-        
-        
-        
-
         #endregion
 
         #region Get Appointment From Hairdresser Test

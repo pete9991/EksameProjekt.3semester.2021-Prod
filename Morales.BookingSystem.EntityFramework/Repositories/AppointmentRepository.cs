@@ -48,7 +48,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 .FirstOrDefault(ae => ae.Id == appointmentId);
         }
 
-        public bool CreateAppointment(Appointment appointmentToCreate)
+        public Appointment CreateAppointment(Appointment appointmentToCreate)
         {
             var entity = _ctx.Add(new AppointmentEntity()
             {
@@ -61,7 +61,16 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
 
             }).Entity;
             _ctx.SaveChanges();
-            return true;
+            return new Appointment()
+            {
+                Id = entity.Id,
+                Customerid = entity.CustomerId,
+                Employeeid = entity.EmployeeId,
+                Sex = entity.sex,
+                Date = entity.Date,
+                Duration = entity.Duration,
+                Treatments = entity.Treatments
+            } ;
         }
 
         public Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment)
@@ -120,11 +129,23 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 .ToList();
         }
 
-        public bool DeleteAppointment(int deletedAppointmentId)
+        public Appointment DeleteAppointment(int deletedAppointmentId)
         {
+            var appointmentToDelete = _ctx.Appointments
+                .Select(ae => new Appointment
+                {
+                    Id = ae.Id,
+                    Customerid = ae.CustomerId,
+                    Employeeid = ae.EmployeeId,
+                    Sex = ae.sex,
+                    Date = ae.Date,
+                    Duration = ae.Duration,
+                    Treatments = ae.Treatments
+                })
+                .FirstOrDefault(a => a.Id == deletedAppointmentId);
             _ctx.Appointments.Remove(new AppointmentEntity() {Id = deletedAppointmentId});
             _ctx.SaveChanges();
-            return true;
+            return appointmentToDelete;
         }
     }
 }

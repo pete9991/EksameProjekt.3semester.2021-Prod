@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.IServices;
+using Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Morales.BookingSystem.Dtos.Appointments;
 
 namespace Morales.BookingSystem.Controllers
@@ -46,6 +48,91 @@ namespace Morales.BookingSystem.Controllers
             {
                 return StatusCode(500, e.Message);
             }
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<AppointmentDto> GetAppointment(int Id)
+        {
+            var appointment = _AppointmentService.ReadById(Id);
+            var dto = new AppointmentDto
+            {
+                Id = appointment.Id,
+                Customerid = appointment.Customerid,
+                Employeeid = appointment.Employeeid,
+                Sex = appointment.Sex,
+                Date = appointment.Date,
+                Duration = appointment.Duration,
+                Treatments = appointment.Treatments
+            };
+            return Ok(dto);
+        }
+
+        [HttpPost]
+        public ActionResult<AppointmentDto> CreateAppointment([FromBody] AppointmentDto appointmentDto)
+        {
+            var appointmentToCreate = new Appointment()
+            {
+                Customerid = appointmentDto.Customerid,
+                Employeeid = appointmentDto.Employeeid,
+                Sex = appointmentDto.Sex,
+                Date = appointmentDto.Date,
+                Duration = appointmentDto.Duration,
+                Treatments = appointmentDto.Treatments
+            };
+            var appointmentCreated = _AppointmentService.CreateAppointment(appointmentToCreate);
+            return Created($"https//localhost/api/appointment/{appointmentToCreate.Id}", appointmentCreated);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<AppointmentsDto> UpdateAppointment(int id, [FromBody] AppointmentDto appointmentToUpdate)
+        {
+            return Ok(_AppointmentService.UpdateById(id, new Appointment()
+            {
+                Employeeid = appointmentToUpdate.Employeeid,
+                Date = appointmentToUpdate.Date,
+                Duration = appointmentToUpdate.Duration,
+                Treatments = appointmentToUpdate.Treatments
+            }));
+        }
+
+        [HttpDelete("{id:int}")]
+
+        public ActionResult<AppointmentDto> DeleteAppointment(int id)
+        {
+            var appointment= _AppointmentService.DeleteAppointment(id);
+            var dto = new AppointmentDto
+            {
+                Id = appointment.Id,
+                Customerid = appointment.Customerid,
+                Employeeid = appointment.Employeeid,
+                Sex = appointment.Sex,
+                Date = appointment.Date,
+                Duration = appointment.Duration,
+                Treatments = appointment.Treatments
+            };
+            return Ok(dto);
+        }
+
+        [HttpGet("id:int}")]
+
+        public ActionResult<AppointmentsDto> GetAppointmentFronHairdresser(int id)
+        {
+            var appointment = _AppointmentService.GetAppointmentsFromHairdresser(id)
+                .Select(appointment => new AppointmentDto()
+                {
+                    Id = appointment.Id,
+                    Customerid = appointment.Customerid,
+                    Employeeid = appointment.Employeeid,
+                    Sex = appointment.Sex,
+                    Date = appointment.Date,
+                    Duration = appointment.Duration,
+                    Treatments = appointment.Treatments
+                })
+                .ToList();
+            return Ok(new AppointmentsDto
+            {
+                AppointmentList = appointment
+            });
         }
     }
 }

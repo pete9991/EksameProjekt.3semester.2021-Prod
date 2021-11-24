@@ -8,11 +8,11 @@ namespace Core.IServices
         List<Appointment> GetAllAppointments();
         Appointment ReadById(int appointmentId);
         
-        bool CreateAppointment (Appointment appointmentToCreate);
+        Appointment CreateAppointment (Appointment appointmentToCreate);
         
         Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment);
 
-        bool DeleteAppointment(int deletedAppointmentId);
+        Appointment DeleteAppointment(int deletedAppointmentId);
 
         List<Appointment> GetAppointmentsFromHairdresser(int employeeId);
     }
