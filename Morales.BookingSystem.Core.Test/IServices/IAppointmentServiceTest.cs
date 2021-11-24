@@ -30,9 +30,9 @@ namespace Morales.BookingSystem.Core.Test.IServices
         {
             var serviceMock = new Mock<IAppointmentService>();
             var AppointmentToCreate = new Appointment();
-            var TestBoolean = true;
+            var TestAppointment = new Appointment();
             serviceMock.Setup(s => s.CreateAppointment(AppointmentToCreate))
-                .Returns(TestBoolean);
+                .Returns(TestAppointment);
             Assert.NotNull(serviceMock.Object.CreateAppointment(AppointmentToCreate));
         }
         
@@ -48,13 +48,12 @@ namespace Morales.BookingSystem.Core.Test.IServices
         }
         
         [Fact]
-        public void DeleteAppointment_WithParams_ReturnsBoolean()
+        public void DeleteAppointment_WithParams_ReturnsAppointment()
         {
             var serviceMock = new Mock<IAppointmentService>();
             var DeletedAppointmentId = 1;
-            var TestBoolean = true;
             serviceMock.Setup(s => s.DeleteAppointment(DeletedAppointmentId))
-                .Returns(TestBoolean);
+                .Returns(new Appointment());
             Assert.NotNull(serviceMock.Object.DeleteAppointment(DeletedAppointmentId));
         }
 

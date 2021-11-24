@@ -38,14 +38,14 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
         }
 
         [Fact]
-        public void CreateAppointment_WithParams_ReturnBoolean()
+        public void CreateAppointment_WithParams_ReturnAppointment()
         {
             var mockRepo = new Mock<IAppointmentRepository>();
             var appointmentToCreateId = new Appointment();
             mockRepo
                 .Setup(r => r.CreateAppointment(appointmentToCreateId))
-                .Returns(true);
-            Assert.Equal(true, mockRepo.Object.CreateAppointment(appointmentToCreateId));
+                .Returns(new Appointment());
+            Assert.NotNull(mockRepo.Object.CreateAppointment(appointmentToCreateId));
         }
 
         [Fact]
@@ -67,8 +67,8 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
             var appointmentToDeleteId = 1;
             mockRepo
                 .Setup(r => r.DeleteAppointment(appointmentToDeleteId))
-                .Returns(true);
-            Assert.Equal(true, mockRepo.Object.DeleteAppointment(appointmentToDeleteId));
+                .Returns(new Appointment());
+            Assert.NotNull(mockRepo.Object.DeleteAppointment(appointmentToDeleteId));
         }
 
         [Fact]

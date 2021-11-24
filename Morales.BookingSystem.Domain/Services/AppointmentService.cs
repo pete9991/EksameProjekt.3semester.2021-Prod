@@ -29,7 +29,7 @@ namespace Morales.BookingSystem.Domain.Services
             return _appointmentRepository.ReadById(appointmentId);
         }
 
-        public bool CreateAppointment(Appointment appointmentToCreate)
+        public Appointment CreateAppointment(Appointment appointmentToCreate)
         {
             return _appointmentRepository.CreateAppointment(appointmentToCreate);
         }
@@ -39,7 +39,7 @@ namespace Morales.BookingSystem.Domain.Services
             return _appointmentRepository.UpdateById(appointmentToUpdateId, updatedAppointment);
         }
 
-        public bool DeleteAppointment(int deletedAppointmentId)
+        public Appointment DeleteAppointment(int deletedAppointmentId)
         {
             return _appointmentRepository.DeleteAppointment(deletedAppointmentId);
         }
