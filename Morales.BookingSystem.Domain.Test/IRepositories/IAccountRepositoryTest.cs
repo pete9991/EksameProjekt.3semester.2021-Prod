@@ -51,11 +51,20 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
         [Fact]
         public void CreateAccount_ReturnsCreatedAccount()
         {
+            var account = new Account
+            {
+                Id = 1,
+                Type = "Costumer",
+                Name = "Bobbe",
+                PhoneNumber = "12345678",
+                Sex = "yes",
+                Email = "popbob@bob.com"
+            };
             var repoMock = new Mock<IAccountRepository>();
             repoMock
-                .Setup(s => s.CreateAccount("Ost", "Brie", "12345678", "yes", "brie@brie.com"))
+                .Setup(s => s.CreateAccount(account))
                 .Returns(new Account());
-            Assert.NotNull(repoMock.Object.CreateAccount("Ost", "Brie", "12345678", "yes", "brie@brie.com"));
+            Assert.NotNull(repoMock.Object.CreateAccount(account));
         }
     }
 }

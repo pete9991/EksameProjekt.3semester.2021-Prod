@@ -52,14 +52,18 @@ namespace Morales.BookingSystem.Core.Test.IServices
         public void CreateAccount_ReturnsCreatedAccount()
         {
             var serviceMock = new Mock<IAccountService>();
-            var type = "costumer";
-            var name = "Bob";
-            var phoneNumber = "12345678";
-            var sex = "yes";
-            var email = "popbob@bob.com";
+            var account = new Account
+            {
+                Id = 1,
+                Type = "Costumer",
+                Name = "Bobbe",
+                PhoneNumber = "12345678",
+                Sex = "yes",
+                Email = "popbob@bob.com"
+            };
             serviceMock
-                .Setup(s => s.CreateAccount( type, name, phoneNumber, sex, email))
-                .Returns(new Account{ Type = type, Name = name, PhoneNumber = phoneNumber, Sex = sex, Email = email});
+                .Setup(s => s.CreateAccount(account))
+                .Returns(new Account{ Type = account.Type, Name = account.Name, PhoneNumber = account.PhoneNumber, Sex = account.Sex, Email = account.Email});
             Assert.NotNull(serviceMock.Object);
         }
 

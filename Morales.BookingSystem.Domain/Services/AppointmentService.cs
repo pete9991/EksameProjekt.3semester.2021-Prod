@@ -13,7 +13,7 @@ namespace Morales.BookingSystem.Domain.Services
         {
             if (appointmentRepository == null)
             {
-                throw new InvalidDataException("A AppointmentService need an a appointmentRepository");
+                throw new InvalidDataException("An AppointmentService need an appointmentRepository");
             }
 
             _appointmentRepository = appointmentRepository;

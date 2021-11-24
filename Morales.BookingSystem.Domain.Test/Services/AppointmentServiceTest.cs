@@ -34,7 +34,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         {
             var exception = Assert
                 .Throws<InvalidDataException>(() => new AppointmentService(null));
-            Assert.Equal("A AppointmentService need an a  appointmentRepository", exception.Message);
+            Assert.Equal("An AppointmentService need an appointmentRepository", exception.Message);
         }
         #endregion
 
