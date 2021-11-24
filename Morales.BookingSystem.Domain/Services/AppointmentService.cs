@@ -41,13 +41,13 @@ namespace Morales.BookingSystem.Domain.Services
 
         public bool DeleteAppointment(int deletedAppointmentId)
         {
-            throw new System.NotImplementedException();
+            return _appointmentRepository.DeleteAppointment(deletedAppointmentId);
         }
         
         
         public List<Appointment> GetAppointmentsFromHairdresser(int employeeId)
         {
-            return _appointmentRepository.GetAppointmentFromHairdresser();
+            return _appointmentRepository.GetAppointmentFromHairdresser(employeeId);
         }
     }
 }

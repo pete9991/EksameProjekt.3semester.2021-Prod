@@ -173,6 +173,36 @@ namespace Morales.BookingSystem.Domain.Test.Services
         #endregion
 
         #region Delete Appointment Test
+
+        [Fact]
+        public void DeleteAppointment_WithParams_CallsAppointmentRepositoryOnce()
+        {
+            var testId = 1;
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.DeleteAppointment(testId);
+            
+            mockRepo.Verify(r => r.DeleteAppointment(testId), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteAppointment_WithParam_ReturnAppointmentAsList()
+        {
+            var testId = 1;
+            var expected = true;
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.DeleteAppointment(testId))
+                .Returns(expected);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.DeleteAppointment(testId);
+            
+            Assert.Equal(expected, appointmentService.DeleteAppointment(testId));
+        }
+        
+        
         
         
 
@@ -189,16 +219,17 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
             appointmentService.GetAppointmentsFromHairdresser(employeeId);
             
-            serviceMock.Verify(r => r.GetAppointmentFromHairdresser(),Times.Once);
+            serviceMock.Verify(r => r.GetAppointmentFromHairdresser(employeeId),Times.Once);
         }
 
         [Fact]
         public void GetAppointmentsFromHairdresser_WithNoParam_ReturnAllAppointmentsAsList()
         {
+            var employeeId = 1;
             var expected = new List<Appointment> {new Appointment {Employeeid = 1}};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
-                .Setup(r => r.GetAppointmentFromHairdresser())
+                .Setup(r => r.GetAppointmentFromHairdresser(employeeId))
                 .Returns(expected);
             var appointmentService = new AppointmentService(mockRepo.Object);
 

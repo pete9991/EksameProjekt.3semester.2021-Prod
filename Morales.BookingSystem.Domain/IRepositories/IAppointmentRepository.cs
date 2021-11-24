@@ -9,6 +9,7 @@ namespace Morales.BookingSystem.Domain.IRepositories
         Appointment ReadById(int appointmentId);
         bool CreateAppointment(Appointment appointmentToCreate);
         Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment);
-        List<Appointment> GetAppointmentFromHairdresser();
+        List<Appointment> GetAppointmentFromHairdresser(int employeeId);
+        bool DeleteAppointment(int deletedAppointmentId);
     }
 }

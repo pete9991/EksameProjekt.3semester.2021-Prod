@@ -8,5 +8,7 @@ namespace Morales.BookingSystem.EntityFramework
         public MainDbContext(DbContextOptions<MainDbContext> options) : base(options){}
         
         public virtual DbSet<AccountEntity> Accounts { get; set; }
+
+        public virtual DbSet<AppointmentEntity> Appointments { get; set; }
     }
 }
