@@ -60,16 +60,16 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
             return accountToDelete;
         }
 
-        public Account CreateAccount(string type, string name, string phonenumber, string sex, string email)
+        public Account CreateAccount(Account accountToCreate)
         {
             
             var entity = _ctx.Add(new AccountEntity()
             {
-                Type = type,
-                Name = name,
-                PhoneNumber = phonenumber,
-                Sex = sex,
-                Email = email
+                Type = accountToCreate.Type,
+                Name = accountToCreate.Name,
+                PhoneNumber = accountToCreate.PhoneNumber,
+                Sex = accountToCreate.Sex,
+                Email = accountToCreate.Email
             }).Entity;
             _ctx.SaveChanges();
             return new Account()

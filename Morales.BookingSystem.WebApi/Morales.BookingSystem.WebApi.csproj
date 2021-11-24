@@ -6,15 +6,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
+      <ProjectReference Include="..\Morales.BookingSystem.EntityFramework\Morales.BookingSystem.EntityFramework.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Morales.BookingSystem.EntityFramework\Morales.BookingSystem.EntityFramework.csproj" />
+      <Folder Include="Controllers" />
     </ItemGroup>
 
 </Project>

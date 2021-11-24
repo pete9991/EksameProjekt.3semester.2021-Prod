@@ -17,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using Morales.BookingSystem.Domain.IRepositories;
 using Morales.BookingSystem.Domain.Services;
 using Morales.BookingSystem.EntityFramework;
+using Morales.BookingSystem.EntityFramework.Entities;
 using Morales.BookingSystem.EntityFramework.Repositories;
 
 
@@ -60,7 +61,43 @@ namespace Morales.BookingSystem
 
                 mainDbContext.Database.EnsureDeleted();
                 mainDbContext.Database.EnsureCreated();
-
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 1,
+                    Email = "bob@bob.com",
+                    Name = "Schwanz",
+                    PhoneNumber = "3254566",
+                    Sex = "Homie",
+                    Type = "Customer"
+                });
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 2,
+                    Email = "bob@schwanzmail.com",
+                    Name = "Schwanz",
+                    PhoneNumber = "32145487",
+                    Sex = "Homie",
+                    Type = "Customer"
+                });
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 3,
+                    Email = "bob@swagmail.com",
+                    Name = "Swag",
+                    PhoneNumber = "71456588",
+                    Sex = "Homie",
+                    Type = "Owner"
+                });
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 4,
+                    Email = "employee@bob.com",
+                    Name = "Homie",
+                    PhoneNumber = "658987",
+                    Sex = "Homie",
+                    Type = "Employee"
+                });
+                mainDbContext.SaveChanges();
 
                 #endregion
             }

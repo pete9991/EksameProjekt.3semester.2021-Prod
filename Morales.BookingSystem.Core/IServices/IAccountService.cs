@@ -8,7 +8,7 @@ namespace Core.IServices
         public List<Account> GetAll();
         public Account GetAccount(int accountId);
         public Account DeleteAccount(int accountId);
-        public Account CreateAccount( string type, string name, string phoneNumber, string sex, string email);
+        public Account CreateAccount(Account accountToCreate);
         public Account UpdateAccount(Account accountToUpdate);
     }
 }

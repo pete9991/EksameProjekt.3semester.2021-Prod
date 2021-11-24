@@ -35,9 +35,9 @@ namespace Morales.BookingSystem.Domain.Services
             return _accountRepo.DeleteAccount(accountId);
         }
 
-        public Account CreateAccount( string type, string name, string phoneNumber, string sex, string email)
+        public Account CreateAccount(Account accountToCreate)
         {
-            return _accountRepo.CreateAccount(type, name, phoneNumber, sex, email);
+            return _accountRepo.CreateAccount(accountToCreate);
         }
 
         public Account UpdateAccount(Account accountToUpdate)
