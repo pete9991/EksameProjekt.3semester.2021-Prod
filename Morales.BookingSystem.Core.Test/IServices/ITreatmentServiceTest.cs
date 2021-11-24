@@ -56,11 +56,12 @@ namespace Morales.BookingSystem.Core.Test.IServices
         [Fact]
         public void CreateTreatment_ReturnsTreatmentCreated()
         {
+            var treatment = new Treatments() {Id = 1};
             var serviceMock = new Mock<ITreatmentService>();
             serviceMock
-                .Setup(s => s.CreateTreatment())
+                .Setup(s => s.CreateTreatment(treatment))
                 .Returns(new Treatments());
-            Assert.NotNull(serviceMock.Object.CreateTreatment());
+            Assert.NotNull(serviceMock.Object.CreateTreatment(treatment));
         }
         #endregion
         
@@ -69,11 +70,11 @@ namespace Morales.BookingSystem.Core.Test.IServices
         public void UpdateTreatment_WithParams_ReturnsUpdatedTreatment()
         {
             var serviceMock = new Mock<ITreatmentService>();
-            var treatmentId = 1;
+            var treatment = new Treatments(){Id = 1};
             serviceMock
-                .Setup(s => s.UpdateTreatment(treatmentId))
+                .Setup(s => s.UpdateTreatment(treatment))
                 .Returns(new Treatments());
-            Assert.NotNull(serviceMock.Object.UpdateTreatment(treatmentId));
+            Assert.NotNull(serviceMock.Object.UpdateTreatment(treatment));
         }
         #endregion
     }

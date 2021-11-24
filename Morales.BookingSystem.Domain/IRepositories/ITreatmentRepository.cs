@@ -8,7 +8,7 @@ namespace Morales.BookingSystem.Domain.IRepositories
         public List<Treatments> GetAll();
         public Treatments GetTreatment(int treatmentId);
         public Treatments DeleteTreatment(int treatmentId);
-        public Treatments UpdateTreatment(int treatmentId);
-        public Treatments CreateTreatment(int treatmentId);
+        public Treatments UpdateTreatment(Treatments treatments);
+        public Treatments CreateTreatment(Treatments treatments);
     }
 }

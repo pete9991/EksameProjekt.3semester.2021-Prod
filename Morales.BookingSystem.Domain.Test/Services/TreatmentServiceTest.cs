@@ -101,7 +101,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
         #endregion
 
-        #region DeleteService Test
+        #region TreatmentService DeleteTreatment Test
 
         [Fact]
         public void DeleteTreatment_WithParams_CallsTreatmentRepoOnce()

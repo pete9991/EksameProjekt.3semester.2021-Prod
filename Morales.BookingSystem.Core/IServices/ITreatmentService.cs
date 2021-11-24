@@ -8,7 +8,7 @@ namespace Core.IServices
         public List<Treatments> GetAll();
         public Treatments GetTreatment(int id);
         public Treatments DeleteTreatment(int id);
-        public Treatments CreateTreatment();
-        public Treatments UpdateTreatment(int id);
+        public Treatments CreateTreatment(Treatments treatments);
+        public Treatments UpdateTreatment(Treatments treatments);
     }
 }

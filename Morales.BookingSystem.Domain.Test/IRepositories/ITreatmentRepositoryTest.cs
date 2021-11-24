@@ -51,21 +51,21 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
         public void CreateTreatment_WithParams_ReturnsCreatedTreatment()
         {
             var repoMock = new Mock<ITreatmentRepository>();
-            var treatmentId = 1;
+            var treatment = new Treatments(){Id = 1};
             repoMock
-                .Setup(s => s.CreateTreatment(treatmentId))
-                .Returns(new Treatments() {Id = treatmentId});
-            Assert.NotNull(repoMock.Object.CreateTreatment(treatmentId));
+                .Setup(s => s.CreateTreatment(treatment))
+                .Returns(new Treatments() {Id = treatment.Id});
+            Assert.NotNull(repoMock.Object.CreateTreatment(treatment));
         }
         [Fact]
         public void UpdateTreatment_WithParams_ReturnsUpdatedTreatment()
         {
             var repoMock = new Mock<ITreatmentRepository>();
-            var treatmentId = 1;
+            var treatment = new Treatments() {Id = 1};
             repoMock
-                .Setup(s => s.UpdateTreatment(treatmentId))
-                .Returns(new Treatments() {Id = treatmentId});
-            Assert.NotNull(repoMock.Object.UpdateTreatment(treatmentId));
+                .Setup(s => s.UpdateTreatment(treatment))
+                .Returns(new Treatments() {Id = treatment.Id});
+            Assert.NotNull(repoMock.Object.UpdateTreatment(treatment));
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using Core.IServices;
 using Core.Models;
 using Morales.BookingSystem.Domain.IRepositories;
@@ -11,32 +12,36 @@ namespace Morales.BookingSystem.Domain.Services
 
         public TreatmentService(ITreatmentRepository repository)
         {
+            if (repository == null)
+            {
+                throw new InvalidDataException("TreatmentRepository Cannot Be Null!");
+            }
             _treatmentRepo = repository;
         }
 
         public List<Treatments> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _treatmentRepo.GetAll();
         }
 
         public Treatments GetTreatment(int id)
         {
-            throw new System.NotImplementedException();
+            return _treatmentRepo.GetTreatment(id);
         }
 
         public Treatments DeleteTreatment(int id)
         {
-            throw new System.NotImplementedException();
+            return _treatmentRepo.DeleteTreatment(id);
         }
 
-        public Treatments CreateTreatment()
+        public Treatments CreateTreatment(Treatments treatments)
         {
-            throw new System.NotImplementedException();
+            return _treatmentRepo.CreateTreatment(treatments);
         }
 
-        public Treatments UpdateTreatment(int id)
+        public Treatments UpdateTreatment(Treatments treatments)
         {
-            throw new System.NotImplementedException();
+            return _treatmentRepo.UpdateTreatment(treatments);
         }
     }
 }
