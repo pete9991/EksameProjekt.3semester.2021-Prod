@@ -47,6 +47,7 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
                 .Returns(new Treatments() {Id = treatmentId});
             Assert.NotNull(repoMock.Object.DeleteTreatment(treatmentId));
         }
+        [Fact]
         public void CreateTreatment_WithParams_ReturnsCreatedTreatment()
         {
             var repoMock = new Mock<ITreatmentRepository>();
@@ -56,6 +57,7 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
                 .Returns(new Treatments() {Id = treatmentId});
             Assert.NotNull(repoMock.Object.CreateTreatment(treatmentId));
         }
+        [Fact]
         public void UpdateTreatment_WithParams_ReturnsUpdatedTreatment()
         {
             var repoMock = new Mock<ITreatmentRepository>();
