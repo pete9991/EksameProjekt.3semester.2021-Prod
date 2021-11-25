@@ -96,7 +96,6 @@ namespace Morales.BookingSystem.Controllers
         }
 
         [HttpDelete("{id:int}")]
-
         public ActionResult<AppointmentDto> DeleteAppointment(int id)
         {
             var appointment= _AppointmentService.DeleteAppointment(id);
@@ -113,11 +112,10 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
-        [HttpGet("id:int}")]
-
-        public ActionResult<AppointmentsDto> GetAppointmentFronHairdresser(int id)
+        [HttpGet("{employeeid:int}")]
+        public ActionResult<AppointmentsDto> GetAppointmentFronHairdresser(int employeeid)
         {
-            var appointment = _AppointmentService.GetAppointmentsFromHairdresser(id)
+            var appointment = _AppointmentService.GetAppointmentsFromHairdresser(employeeid)
                 .Select(appointment => new AppointmentDto()
                 {
                     Id = appointment.Id,

@@ -122,6 +122,7 @@ namespace Morales.BookingSystem
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-        }
+        
+    }
     }
 }
