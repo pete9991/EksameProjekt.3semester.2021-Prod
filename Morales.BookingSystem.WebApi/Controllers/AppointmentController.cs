@@ -112,6 +112,7 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
+
         [HttpGet("{employeeid:int}")]
         public ActionResult<AppointmentsDto> GetAppointmentFronHairdresser(int employeeid)
         {
