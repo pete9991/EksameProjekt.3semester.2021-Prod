@@ -10,7 +10,7 @@ namespace Core.Models
         public int Employeeid { get; set; }
         public string Sex { get; set; }
         public DateTime Date { get; set; }
-        public DateTime Duration { get; set; }
+        public TimeSpan Duration { get; set; }
         public List<Treatments> Treatments { get; set; }
     }
 }

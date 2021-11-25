@@ -56,7 +56,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         public void GetAll_NoParams_ReturnsAllTreatmentsAsList()
         {
             var expected = new List<Treatments>
-                {new Treatments {Duration = DateTime.Now, Id = 1, Name = "Happy Ending"}};
+                {new Treatments {Duration = new TimeSpan(0,30,0), Id = 1, Name = "Happy Ending"}};
             var mockRepo = new Mock<ITreatmentRepository>();
             mockRepo
                 .Setup(s => s.GetAll())

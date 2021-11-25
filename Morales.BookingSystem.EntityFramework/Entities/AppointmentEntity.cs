@@ -11,7 +11,7 @@ namespace Morales.BookingSystem.EntityFramework.Entities
         public int EmployeeId { get; set; }
         public string sex { get; set; }
         public DateTime Date { get; set; }
-        public DateTime Duration { get; set; }
+        public TimeSpan Duration { get; set; }
         public List<Treatments> Treatments { get; set; }
     }
 }

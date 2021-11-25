@@ -102,22 +102,22 @@ namespace Morales.BookingSystem
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
-                    Id = 1, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    Id = 1, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                     sex = "Yes Please"
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
-                    Id = 2, CustomerId = 1, EmployeeId = 3, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    Id = 2, CustomerId = 1, EmployeeId = 3, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                     sex = "Yes Please"
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
-                    Id = 3, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    Id = 3, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                     sex = "Yes Please"
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
-                    Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                     sex = "Yes Please"
                 });
                 mainDbContext.SaveChanges();
