@@ -50,10 +50,10 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
-        public ActionResult<AppointmentDto> GetAppointment(int Id)
+        [HttpGet("{AppointmentId:int}")]
+        public ActionResult<AppointmentDto> GetAppointment(int AppointmentId)
         {
-            var appointment = _AppointmentService.ReadById(Id);
+            var appointment = _AppointmentService.ReadById(AppointmentId);
             var dto = new AppointmentDto
             {
                 Id = appointment.Id,
@@ -113,7 +113,7 @@ namespace Morales.BookingSystem.Controllers
         }
 
 
-        [HttpGet("{employeeid:int}")]
+        [HttpGet("{hairdresser/employeeid:int}")]
         public ActionResult<AppointmentsDto> GetAppointmentFronHairdresser(int employeeid)
         {
             var appointment = _AppointmentService.GetAppointmentsFromHairdresser(employeeid)

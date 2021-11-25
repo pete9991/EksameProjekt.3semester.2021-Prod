@@ -110,6 +110,16 @@ namespace Morales.BookingSystem
                     Id = 2, CustomerId = 1, EmployeeId = 3, Date = DateTime.Now, Duration = DateTime.UtcNow,
                     sex = "Yes Please"
                 });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 3, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    sex = "Yes Please"
+                });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = DateTime.UtcNow,
+                    sex = "Yes Please"
+                });
                 mainDbContext.SaveChanges();
 
                 #endregion
