@@ -113,7 +113,7 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
-        [HttpGet("id:int}")]
+        [HttpGet("{id:int}")]
 
         public ActionResult<AppointmentsDto> GetAppointmentFronHairdresser(int id)
         {
