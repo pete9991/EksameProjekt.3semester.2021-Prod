@@ -1,8 +1,8 @@
 using System;
 
-namespace Morales.BookingSystem.EntityFramework.Entities
+namespace Morales.BookingSystem.Dtos.Treatments
 {
-    public class TreatmentEntity
+    public class TreatmentDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

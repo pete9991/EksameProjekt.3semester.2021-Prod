@@ -10,5 +10,7 @@ namespace Morales.BookingSystem.EntityFramework
         public virtual DbSet<AccountEntity> Accounts { get; set; }
 
         public virtual DbSet<AppointmentEntity> Appointments { get; set; }
+        
+        public virtual DbSet<TreatmentEntity> Treatments { get; set; }
     }
 }
