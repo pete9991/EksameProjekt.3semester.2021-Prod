@@ -36,7 +36,7 @@ namespace Morales.BookingSystem.Controllers
                         Date = a.Date,
                         Duration = a.Duration,
                         Sex = a.Sex,
-                        Treatments = a.Treatments,
+                        TreatmentsList = a.TreatmentsList,
                         TotalPrice = a.TotalPrice
                     })
                     .ToList();
@@ -63,7 +63,7 @@ namespace Morales.BookingSystem.Controllers
                 Sex = appointment.Sex,
                 Date = appointment.Date,
                 Duration = appointment.Duration,
-                Treatments = appointment.Treatments,
+                TreatmentsList = appointment.TreatmentsList,
                 TotalPrice = appointment.TotalPrice
             };
             return Ok(dto);
@@ -79,7 +79,7 @@ namespace Morales.BookingSystem.Controllers
                 Sex = appointmentDto.Sex,
                 Date = appointmentDto.Date,
                 Duration = appointmentDto.Duration,
-                Treatments = appointmentDto.Treatments,
+                TreatmentsList = appointmentDto.TreatmentsList,
                 TotalPrice = appointmentDto.TotalPrice
             };
             var appointmentCreated = _AppointmentService.CreateAppointment(appointmentToCreate);
@@ -94,7 +94,7 @@ namespace Morales.BookingSystem.Controllers
                 Employeeid = appointmentToUpdate.Employeeid,
                 Date = appointmentToUpdate.Date,
                 Duration = appointmentToUpdate.Duration,
-                Treatments = appointmentToUpdate.Treatments,
+                TreatmentsList = appointmentToUpdate.TreatmentsList,
             }));
         }
 
@@ -110,7 +110,7 @@ namespace Morales.BookingSystem.Controllers
                 Sex = appointment.Sex,
                 Date = appointment.Date,
                 Duration = appointment.Duration,
-                Treatments = appointment.Treatments,
+                TreatmentsList = appointment.TreatmentsList,
                 TotalPrice = appointment.TotalPrice
             };
             return Ok(dto);
@@ -129,7 +129,7 @@ namespace Morales.BookingSystem.Controllers
                     Sex = appointment.Sex,
                     Date = appointment.Date,
                     Duration = appointment.Duration,
-                    Treatments = appointment.Treatments,
+                    TreatmentsList = appointment.TreatmentsList,
                     TotalPrice = appointment.TotalPrice
                 })
                 .ToList();

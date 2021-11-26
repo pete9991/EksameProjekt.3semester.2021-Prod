@@ -27,7 +27,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
                     {
                         Id = te.Id,
                         Duration = te.Duration,
@@ -50,7 +50,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
                     {
                         Id = te.Id,
                         Duration = te.Duration,
@@ -71,7 +71,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 sex = appointmentToCreate.Sex,
                 Date = appointmentToCreate.Date,
                 Duration = appointmentToCreate.Duration,
-                Treatments = appointmentToCreate.Treatments != null ? appointmentToCreate.Treatments.Select(te => new TreatmentEntity()
+                TreatmentsList = appointmentToCreate.TreatmentsList != null ? appointmentToCreate.TreatmentsList.Select(te => new TreatmentEntity()
                 {
                     Id = te.Id,
                     Duration = te.Duration,
@@ -89,7 +89,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 Sex = entity.sex,
                 Date = entity.Date,
                 Duration = entity.Duration,
-                Treatments = entity.Treatments != null ? entity.Treatments.Select(te => new Treatments
+                TreatmentsList = entity.TreatmentsList != null ? entity.TreatmentsList.Select(te => new Treatments
                 {
                     Id = te.Id,
                     Duration = te.Duration,
@@ -110,7 +110,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
                     {
                         Id = te.Id,
                         Duration = te.Duration,
@@ -129,7 +129,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 sex = previousAppointment.Sex,
                 Date = updatedAppointment.Date,
                 Duration = updatedAppointment.Duration,
-                Treatments = updatedAppointment.Treatments != null ? updatedAppointment.Treatments.Select(te => new TreatmentEntity()
+                TreatmentsList = updatedAppointment.TreatmentsList != null ? updatedAppointment.TreatmentsList.Select(te => new TreatmentEntity()
                 {
                     Id = te.Id,
                     Duration = te.Duration,
@@ -148,7 +148,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 Sex = previousAppointment.Sex,
                 Date = updatedAppointment.Date,
                 Duration = updatedAppointment.Duration,
-                Treatments = updatedAppointment.Treatments != null ? updatedAppointment.Treatments.Select(te => new Treatments
+                TreatmentsList = updatedAppointment.TreatmentsList != null ? updatedAppointment.TreatmentsList.Select(te => new Treatments
                 {
                     Id = te.Id,
                     Duration = te.Duration,
@@ -171,7 +171,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
                     {
                         Id = te.Id,
                         Duration = te.Duration,
@@ -194,7 +194,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
                     {
                         Id = te.Id,
                         Duration = te.Duration,

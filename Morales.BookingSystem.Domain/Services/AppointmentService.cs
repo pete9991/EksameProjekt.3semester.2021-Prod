@@ -53,7 +53,7 @@ namespace Morales.BookingSystem.Domain.Services
         public double CalculateTotalPrice(Appointment appointment)
         {
             double calculatedPrice = 0;
-            foreach (var treatment in appointment.Treatments)
+            foreach (var treatment in appointment.TreatmentsList)
             {
                calculatedPrice = calculatedPrice + treatment.Price;
             }

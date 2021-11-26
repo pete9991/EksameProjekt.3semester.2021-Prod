@@ -34,7 +34,7 @@ namespace Morales.BookingSystem.Controllers
                     }).ToList();
                 return Ok(new TreatmentsDto
                 {
-                    TreatmentList = treatments
+                    TreatmentsList = treatments
                 });
             }
             catch (Exception e)
