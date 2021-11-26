@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Core.IServices;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Morales.BookingSystem.Dtos.Treatments;
 using Morales.BookingSystem.EntityFramework.Entities;
@@ -41,5 +42,60 @@ namespace Morales.BookingSystem.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("{TreatmentId:int}")]
+        public ActionResult<TreatmentDto> GetTreatment(int TreatmentId)
+        {
+            var treatment = _treatmentService.GetTreatment(TreatmentId);
+            var dto = new TreatmentDto
+            {
+                Id = treatment.Id,
+                Name = treatment.Name,
+                Duration = treatment.Duration,
+                Price = treatment.Price
+            };
+            return Ok(dto);
+        }
+
+        [HttpPost]
+        public ActionResult<TreatmentsDto> CreateTreatment([FromBody] TreatmentDto treatmentDto)
+        {
+            var treatmentToCreate = new Treatments()
+            {
+                Name = treatmentDto.Name,
+                Duration = treatmentDto.Duration,
+                Price = treatmentDto.Price
+            };
+            var treatmentCreated = _treatmentService.CreateTreatment(treatmentToCreate);
+            return Created($"https://localhost/api/Treatment/{treatmentCreated.Id}", treatmentCreated);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<TreatmentsDto> UpdateTreatment(int id, [FromBody] TreatmentDto treatmentToUpdate)
+        {
+            return Ok(_treatmentService.UpdateTreatment(new Treatments()
+                {
+                    Name = treatmentToUpdate.Name,
+                    Duration = treatmentToUpdate.Duration,
+                    Price = treatmentToUpdate.Price
+                }
+            ));
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult<TreatmentDto> DeleteTreatment(int id)
+        {
+            var treatment = _treatmentService.DeleteTreatment(id);
+            var dto = new TreatmentDto
+            {
+                Id = treatment.Id,
+                Name = treatment.Name,
+                Duration = treatment.Duration,
+                Price = treatment.Price
+            };
+
+            return Ok(dto);
+        }
     }
+    
 }

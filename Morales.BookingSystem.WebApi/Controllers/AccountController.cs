@@ -108,7 +108,7 @@ namespace Morales.BookingSystem.Controllers
                     Type = accountDto.Type
                 };
                 var accountCreated = _accountservice.CreateAccount(accountToCreate);
-                return Created($"https://localhost/api/Product/{accountCreated.Id}", accountCreated);
+                return Created($"https://localhost/api/Account/{accountCreated.Id}", accountCreated);
             }
             catch (Exception e)
             {
