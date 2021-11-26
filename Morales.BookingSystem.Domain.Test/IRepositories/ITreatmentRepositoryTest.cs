@@ -36,7 +36,7 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
                 .Returns(new Treatments() {Id = treatmentId});
             Assert.NotNull(repoMock.Object.GetTreatment(treatmentId));
         }
-
+        
         [Fact]
         public void DeleteTreatment_WithParams_ReturnsDeletedTreatment()
         {

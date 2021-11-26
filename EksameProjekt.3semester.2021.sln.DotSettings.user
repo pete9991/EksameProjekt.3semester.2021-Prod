@@ -1,11 +1,17 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1c38274f_002Dff02_002D489c_002D98ab_002Db58a448db81f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTreatmentBySex_NoParams_CallsTreatmentRepositoryOnce" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.Services.TreatmentServiceTest.GetTreatmentBySex_NoParams_CallsTreatmentRepositoryOnce&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.IRepositories.ITreatmentRepositoryTest.GetTreatmentBySex_NoParams_ReturnsListOfTreatments&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cd9985de_002D1a9b_002D49ae_002D87fd_002D0f50b79b5291/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d915862d_002Da31e_002D470f_002Db18d_002Dacbcd4511730/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d9e955b8_002D6b3e_002D4b85_002Db9d3_002Db033ffcbd194/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IAppointmentService_Exists" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d9e955b8_002D6b3e_002D4b85_002Db9d3_002Db033ffcbd194/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IAppointmentService_Exists" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::7377FB09-436B-4126-BE8B-1F6256AF30D4::net5.0::Morales.BookingSystem.Core.Test.IServices.IAppointmentServiceTest.IAppointmentService_Exists&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::7377FB09-436B-4126-BE8B-1F6256AF30D4::net5.0::Morales.BookingSystem.Core.Test.IServices.IAppointmentServiceTest.GetAllAppointments_WithNoParams_ReturnListOfAppointments&lt;/TestId&gt;&#xD;

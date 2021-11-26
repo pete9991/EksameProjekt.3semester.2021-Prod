@@ -71,6 +71,21 @@ namespace Morales.BookingSystem.Domain.Test.Services
         
         #endregion
 
+        #region TreatmentService GetTreatmentBySex Test
+        
+        [Fact]
+        public void GetTreatmentBySex_NoParams_CallsTreatmentRepositoryOnce()
+        {
+            var mockRepo = new Mock<ITreatmentRepository>();
+            var treatmentService = new TreatmentService(mockRepo.Object);
+            var testString = "Male";
+            
+            treatmentService.GetTreatmentsBySex(testString);
+            
+            mockRepo.Verify(r => r.GetTreatmentBySex(), Times.Once);
+        }
+        #endregion
+
         #region TreatmentService GetTreatment Tests
 
         [Fact]
@@ -88,7 +103,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void GetTreatment_WithParams_ReturnsSingleTreatment()
         {
-            var expected = new Treatments{Id = 1, Name = "Happy Ending"};
+            var expected = new Treatments{Id = 1, Name = "Herreklip"};
             var mockRepo = new Mock<ITreatmentRepository>();
             mockRepo
                 .Setup(r => r.GetTreatment(expected.Id))

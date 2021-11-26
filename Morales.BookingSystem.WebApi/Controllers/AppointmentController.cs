@@ -118,7 +118,7 @@ namespace Morales.BookingSystem.Controllers
 
 
         [HttpGet("hairdresser/{employeeid:int}")]
-        public ActionResult<AppointmentsDto> GetAppointmentFronHairdresser(int employeeid)
+        public ActionResult<AppointmentsDto> GetAppointmentFromHairdresser(int employeeid)
         {
             var appointment = _AppointmentService.GetAppointmentsFromHairdresser(employeeid)
                 .Select(appointment => new AppointmentDto()

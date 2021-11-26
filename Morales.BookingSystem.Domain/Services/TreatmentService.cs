@@ -29,6 +29,11 @@ namespace Morales.BookingSystem.Domain.Services
             return _treatmentRepo.GetTreatment(id);
         }
 
+        public List<Treatments> GetTreatmentsBySex(string sex)
+        {
+            return _treatmentRepo.GetTreatmentBySex();
+        }
+
         public Treatments DeleteTreatment(int id)
         {
             return _treatmentRepo.DeleteTreatment(id);
@@ -43,5 +48,6 @@ namespace Morales.BookingSystem.Domain.Services
         {
             return _treatmentRepo.UpdateTreatment(treatments);
         }
+        
     }
 }

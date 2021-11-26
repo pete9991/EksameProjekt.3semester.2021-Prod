@@ -57,6 +57,25 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
+        [HttpGet("{sex:string}")]
+        public ActionResult<TreatmentsDto> GetTreatmentBySex(string sex)
+        {
+            var treatments = _treatmentService.GetTreatmentsBySex(sex)
+                .Select(treatments => new TreatmentDto()
+                {
+                    Id = treatments.Id,
+                    Name = treatments.Name,
+                    Duration = treatments.Duration,
+                    Price = treatments.Price,
+                    Sex = treatments.Sex
+                })
+                .ToList();
+            return Ok(new TreatmentsDto
+            {
+                TreatmentsList = treatments
+            });
+        }
+
         [HttpPost]
         public ActionResult<TreatmentsDto> CreateTreatment([FromBody] TreatmentDto treatmentDto)
         {
