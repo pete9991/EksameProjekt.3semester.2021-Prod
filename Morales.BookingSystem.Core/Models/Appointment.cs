@@ -12,6 +12,7 @@ namespace Core.Models
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public List<Treatments> Treatments { get; set; }
+        public double TotalPrice { get; set; }
     }
 }
     

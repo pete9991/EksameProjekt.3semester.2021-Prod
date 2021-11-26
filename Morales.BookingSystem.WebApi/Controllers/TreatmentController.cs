@@ -28,7 +28,8 @@ namespace Morales.BookingSystem.Controllers
                     {
                         Id = t.Id,
                         Name = t.Name,
-                        Duration = t.Duration
+                        Duration = t.Duration,
+                        Price = t.Price
                     }).ToList();
                 return Ok(new TreatmentsDto
                 {

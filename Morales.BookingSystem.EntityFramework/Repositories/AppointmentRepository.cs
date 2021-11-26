@@ -27,7 +27,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments
+                    Treatments = ae.Treatments,
+                    TotalPrice = ae.TotalPrice
                 })
                 .ToList();
         }
@@ -43,7 +44,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments
+                    Treatments = ae.Treatments,
+                    TotalPrice = ae.TotalPrice
                 })
                 .FirstOrDefault(ae => ae.Id == appointmentId);
         }
@@ -57,8 +59,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 sex = appointmentToCreate.Sex,
                 Date = appointmentToCreate.Date,
                 Duration = appointmentToCreate.Duration,
-                Treatments = appointmentToCreate.Treatments
-
+                Treatments = appointmentToCreate.Treatments,
+                TotalPrice = appointmentToCreate.TotalPrice
             }).Entity;
             _ctx.SaveChanges();
             return new Appointment()
@@ -84,7 +86,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments
+                    Treatments = ae.Treatments,
+                    TotalPrice = ae.TotalPrice
                 })
                 .FirstOrDefault(ae => ae.Id == appointmentToUpdateId);
 
@@ -96,7 +99,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 sex = previousAppointment.Sex,
                 Date = updatedAppointment.Date,
                 Duration = updatedAppointment.Duration,
-                Treatments = updatedAppointment.Treatments
+                Treatments = updatedAppointment.Treatments,
+                TotalPrice = updatedAppointment.TotalPrice
             };
             var entity = _ctx.Update(appointmentEntity).Entity;
             _ctx.SaveChanges();
@@ -108,7 +112,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 Sex = previousAppointment.Sex,
                 Date = updatedAppointment.Date,
                 Duration = updatedAppointment.Duration,
-                Treatments = updatedAppointment.Treatments
+                Treatments = updatedAppointment.Treatments,
+                TotalPrice = updatedAppointment.TotalPrice
             };
 
         }
@@ -124,7 +129,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments
+                    Treatments = ae.Treatments,
+                    TotalPrice = ae.TotalPrice
                 })
                 .ToList();
         }
@@ -140,7 +146,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    Treatments = ae.Treatments
+                    Treatments = ae.Treatments,
+                    TotalPrice = ae.TotalPrice
                 })
                 .FirstOrDefault(a => a.Id == deletedAppointmentId);
             _ctx.Appointments.Remove(new AppointmentEntity() {Id = deletedAppointmentId});

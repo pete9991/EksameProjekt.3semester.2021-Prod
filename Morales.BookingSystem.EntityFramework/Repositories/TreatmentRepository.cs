@@ -21,7 +21,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 {
                     Id = te.Id,
                     Name = te.Name,
-                    Duration = te.Duration
+                    Duration = te.Duration,
+                    Price = te.Price
                 })
                 .ToList();
         }
@@ -33,7 +34,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 {
                     Id = te.Id,
                     Name = te.Name,
-                    Duration = te.Duration
+                    Duration = te.Duration,
+                    Price = te.Price
                 })
                 .FirstOrDefault(te => te.Id == treatmentId);
         }
@@ -53,7 +55,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
             {
                 Id = unUpdatedTreatment.Id,
                 Name = treatments.Name,
-                Duration = treatments.Duration
+                Duration = treatments.Duration,
+                Price = treatments.Price
             };
             var entity = _ctx.Update(treatmentEntity).Entity;
             _ctx.SaveChanges();
@@ -65,7 +68,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
             var entity = _ctx.Add(new TreatmentEntity
             {
                 Name = treatments.Name,
-                Duration = treatments.Duration
+                Duration = treatments.Duration,
+                Price = treatments.Price
             }).Entity;
             _ctx.SaveChanges();
             return GetTreatment(entity.Id);
