@@ -122,7 +122,6 @@ namespace Morales.BookingSystem
                     Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                     sex = "Yes Please"
                 });
-                
                 mainDbContext.SaveChanges();
 
                 #endregion

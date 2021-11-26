@@ -12,7 +12,7 @@ namespace Morales.BookingSystem.EntityFramework.Entities
         public string sex { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
-        public List<Treatments> Treatments { get; set; }
+        public List<TreatmentEntity> Treatments { get; set; }
         public double TotalPrice { get; set; }
     }
 }
