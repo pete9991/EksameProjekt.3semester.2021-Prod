@@ -5,7 +5,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d915862d_002Da31e_002D470f_002Db18d_002Dacbcd4511730/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d9e955b8_002D6b3e_002D4b85_002Db9d3_002Db033ffcbd194/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IAppointmentService_Exists" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d9e955b8_002D6b3e_002D4b85_002Db9d3_002Db033ffcbd194/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IAppointmentService_Exists" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::7377FB09-436B-4126-BE8B-1F6256AF30D4::net5.0::Morales.BookingSystem.Core.Test.IServices.IAppointmentServiceTest.IAppointmentService_Exists&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::7377FB09-436B-4126-BE8B-1F6256AF30D4::net5.0::Morales.BookingSystem.Core.Test.IServices.IAppointmentServiceTest.GetAllAppointments_WithNoParams_ReturnListOfAppointments&lt;/TestId&gt;&#xD;
@@ -39,6 +39,9 @@
     &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.IRepositories.IAppointmentRepositoryTest.DeleteAppointment_WithParams_ReturnDeletedAppointment&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.IRepositories.IAppointmentRepositoryTest.GetAppointmentFromHairdresser_WithParams_ReturnAList&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.IRepositories.IAppointmentRepositoryTest.CreateAppointment_WithParams_ReturnAppointment&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7377FB09-436B-4126-BE8B-1F6256AF30D4::net5.0::Morales.BookingSystem.Core.Test.IServices.ITreatmentServiceTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.IRepositories.ITreatmentRepositoryTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.Services.TreatmentServiceTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=df7a5de0_002D4969_002D4703_002D88ea_002D07461de0cfd9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
