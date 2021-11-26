@@ -9,13 +9,15 @@ namespace Morales.BookingSystem.Domain.Services
     public class AppointmentService : IAppointmentService
     {
         private readonly IAppointmentRepository _appointmentRepository;
-        public AppointmentService(IAppointmentRepository appointmentRepository)
+        private readonly ITreatmentRepository _treatmentRepository;
+        public AppointmentService(IAppointmentRepository appointmentRepository, ITreatmentRepository treatmentRepository)
         {
-            if (appointmentRepository == null)
+            if (appointmentRepository == null || treatmentRepository == null)
             {
                 throw new InvalidDataException("An AppointmentService need an appointmentRepository");
             }
 
+            _treatmentRepository = treatmentRepository;
             _appointmentRepository = appointmentRepository;
         }
 
@@ -48,6 +50,12 @@ namespace Morales.BookingSystem.Domain.Services
         public List<Appointment> GetAppointmentsFromHairdresser(int employeeId)
         {
             return _appointmentRepository.GetAppointmentFromHairdresser(employeeId);
+        }
+
+        public double CalculateTotalPrice(Appointment appointment)
+        {
+            _treatmentRepository.GetAll();
+            return 0;
         }
     }
 }

@@ -49,6 +49,8 @@ namespace Morales.BookingSystem
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<ITreatmentService, TreatmentService>();
+            services.AddScoped<ITreatmentRepository, TreatmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,6 +122,7 @@ namespace Morales.BookingSystem
                     Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                     sex = "Yes Please"
                 });
+                
                 mainDbContext.SaveChanges();
 
                 #endregion

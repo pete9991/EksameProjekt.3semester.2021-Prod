@@ -15,5 +15,6 @@ namespace Core.IServices
         Appointment DeleteAppointment(int deletedAppointmentId);
 
         List<Appointment> GetAppointmentsFromHairdresser(int employeeId);
+        double CalculateTotalPrice(Appointment appointment);
     }
 }

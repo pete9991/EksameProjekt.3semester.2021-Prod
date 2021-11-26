@@ -17,8 +17,9 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void AppointmentService_IsIAppointmentService()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var serviceMock = new Mock<IAppointmentRepository>();
-            var appointmentService = new AppointmentService(serviceMock.Object);
+            var appointmentService = new AppointmentService(serviceMock.Object, mockRepo2.Object);
             Assert.IsAssignableFrom<IAppointmentService>(appointmentService);
 
         }
@@ -26,14 +27,14 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void AppointmentService_WithNullRepository_ThrowInvalidDataException()
         {
-            Assert.Throws<InvalidDataException>(() => new AppointmentService(null));
+            Assert.Throws<InvalidDataException>(() => new AppointmentService(null, null));
         }
 
         [Fact]
         public void AppointmentService_WithNullRepository_ThrowsExceptionWithMessage()
         {
             var exception = Assert
-                .Throws<InvalidDataException>(() => new AppointmentService(null));
+                .Throws<InvalidDataException>(() => new AppointmentService(null, null));
             Assert.Equal("An AppointmentService need an appointmentRepository", exception.Message);
         }
         #endregion
@@ -45,8 +46,9 @@ namespace Morales.BookingSystem.Domain.Test.Services
         public void GetAllAppointments_WithNoParams_CallsAppointmentRepositoryOnce()
         {
             //Arrange
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var serviceMock = new Mock<IAppointmentRepository>();
-            var appointmentService = new AppointmentService(serviceMock.Object);
+            var appointmentService = new AppointmentService(serviceMock.Object, mockRepo2.Object);
             
             //Act
             appointmentService.GetAllAppointments();
@@ -59,12 +61,13 @@ namespace Morales.BookingSystem.Domain.Test.Services
         public void GetAllAppointment_NoParam_ReturnAllAppointmentsAsList()
         {
             //Arrange
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var expected = new List<Appointment> {new Appointment {Customerid = 1, Employeeid = 1}};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.readAllAppointments())
                 .Returns(expected);
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
             
             //Act
             appointmentService.GetAllAppointments();
@@ -81,7 +84,8 @@ namespace Morales.BookingSystem.Domain.Test.Services
         public void ReadById_WithParams_CallAppointmentRepositoryOnce()
         {
             var mockRepo = new Mock<IAppointmentRepository>();
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var mockRepo2 = new Mock<ITreatmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
             var appointmentId = 1;
 
             appointmentService.ReadById(appointmentId);
@@ -93,11 +97,12 @@ namespace Morales.BookingSystem.Domain.Test.Services
         public void ReadById_WithParam_ReturnsSingleAppointment()
         {
             var expected = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.ReadById(expected.Id))
                 .Returns(expected);
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object,mockRepo2.Object);
             var appointmentId = 1;
 
             appointmentService.ReadById(appointmentId);
@@ -113,9 +118,10 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void CreateAppointment_WithParam_CallsAppointmentRepositoryOnce()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
             var mockRepo = new Mock<IAppointmentRepository>();
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object,mockRepo2.Object);
 
             appointmentService.CreateAppointment(testAppointment);
             
@@ -125,12 +131,13 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void CreateAppointment_WithParam_ReturnsTrueWhenCompleted()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.CreateAppointment(testAppointment))
                 .Returns(new Appointment());
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
 
             appointmentService.CreateAppointment(testAppointment);
             
@@ -144,10 +151,11 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void UpdateAppointment_WithParam_CallsAppointmentRepositoryOnce()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var appointmentToUpdateId = 1;
             var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1};
             var mockRepo = new Mock<IAppointmentRepository>();
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
 
             appointmentService.UpdateById(appointmentToUpdateId,updatedAppointment);
             
@@ -157,13 +165,14 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void UpdateAppointment_WithParam_ReturnsAppointment()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var appointmentToUpdateId = 1;
             var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.UpdateById(appointmentToUpdateId, updatedAppointment))
                 .Returns(updatedAppointment);
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
 
             appointmentService.UpdateById(appointmentToUpdateId, updatedAppointment);
             
@@ -177,9 +186,10 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void DeleteAppointment_WithParams_CallsAppointmentRepositoryOnce()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var testId = 1;
             var mockRepo = new Mock<IAppointmentRepository>();
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
 
             appointmentService.DeleteAppointment(testId);
             
@@ -189,13 +199,14 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void DeleteAppointment_WithParam_ReturnAppointment()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var testId = 1;
             var expected = new Appointment();
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.DeleteAppointment(testId))
                 .Returns(expected);
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
 
             appointmentService.DeleteAppointment(testId);
             
@@ -209,9 +220,10 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void GetAppointmentsFromHairdresser_WithNoParams_CallAppointmentRepositoryOnce()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var employeeId = 1;
             var serviceMock = new Mock<IAppointmentRepository>();
-            var appointmentService = new AppointmentService(serviceMock.Object);
+            var appointmentService = new AppointmentService(serviceMock.Object, mockRepo2.Object);
 
             appointmentService.GetAppointmentsFromHairdresser(employeeId);
             
@@ -221,13 +233,14 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void GetAppointmentsFromHairdresser_WithNoParam_ReturnAllAppointmentsAsList()
         {
+            var mockRepo2 = new Mock<ITreatmentRepository>();
             var employeeId = 1;
             var expected = new List<Appointment> {new Appointment {Employeeid = 1}};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.GetAppointmentFromHairdresser(employeeId))
                 .Returns(expected);
-            var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentService = new AppointmentService(mockRepo.Object, mockRepo2.Object);
 
             appointmentService.GetAppointmentsFromHairdresser(employeeId:1);
             
