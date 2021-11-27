@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using Core.IServices;
 using Core.Models;
 using Moq;
@@ -84,6 +85,23 @@ namespace Morales.BookingSystem.Domain.Test.Services
             
             mockRepo.Verify(r => r.GetTreatmentBySex(), Times.Once);
         }
+
+        [Fact]
+        public void GetTreatmentBySex_NoParams_ReturnAsList()
+        {
+            var expected = new List<Treatments>();
+            var mockRepo = new Mock<ITreatmentRepository>();
+            var testString = "Male";
+            mockRepo
+                .Setup(s => s.GetTreatmentBySex())
+                .Returns(expected);
+            var treatmentService = new TreatmentService(mockRepo.Object);
+
+            treatmentService.GetTreatmentsBySex(testString);
+            
+            Assert.Equal(expected, treatmentService.GetTreatmentsBySex(testString),new TreatmentsComparer());
+        }
+
         #endregion
 
         #region TreatmentService GetTreatment Tests
