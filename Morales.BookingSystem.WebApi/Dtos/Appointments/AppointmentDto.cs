@@ -13,5 +13,7 @@ namespace Morales.BookingSystem.Dtos.Appointments
         public TimeSpan Duration { get; set; }
         public List<Core.Models.Treatments> TreatmentsList { get; set; }
         public double TotalPrice { get; set; }
+
+        public DateTime AppointmentEnd { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using Core.IServices;
 using Core.Models;
 using Moq;
@@ -276,6 +277,100 @@ namespace Morales.BookingSystem.Domain.Test.Services
             Assert.Equal(expectedResult, appointmentService.CalculateTotalPrice(testApointment));
         }
 
+        #endregion
+
+        #region Duation and appointment calculation Test
+
+        [Fact]
+        public void CalculateDuration_WithParam_ReturnTimespan()
+        {
+            var timespan = new TimeSpan(0, 30, 0);
+            var appointment = new Appointment
+            {
+                Duration = timespan
+            };
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            
+            appointmentService.CalculateDuration(appointment);
+        }
+
+        [Fact]
+        public void CalculateDuration_WithParam_ReturnDurationOfAppointmentWithOneTreatment()
+        {
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            var treamentList = new List<Treatments>();
+            treamentList.Add(new Treatments {Id = 1, Duration = new TimeSpan(0, 30, 0), Price = 150});
+            var testAppointment = new Appointment
+            {
+                TreatmentsList = treamentList
+            };
+            var expectedResult = new TimeSpan(0, 30, 0);
+
+            appointmentService.CalculateDuration(testAppointment);
+            
+            Assert.Equal(expectedResult, appointmentService.CalculateDuration(testAppointment));
+
+        }
+
+        [Fact]
+        public void CalculateDuration_WithParam_ReturnTotalDurationOfAllTreatmentsInList()
+        {
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            var treamentList = new List<Treatments>();
+            treamentList.Add(new Treatments {Id = 1, Duration = new TimeSpan(0, 30, 0), Price = 150});
+            treamentList.Add(new Treatments {Id = 2, Duration = new TimeSpan(0, 30, 0), Price = 150});
+            treamentList.Add(new Treatments {Id = 3, Duration = new TimeSpan(0, 30, 0), Price = 150});
+            var testAppointment = new Appointment
+            {
+                TreatmentsList = treamentList
+            };
+            var expectedResult = new TimeSpan(1, 30, 0);
+
+            appointmentService.CalculateDuration(testAppointment);
+            
+            Assert.Equal(expectedResult, appointmentService.CalculateDuration(testAppointment));
+        }
+
+        [Fact]
+        public void CalculateAppointmentEnd_WithParam_ReturnDateTime()
+        {
+            var datetime = new DateTime();
+            datetime = DateTime.Today;
+            var appointment = new Appointment
+            {
+                AppointmentEnd = datetime
+            };
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            
+            appointmentService.CalculateAppointmentEnd(appointment);
+        }
+
+        [Fact]
+        public void CalculateAppointmentEnd_WithParam_CalculateCorrectEndTime()
+        {
+            var mockRepo = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            var startTime = new DateTime();
+            startTime = DateTime.Now;
+
+            var expectedResult = startTime.AddHours(1);
+            var duration = new TimeSpan(1, 0, 0);
+
+            var testAppointment = new Appointment
+            {
+                Date = startTime,
+                Duration = duration
+            };
+            appointmentService.CalculateAppointmentEnd(testAppointment);
+            
+            Assert.Equal(expectedResult, appointmentService.CalculateAppointmentEnd(testAppointment));
+
+        }
+        
         #endregion
     }
     

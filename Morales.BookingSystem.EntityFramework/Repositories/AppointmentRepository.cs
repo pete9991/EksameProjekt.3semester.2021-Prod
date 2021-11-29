@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Models;
@@ -33,7 +34,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                         Name = te.Name,
                         Price = te.Price
                     }).ToList() : null,
-                    TotalPrice = ae.TotalPrice
+                    TotalPrice = ae.TotalPrice,
+                    AppointmentEnd = ae.AppointmentEnd
                 })
                 .ToList();
         }
@@ -55,7 +57,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                         Name = te.Name,
                         Price = te.Price
                     }).ToList() : null,
-                    TotalPrice = ae.TotalPrice
+                    TotalPrice = ae.TotalPrice,
+                    AppointmentEnd = ae.AppointmentEnd
                 })
                 .FirstOrDefault(ae => ae.Id == appointmentId);
         }
@@ -75,7 +78,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Name = te.Name,
                     Price = te.Price
                 }).ToList() : null,
-                TotalPrice = appointmentToCreate.TotalPrice
+                TotalPrice = appointmentToCreate.TotalPrice,
+                AppointmentEnd = appointmentToCreate.AppointmentEnd
             }).Entity;
             _ctx.SaveChanges();
             return new Appointment()
@@ -92,6 +96,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Name = te.Name,
                     Price = te.Price
                 }).ToList() : null,
+                AppointmentEnd = entity.AppointmentEnd
             } ;
         }
 
@@ -112,7 +117,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                         Name = te.Name,
                         Price = te.Price
                     }).ToList() : null,
-                    TotalPrice = ae.TotalPrice
+                    TotalPrice = ae.TotalPrice,
+                    AppointmentEnd = ae.AppointmentEnd
                 })
                 .FirstOrDefault(ae => ae.Id == appointmentToUpdateId);
 
@@ -130,7 +136,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Name = te.Name,
                     Price = te.Price
                 }).ToList() : null,
-                TotalPrice = updatedAppointment.TotalPrice
+                TotalPrice = updatedAppointment.TotalPrice,
+                AppointmentEnd = updatedAppointment.AppointmentEnd
             };
             var entity = _ctx.Update(appointmentEntity).Entity;
             _ctx.SaveChanges();
@@ -148,7 +155,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Name = te.Name,
                     Price = te.Price
                 }).ToList() : null,
-                TotalPrice = updatedAppointment.TotalPrice
+                TotalPrice = updatedAppointment.TotalPrice,
+                AppointmentEnd = previousAppointment.AppointmentEnd
             };
 
         }
@@ -170,7 +178,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                         Name = te.Name,
                         Price = te.Price
                     }).ToList() : null,
-                    TotalPrice = ae.TotalPrice
+                    TotalPrice = ae.TotalPrice,
+                    AppointmentEnd = ae.AppointmentEnd
                 })
                 .ToList();
         }
@@ -192,7 +201,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                         Name = te.Name,
                         Price = te.Price
                     }).ToList() : null,
-                    TotalPrice = ae.TotalPrice
+                    TotalPrice = ae.TotalPrice,
+                    AppointmentEnd = ae.AppointmentEnd
                 })
                 .FirstOrDefault(a => a.Id == deletedAppointmentId);
             _ctx.Appointments.Remove(new AppointmentEntity() {Id = deletedAppointmentId});

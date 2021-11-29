@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Headers;
 using Core.IServices;
 using Core.Models;
 using Morales.BookingSystem.Domain.IRepositories;
@@ -60,6 +62,26 @@ namespace Morales.BookingSystem.Domain.Services
                calculatedPrice = calculatedPrice + treatment.Price;
             }
             return calculatedPrice;
+        }
+        
+        public TimeSpan CalculateDuration(Appointment appointment)
+        {
+            var TotalDuration = new TimeSpan(0, 0, 0);
+            foreach (var treatment in appointment.TreatmentsList)
+            {
+                TotalDuration = TotalDuration + treatment.Duration;
+            }
+
+            return TotalDuration;
+        }
+
+        public DateTime CalculateAppointmentEnd(Appointment appointment)
+        {
+            var EndTime = new DateTime();
+            EndTime = appointment.Date.Add(appointment.Duration);
+            appointment.AppointmentEnd = EndTime;
+            
+            return appointment.AppointmentEnd;
         }
     }
 }
