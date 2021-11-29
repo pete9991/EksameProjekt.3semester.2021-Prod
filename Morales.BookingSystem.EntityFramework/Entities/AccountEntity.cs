@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Morales.BookingSystem.EntityFramework.Entities
 {
     public class AccountEntity
@@ -8,5 +10,6 @@ namespace Morales.BookingSystem.EntityFramework.Entities
         public string PhoneNumber { get; set; }
         public string Sex { get; set; }
         public string Email { get; set; }
+        public List<AppointmentEntity> Appointments { get; set; }
     }
 }

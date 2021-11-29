@@ -57,7 +57,7 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
-        [HttpGet("{sex:string}")]
+        [HttpGet("{sex:alpha}")]
         public ActionResult<TreatmentsDto> GetTreatmentBySex(string sex)
         {
             var treatments = _treatmentService.GetTreatmentsBySex(sex)

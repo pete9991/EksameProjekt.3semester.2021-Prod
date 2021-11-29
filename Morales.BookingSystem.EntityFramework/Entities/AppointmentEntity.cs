@@ -7,11 +7,14 @@ namespace Morales.BookingSystem.EntityFramework.Entities
     public class AppointmentEntity
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public int EmployeeId { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
-        public List<TreatmentEntity> TreatmentsList { get; set; }
         public double TotalPrice { get; set; }
+        public int CustomerId { get; set; }
+        public AccountEntity Customer { get; set; }
+        public int EmployeeId { get; set; }
+        public AccountEntity Employee { get; set; }
+        public List<TreatmentEntity> TreatmentsList { get; set; }
+        
     }
 }

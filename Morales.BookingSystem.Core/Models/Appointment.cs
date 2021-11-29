@@ -12,6 +12,8 @@ namespace Core.Models
         public TimeSpan Duration { get; set; }
         public List<Treatments> TreatmentsList { get; set; }
         public double TotalPrice { get; set; }
+        public Account Customer { get; set; }
+        public Account Employee { get; set; }
     }
 }
     
