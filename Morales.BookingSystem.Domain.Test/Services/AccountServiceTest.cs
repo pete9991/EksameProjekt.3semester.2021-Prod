@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using Core.IServices;
 using Core.Models;
 using Moq;
@@ -99,6 +100,36 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
         #endregion
 
+        #region Create Account Test
+
+        [Fact]
+        public void CreateAccount_WithParams_CallAccountRepositoryOnce()
+        {
+            var mockRepo = new Mock<IAccountRepository>();
+            var accountService = new AccountService(mockRepo.Object);
+            var account = new Account();
+
+            accountService.CreateAccount(account);
+            
+            mockRepo.Verify(s => s.CreateAccount(account), Times.Once);
+        }
+
+        [Fact]
+        public void CreateAccount_WithParams_ReturnSingleAccount()
+        {
+            var expected = new Account();
+            var mockRepo = new Mock<IAccountRepository>();
+            mockRepo
+                .Setup(s => s.CreateAccount(expected))
+                .Returns(expected);
+            
+            var accountService = new AccountService(mockRepo.Object);
+            
+            Assert.Equal(expected, accountService.CreateAccount(expected), new AccountComparer());
+        }
+
+        #endregion
+
         #region AccountService DeleteAccount Test
 
         [Fact]
@@ -114,7 +145,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
 
         [Fact]
-        public void DeleteAccount_WithParams_ReturnsSingleProduct()
+        public void DeleteAccount_WithParams_ReturnsSingleAccount()
         {
             var expected = new Account {Id = 1, Name = "Brie"};
             var mockRepo = new Mock<IAccountRepository>();
@@ -126,7 +157,10 @@ namespace Morales.BookingSystem.Domain.Test.Services
             
             Assert.Equal(expected,accountService.DeleteAccount(expected.Id), new AccountComparer());
         }
+        #endregion
 
+        #region UpdateAccount Test
+        
         [Fact]
         public void UpdateAccount_WithParams_ReturnsSingleAccount()
         {
