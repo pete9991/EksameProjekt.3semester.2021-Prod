@@ -134,6 +134,68 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
         #endregion
 
+        #region CreateTreatmentTest
+
+        [Fact]
+        public void CreateTreatment_WithParams_CallsTreatmentRepositoryOnce()
+        {
+            var mockRepo = new Mock<ITreatmentRepository>();
+            var treatmentService = new TreatmentService(mockRepo.Object);
+            var treatment = new Treatments();
+
+            treatmentService.CreateTreatment(treatment);
+            
+            mockRepo.Verify(r => r.CreateTreatment(treatment),Times.Once);
+        }
+
+        [Fact]
+        public void CreateTreatment_WithParams_ReturnSingleTreatment()
+        {
+            var expected = new Treatments();
+            var mockRepo = new Mock<ITreatmentRepository>();
+            mockRepo
+                .Setup(r => r.CreateTreatment(expected))
+                .Returns(expected);
+            var treatmentService = new TreatmentService(mockRepo.Object);
+            
+            treatmentService.CreateTreatment(expected);
+            
+            Assert.Equal(expected, treatmentService.CreateTreatment(expected), new TreatmentsComparer());
+        }
+
+        #endregion
+
+        #region UpdateTreatment Test
+
+        [Fact]
+        public void UpdateTreatment_WhitParams_CallsTreatmentRepositoryOnce()
+        {
+            var mockRepo = new Mock<ITreatmentRepository>();
+            var treatmentService = new TreatmentService(mockRepo.Object);
+            var treatment = new Treatments();
+
+            treatmentService.UpdateTreatment(treatment);
+            
+            mockRepo.Verify(r => r.UpdateTreatment(treatment),Times.Once);
+        }
+
+        [Fact]
+        public void UpdateTreatment_WithParams_ReturnsSingleTreatment()
+        {
+            var expected = new Treatments();
+            var mockRepo = new Mock<ITreatmentRepository>();
+            mockRepo
+                .Setup(r => r.UpdateTreatment(expected))
+                .Returns(expected);
+            var treatmentService = new TreatmentService(mockRepo.Object);
+
+            treatmentService.UpdateTreatment(expected);
+            
+            Assert.Equal(expected, treatmentService.UpdateTreatment(expected), new TreatmentsComparer());
+        }
+
+        #endregion
+
         #region TreatmentService DeleteTreatment Test
 
         [Fact]
