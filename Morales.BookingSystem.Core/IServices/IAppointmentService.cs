@@ -20,5 +20,7 @@ namespace Core.IServices
         double CalculateTotalPrice(Appointment appointment);
 
         TimeSpan CalculateDuration(Appointment appointment);
+
+        void DetectAppointmentConflict(Appointment appointment);
     }
 }

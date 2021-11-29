@@ -34,12 +34,18 @@ namespace Morales.BookingSystem.Domain.Services
         public Appointment CreateAppointment(Appointment appointmentToCreate)
         {
             appointmentToCreate.TotalPrice = CalculateTotalPrice(appointmentToCreate);
+            appointmentToCreate.Duration = CalculateDuration(appointmentToCreate);
+            appointmentToCreate.AppointmentEnd = CalculateAppointmentEnd(appointmentToCreate);
+            DetectAppointmentConflict(appointmentToCreate);
             return _appointmentRepository.CreateAppointment(appointmentToCreate);
         }
 
         public Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment)
         {
             updatedAppointment.TotalPrice = CalculateTotalPrice(updatedAppointment);
+            updatedAppointment.Duration = CalculateDuration(updatedAppointment);
+            updatedAppointment.AppointmentEnd = CalculateAppointmentEnd(updatedAppointment);
+            DetectAppointmentConflict(updatedAppointment);
             return _appointmentRepository.UpdateById(appointmentToUpdateId, updatedAppointment);
         }
 
@@ -73,6 +79,28 @@ namespace Morales.BookingSystem.Domain.Services
             }
 
             return TotalDuration;
+        }
+
+        public void DetectAppointmentConflict(Appointment appointment)
+        {
+            var listOfAppointments = new List<Appointment>();
+            listOfAppointments = _appointmentRepository.readAllAppointments();
+            foreach (var appointmentFromList in listOfAppointments)
+            {
+                if (appointment.Employeeid == appointmentFromList.Employeeid &&
+                    appointment.Date >= appointmentFromList.Date &&
+                    appointment.Date <= appointmentFromList.AppointmentEnd)
+                {
+                    throw new InvalidDataException("Invalid time, this appointment would start during another appointment");
+                }
+
+                if (appointment.Employeeid == appointmentFromList.Employeeid &&
+                    appointment.AppointmentEnd >= appointmentFromList.Date &&
+                    appointment.AppointmentEnd <= appointmentFromList.AppointmentEnd)
+                {
+                    throw new InvalidDataException("Invalid time, this appointment would end during another appointment");
+                }
+            }
         }
 
         public DateTime CalculateAppointmentEnd(Appointment appointment)

@@ -375,6 +375,83 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
         
         #endregion
+
+        #region Appointment conflict tests
+
+        [Fact]
+        public void ConflictDetector_withParams_doseNothingWhenNoConflictIsPresent()
+        {
+            var TestDbAppointment = new Appointment
+            {
+                Date = new DateTime(2020, 6, 15, 12, 30, 0),
+                AppointmentEnd = new DateTime(2020, 6, 15, 13, 0, 0)
+            };
+            var TestAppointment = new Appointment
+            {
+                Date = new DateTime(2020, 6, 16, 12, 30, 0),
+                AppointmentEnd = new DateTime(2020, 6, 16, 13, 0, 0)
+            };
+            var TestList = new List<Appointment>();
+            TestList.Add(TestDbAppointment);
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.readAllAppointments())
+                .Returns(TestList);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            appointmentService.DetectAppointmentConflict(TestAppointment);
+        }
+
+        [Fact]
+        public void ConflictDetection_withParams_throwsExceptionWhenStartIsDuringAnotherAppointment()
+        {
+            var TestDbAppointment = new Appointment
+            {
+                Date = new DateTime(2020, 6, 15, 12, 30, 0),
+                AppointmentEnd = new DateTime(2020, 6, 15, 13, 0, 0)
+            };
+            var TestAppointment = new Appointment
+            {
+                Date = new DateTime(2020, 6, 15, 12, 45, 0),
+                AppointmentEnd = new DateTime(2020, 6, 15, 13, 15, 0)
+            };
+            var TestList = new List<Appointment>();
+            TestList.Add(TestDbAppointment);
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.readAllAppointments())
+                .Returns(TestList);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            
+            var ex = Assert.Throws<InvalidDataException>(() => appointmentService.DetectAppointmentConflict(TestAppointment));
+            Assert.Equal("Invalid time, this appointment would start during another appointment", ex.Message);
+        }
+        [Fact]
+        public void ConflictDetection_withParams_throwsExceptionWhenEndIsDuringAnotherAppointment()
+        {
+            var TestDbAppointment = new Appointment
+            {
+                Date = new DateTime(2020, 6, 15, 12, 30, 0),
+                AppointmentEnd = new DateTime(2020, 6, 15, 13, 0, 0)
+            };
+            var TestAppointment = new Appointment
+            {
+                Date = new DateTime(2020, 6, 15, 12, 0, 0),
+                AppointmentEnd = new DateTime(2020, 6, 15, 12, 45, 0)
+            };
+            var TestList = new List<Appointment>();
+            TestList.Add(TestDbAppointment);
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.readAllAppointments())
+                .Returns(TestList);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+            
+            var ex = Assert.Throws<InvalidDataException>(() => appointmentService.DetectAppointmentConflict(TestAppointment));
+            Assert.Equal("Invalid time, this appointment would end during another appointment", ex.Message);
+        }
+        
+
+        #endregion
     }
     
     public class AppointmentComparer : IEqualityComparer<Appointment>
