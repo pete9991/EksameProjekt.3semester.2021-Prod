@@ -113,7 +113,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void CreateAppointment_WithParam_CallsAppointmentRepositoryOnce()
         {
-            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
+            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1, TreatmentsList = new List<Treatments>()};
             var mockRepo = new Mock<IAppointmentRepository>();
             var appointmentService = new AppointmentService(mockRepo.Object);
 
@@ -125,7 +125,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void CreateAppointment_WithParam_ReturnsTrueWhenCompleted()
         {
-            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1};
+            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1, TreatmentsList = new List<Treatments>()};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.CreateAppointment(testAppointment))
@@ -145,7 +145,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         public void UpdateAppointment_WithParam_CallsAppointmentRepositoryOnce()
         {
             var appointmentToUpdateId = 1;
-            var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1};
+            var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1, TreatmentsList = new List<Treatments>()};
             var mockRepo = new Mock<IAppointmentRepository>();
             var appointmentService = new AppointmentService(mockRepo.Object);
 
@@ -158,7 +158,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         public void UpdateAppointment_WithParam_ReturnsAppointment()
         {
             var appointmentToUpdateId = 1;
-            var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1};
+            var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1, TreatmentsList = new List<Treatments>()};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.UpdateById(appointmentToUpdateId, updatedAppointment))
@@ -235,6 +235,47 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
         }
         
+        #endregion
+
+        #region price Calculation test
+
+        [Fact]
+        public void CalculatePrice_withParams_EmptyListOfTreaments()
+        {
+            var serviceMock = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(serviceMock.Object);
+            var treamentList = new List<Treatments>();
+            double expectedResult = 0;
+            var testApointment = new Appointment {TreatmentsList = treamentList};
+            Assert.Equal(expectedResult, appointmentService.CalculateTotalPrice(testApointment));
+        }
+        
+        [Fact]
+        public void CalculatePrice_withParams_onlyOneTreament()
+        {
+            var serviceMock = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(serviceMock.Object);
+            var treamentList = new List<Treatments>();
+            treamentList.Add(new Treatments {Id = 1, Duration = new TimeSpan(0, 30, 0), Price = 150});
+            double expectedResult = 150;
+            var testApointment = new Appointment {TreatmentsList = treamentList};
+            Assert.Equal(expectedResult, appointmentService.CalculateTotalPrice(testApointment));
+        }
+
+        [Fact]
+        public void CalculatePrice_withParams_ListWithMultipleTreatments()
+        {
+            var serviceMock = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(serviceMock.Object);
+            var treamentList = new List<Treatments>();
+            treamentList.Add(new Treatments {Id = 1, Duration = new TimeSpan(0, 30, 0), Price = 150});
+            treamentList.Add(new Treatments {Id = 2, Duration = new TimeSpan(0, 30, 0), Price = 150});
+            treamentList.Add(new Treatments {Id = 3, Duration = new TimeSpan(0, 30, 0), Price = 100});
+            double expectedResult = 400;
+            var testApointment = new Appointment {TreatmentsList = treamentList};
+            Assert.Equal(expectedResult, appointmentService.CalculateTotalPrice(testApointment));
+        }
+
         #endregion
     }
     
