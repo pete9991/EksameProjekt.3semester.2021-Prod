@@ -284,15 +284,18 @@ namespace Morales.BookingSystem.Domain.Test.Services
         [Fact]
         public void CalculateDuration_WithParam_ReturnTimespan()
         {
-            var timespan = new TimeSpan(0, 30, 0);
+            var timespan = new TimeSpan(0, 0, 0);
             var appointment = new Appointment
             {
-                Duration = timespan
+                Duration = timespan,
+                TreatmentsList = new List<Treatments>()
             };
             var mockRepo = new Mock<IAppointmentRepository>();
             var appointmentService = new AppointmentService(mockRepo.Object);
             
             appointmentService.CalculateDuration(appointment);
+            
+            Assert.Equal(timespan,appointmentService.CalculateDuration(appointment));
         }
 
         [Fact]
