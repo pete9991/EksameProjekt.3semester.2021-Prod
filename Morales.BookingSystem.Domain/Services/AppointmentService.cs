@@ -31,11 +31,13 @@ namespace Morales.BookingSystem.Domain.Services
 
         public Appointment CreateAppointment(Appointment appointmentToCreate)
         {
+            appointmentToCreate.TotalPrice = CalculateTotalPrice(appointmentToCreate);
             return _appointmentRepository.CreateAppointment(appointmentToCreate);
         }
 
         public Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment)
         {
+            updatedAppointment.TotalPrice = CalculateTotalPrice(updatedAppointment);
             return _appointmentRepository.UpdateById(appointmentToUpdateId, updatedAppointment);
         }
 
