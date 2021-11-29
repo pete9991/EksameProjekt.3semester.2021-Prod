@@ -72,7 +72,7 @@ namespace Morales.BookingSystem
                     Email = "bob@bob.com",
                     Name = "Schwanz",
                     PhoneNumber = "3254566",
-                    Sex = "Homie",
+                    Sex = "Male",
                     Type = "Customer"
                 });
                 mainDbContext.Accounts.Add(new AccountEntity
@@ -81,46 +81,42 @@ namespace Morales.BookingSystem
                     Email = "bob@schwanzmail.com",
                     Name = "Schwanz",
                     PhoneNumber = "32145487",
-                    Sex = "Homie",
+                    Sex = "Male",
                     Type = "Customer"
                 });
                 mainDbContext.Accounts.Add(new AccountEntity
                 {
                     Id = 3,
-                    Email = "bob@swagmail.com",
-                    Name = "Swag",
+                    Email = "Karen@swagmail.com",
+                    Name = "Karen",
                     PhoneNumber = "71456588",
-                    Sex = "Homie",
+                    Sex = "Female",
                     Type = "Owner"
                 });
                 mainDbContext.Accounts.Add(new AccountEntity
                 {
                     Id = 4,
                     Email = "employee@bob.com",
-                    Name = "Homie",
+                    Name = "Lisa",
                     PhoneNumber = "658987",
-                    Sex = "Homie",
+                    Sex = "Female",
                     Type = "Employee"
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 1, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
-                    sex = "Yes Please"
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 2, CustomerId = 1, EmployeeId = 3, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
-                    sex = "Yes Please"
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 3, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
-                    sex = "Yes Please"
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
-                    sex = "Yes Please"
                 });
                 mainDbContext.SaveChanges();
 

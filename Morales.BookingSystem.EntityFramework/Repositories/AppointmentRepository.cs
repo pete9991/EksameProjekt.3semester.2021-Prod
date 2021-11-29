@@ -24,7 +24,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Id = ae.Id,
                     Customerid = ae.CustomerId,
                     Employeeid = ae.EmployeeId,
-                    Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
                     Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
@@ -47,7 +46,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Id = ae.Id,
                     Customerid = ae.CustomerId,
                     Employeeid = ae.EmployeeId,
-                    Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
                     Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
@@ -68,7 +66,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
             {
                 CustomerId = appointmentToCreate.Customerid,
                 EmployeeId = appointmentToCreate.Employeeid,
-                sex = appointmentToCreate.Sex,
                 Date = appointmentToCreate.Date,
                 Duration = appointmentToCreate.Duration,
                 Treatments = appointmentToCreate.Treatments != null ? appointmentToCreate.Treatments.Select(te => new TreatmentEntity()
@@ -86,7 +83,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 Id = entity.Id,
                 Customerid = entity.CustomerId,
                 Employeeid = entity.EmployeeId,
-                Sex = entity.sex,
                 Date = entity.Date,
                 Duration = entity.Duration,
                 Treatments = entity.Treatments != null ? entity.Treatments.Select(te => new Treatments
@@ -107,7 +103,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Id = ae.Id,
                     Customerid = ae.CustomerId,
                     Employeeid = ae.EmployeeId,
-                    Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
                     Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
@@ -126,7 +121,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 Id = previousAppointment.Id,
                 CustomerId = previousAppointment.Customerid,
                 EmployeeId = updatedAppointment.Employeeid,
-                sex = previousAppointment.Sex,
                 Date = updatedAppointment.Date,
                 Duration = updatedAppointment.Duration,
                 Treatments = updatedAppointment.Treatments != null ? updatedAppointment.Treatments.Select(te => new TreatmentEntity()
@@ -145,7 +139,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 Id = previousAppointment.Id,
                 Customerid = previousAppointment.Customerid,
                 Employeeid = updatedAppointment.Employeeid,
-                Sex = previousAppointment.Sex,
                 Date = updatedAppointment.Date,
                 Duration = updatedAppointment.Duration,
                 Treatments = updatedAppointment.Treatments != null ? updatedAppointment.Treatments.Select(te => new Treatments
@@ -168,7 +161,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Id = ae.Id,
                     Customerid = ae.CustomerId,
                     Employeeid = ae.EmployeeId,
-                    Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
                     Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments
@@ -191,7 +183,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Id = ae.Id,
                     Customerid = ae.CustomerId,
                     Employeeid = ae.EmployeeId,
-                    Sex = ae.sex,
                     Date = ae.Date,
                     Duration = ae.Duration,
                     Treatments = ae.Treatments != null ? ae.Treatments.Select(te => new Treatments

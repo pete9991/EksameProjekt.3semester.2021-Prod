@@ -246,12 +246,12 @@ namespace Morales.BookingSystem.Domain.Test.Services
             if (ReferenceEquals(x, null)) return false;
             if (ReferenceEquals(y, null)) return false;
             if (x.GetType() != y.GetType()) return false;
-            return x.Id == y.Id && x.Customerid == y.Customerid && x.Employeeid == y.Employeeid && x.Sex == y.Sex && x.Date.Equals(y.Date) && x.Duration == y.Duration;
+            return x.Id == y.Id && x.Customerid == y.Customerid && x.Employeeid == y.Employeeid && x.Date.Equals(y.Date) && x.Duration == y.Duration;
         }
 
         public int GetHashCode(Appointment obj)
         {
-            return HashCode.Combine(obj.Id, obj.Customerid, obj.Employeeid, obj.Sex, obj.Date, obj.Duration);
+            return HashCode.Combine(obj.Id, obj.Customerid, obj.Employeeid, obj.Date, obj.Duration);
         }
     }
 }

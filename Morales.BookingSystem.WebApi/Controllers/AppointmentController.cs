@@ -35,7 +35,6 @@ namespace Morales.BookingSystem.Controllers
                         Employeeid = a.Employeeid,
                         Date = a.Date,
                         Duration = a.Duration,
-                        Sex = a.Sex,
                         Treatments = a.Treatments,
                         TotalPrice = a.TotalPrice
                     })
@@ -60,7 +59,6 @@ namespace Morales.BookingSystem.Controllers
                 Id = appointment.Id,
                 Customerid = appointment.Customerid,
                 Employeeid = appointment.Employeeid,
-                Sex = appointment.Sex,
                 Date = appointment.Date,
                 Duration = appointment.Duration,
                 Treatments = appointment.Treatments,
@@ -76,7 +74,6 @@ namespace Morales.BookingSystem.Controllers
             {
                 Customerid = appointmentDto.Customerid,
                 Employeeid = appointmentDto.Employeeid,
-                Sex = appointmentDto.Sex,
                 Date = appointmentDto.Date,
                 Duration = appointmentDto.Duration,
                 Treatments = appointmentDto.Treatments,
@@ -107,7 +104,6 @@ namespace Morales.BookingSystem.Controllers
                 Id = appointment.Id,
                 Customerid = appointment.Customerid,
                 Employeeid = appointment.Employeeid,
-                Sex = appointment.Sex,
                 Date = appointment.Date,
                 Duration = appointment.Duration,
                 Treatments = appointment.Treatments,
@@ -126,7 +122,6 @@ namespace Morales.BookingSystem.Controllers
                     Id = appointment.Id,
                     Customerid = appointment.Customerid,
                     Employeeid = appointment.Employeeid,
-                    Sex = appointment.Sex,
                     Date = appointment.Date,
                     Duration = appointment.Duration,
                     Treatments = appointment.Treatments,
