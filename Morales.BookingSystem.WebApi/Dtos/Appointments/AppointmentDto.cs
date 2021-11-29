@@ -11,7 +11,7 @@ namespace Morales.BookingSystem.Dtos.Appointments
         public int Employeeid { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
-        public List<Core.Models.Treatments> Treatments { get; set; }
+        public List<Core.Models.Treatments> TreatmentsList { get; set; }
         public double TotalPrice { get; set; }
     }
 }

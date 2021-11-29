@@ -38,6 +38,16 @@ namespace Morales.BookingSystem.Domain.Test.IRepositories
         }
 
         [Fact]
+        public void GetTreatmentBySex_WithParams_ReturnSingleTreatment()
+        {
+            var repoMock = new Mock<ITreatmentRepository>();
+            repoMock
+                .Setup(s => s.GetTreatmentBySex())
+                .Returns(new List<Treatments>());
+            Assert.NotNull(repoMock.Object.GetTreatmentBySex());
+        }
+        
+        [Fact]
         public void DeleteTreatment_WithParams_ReturnsDeletedTreatment()
         {
             var repoMock = new Mock<ITreatmentRepository>();

@@ -34,7 +34,7 @@ namespace Morales.BookingSystem.Controllers
                     }).ToList();
                 return Ok(new TreatmentsDto
                 {
-                    TreatmentList = treatments
+                    TreatmentsList = treatments
                 });
             }
             catch (Exception e)
@@ -55,6 +55,25 @@ namespace Morales.BookingSystem.Controllers
                 Price = treatment.Price
             };
             return Ok(dto);
+        }
+
+        [HttpGet("{sex:string}")]
+        public ActionResult<TreatmentsDto> GetTreatmentBySex(string sex)
+        {
+            var treatments = _treatmentService.GetTreatmentsBySex(sex)
+                .Select(treatments => new TreatmentDto()
+                {
+                    Id = treatments.Id,
+                    Name = treatments.Name,
+                    Duration = treatments.Duration,
+                    Price = treatments.Price,
+                    Sex = treatments.Sex
+                })
+                .ToList();
+            return Ok(new TreatmentsDto
+            {
+                TreatmentsList = treatments
+            });
         }
 
         [HttpPost]

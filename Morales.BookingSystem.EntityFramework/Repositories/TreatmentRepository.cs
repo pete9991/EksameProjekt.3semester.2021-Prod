@@ -40,6 +40,11 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 .FirstOrDefault(te => te.Id == treatmentId);
         }
 
+        public List<Treatments> GetTreatmentBySex()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Treatments DeleteTreatment(int treatmentId)
         {
             var treatmentToDelete = GetTreatment(treatmentId);

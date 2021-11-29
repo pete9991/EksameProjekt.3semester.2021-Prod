@@ -24,10 +24,24 @@ namespace Morales.BookingSystem.Core.Test.IServices
                 .Returns(new List<Treatments>());
         }
         #endregion
+
+        #region GetTreatmentBySex Test
+        
+        [Fact]
+        public void GetTreatmentBySex_WithNoParams_ReturnSingleTreatment()
+        {
+            var serviceMock = new Mock<ITreatmentService>();
+            var testString = "Male";
+            serviceMock
+                .Setup(s => s.GetTreatmentsBySex(testString))
+                .Returns(new List<Treatments>());
+        }
+        #endregion
         
         #region GetSingleTreatment Test
         [Fact]
-        public void GetTreatment_WithParams_ReturnsSingleTreatment()
+        public void GetTreatment_WithParams_Returns()
+        
         {
             var serviceMock = new Mock<ITreatmentService>();
             var treatmentId = 1;
