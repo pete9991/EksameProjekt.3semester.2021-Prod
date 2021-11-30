@@ -1,5 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\rasmu\AppData\Local\JetBrains\Rider2021.2\resharper-host\temp\Rider\vAny\CoverageData\_EksameProjekt.3semester.2021.638021138\Snapshot\snapshot.utdcvr</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1c38274f_002Dff02_002D489c_002D98ab_002Db58a448db81f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTreatmentBySex_NoParams_CallsTreatmentRepositoryOnce" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::81FE6416-C678-4F4B-8C4B-1529F9D639D7::net5.0::Morales.BookingSystem.Domain.Test.Services.TreatmentServiceTest.GetTreatmentBySex_NoParams_CallsTreatmentRepositoryOnce&lt;/TestId&gt;&#xD;

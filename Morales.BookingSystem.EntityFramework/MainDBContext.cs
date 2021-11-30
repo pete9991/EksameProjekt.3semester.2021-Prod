@@ -10,9 +10,14 @@ namespace Morales.BookingSystem.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppointmentEntity>().HasOne(ae => ae.Customer)
-                .WithMany(c => c.Appointments).HasForeignKey(a => new {a.CustomerId});
+                .WithMany(c => c.CustomerAppointments).HasForeignKey(a => new {a.CustomerId});
             modelBuilder.Entity<AppointmentEntity>().HasOne(ae => ae.Employee)
-                .WithMany(c => c.Appointments).HasForeignKey(a => new {a.EmployeeId});
+                .WithMany(c => c.EmployeeAppointments).HasForeignKey(a => new {a.EmployeeId});
+            modelBuilder.Entity<AppointmentTreatmentEntity>().HasKey(ate => new {ate.ApppointmentId, ate.TreatmentId});
+            modelBuilder.Entity<AppointmentTreatmentEntity>().HasOne(ate => ate.Treatment)
+                .WithMany(t => t.AppointmentTreatment);
+            modelBuilder.Entity<AppointmentTreatmentEntity>().HasOne(ate => ate.Appointment)
+                .WithMany(a => a.TreatmentsList);
         }
 
         public virtual DbSet<AccountEntity> Accounts { get; set; }

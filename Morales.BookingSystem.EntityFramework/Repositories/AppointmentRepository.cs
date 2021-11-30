@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 using Morales.BookingSystem.Domain.IRepositories;
 using Morales.BookingSystem.Domain.Services;
 using Morales.BookingSystem.EntityFramework.Entities;
@@ -20,20 +21,24 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
         public List<Appointment> readAllAppointments()
         {
             return _ctx.Appointments
+                .Include(a => a.Customer)
+                .Include(a => a.Employee)
+                .Include(a => a.TreatmentsList)
+                .ThenInclude(at => at.Treatment)
                 .Select(ae => new Appointment
                 {
                     Id = ae.Id,
-                    Customerid = ae.CustomerId,
-                    Employeeid = ae.EmployeeId,
+                    Customer = new Account{Id = ae.Customer.Id, Name = ae.Customer.Name, PhoneNumber = ae.Customer.PhoneNumber},
+                    Employee = new Account{Id = ae.Employee.Id, Name = ae.Employee.Name},
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => te.Treatment != null ? new Treatments
                     {
-                        Id = te.Id,
-                        Duration = te.Duration,
-                        Name = te.Name,
-                        Price = te.Price
-                    }).ToList() : null,
+                        Id = te.Treatment.Id,
+                        Duration = te.Treatment.Duration,
+                        Name = te.Treatment.Name,
+                        Price = te.Treatment.Price
+                    } : null).ToList() : null,
                     TotalPrice = ae.TotalPrice,
                     AppointmentEnd = ae.AppointmentEnd
                 })
@@ -43,20 +48,24 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
         public Appointment ReadById(int appointmentId)
         {
             return _ctx.Appointments.Where(ae => ae.Id == appointmentId)
+                .Include(a => a.Customer)
+                .Include(a => a.Employee)
+                .Include(a => a.TreatmentsList)
+                .ThenInclude(at => at.Treatment)
                 .Select(ae => new Appointment
                 {
                     Id = ae.Id,
-                    Customerid = ae.CustomerId,
-                    Employeeid = ae.EmployeeId,
+                    Customer = new Account{Id = ae.Customer.Id, Name = ae.Customer.Name, PhoneNumber = ae.Customer.PhoneNumber},
+                    Employee = new Account{Id = ae.Employee.Id, Name = ae.Employee.Name},
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => te.Treatment != null ? new Treatments
                     {
-                        Id = te.Id,
-                        Duration = te.Duration,
-                        Name = te.Name,
-                        Price = te.Price
-                    }).ToList() : null,
+                        Id = te.Treatment.Id,
+                        Duration = te.Treatment.Duration,
+                        Name = te.Treatment.Name,
+                        Price = te.Treatment.Price
+                    } : null).ToList() : null,
                     TotalPrice = ae.TotalPrice,
                     AppointmentEnd = ae.AppointmentEnd
                 })
@@ -71,12 +80,10 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 EmployeeId = appointmentToCreate.Employeeid,
                 Date = appointmentToCreate.Date,
                 Duration = appointmentToCreate.Duration,
-                TreatmentsList = appointmentToCreate.TreatmentsList != null ? appointmentToCreate.TreatmentsList.Select(te => new TreatmentEntity()
+                TreatmentsList = appointmentToCreate.TreatmentsList != null ? appointmentToCreate.TreatmentsList
+                    .Select(t => new AppointmentTreatmentEntity
                 {
-                    Id = te.Id,
-                    Duration = te.Duration,
-                    Name = te.Name,
-                    Price = te.Price
+                    TreatmentId = t.Id
                 }).ToList() : null,
                 TotalPrice = appointmentToCreate.TotalPrice,
                 AppointmentEnd = appointmentToCreate.AppointmentEnd
@@ -89,13 +96,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 Employeeid = entity.EmployeeId,
                 Date = entity.Date,
                 Duration = entity.Duration,
-                TreatmentsList = entity.TreatmentsList != null ? entity.TreatmentsList.Select(te => new Treatments
-                {
-                    Id = te.Id,
-                    Duration = te.Duration,
-                    Name = te.Name,
-                    Price = te.Price
-                }).ToList() : null,
                 AppointmentEnd = entity.AppointmentEnd
             } ;
         }
@@ -103,6 +103,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
         public Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment)
         {
             var previousAppointment = _ctx.Appointments.Where(ae => ae.Id == appointmentToUpdateId)
+                .Include(a => a.TreatmentsList)
                 .Select(ae => new Appointment
                 {
                     Id = ae.Id,
@@ -112,10 +113,10 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Duration = ae.Duration,
                     TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
                     {
-                        Id = te.Id,
-                        Duration = te.Duration,
-                        Name = te.Name,
-                        Price = te.Price
+                        Id = te.Treatment.Id,
+                        Duration = te.Treatment.Duration,
+                        Name = te.Treatment.Name,
+                        Price = te.Treatment.Price
                     }).ToList() : null,
                     TotalPrice = ae.TotalPrice,
                     AppointmentEnd = ae.AppointmentEnd
@@ -129,13 +130,6 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 EmployeeId = updatedAppointment.Employeeid,
                 Date = updatedAppointment.Date,
                 Duration = updatedAppointment.Duration,
-                TreatmentsList = updatedAppointment.TreatmentsList != null ? updatedAppointment.TreatmentsList.Select(te => new TreatmentEntity()
-                {
-                    Id = te.Id,
-                    Duration = te.Duration,
-                    Name = te.Name,
-                    Price = te.Price
-                }).ToList() : null,
                 TotalPrice = updatedAppointment.TotalPrice,
                 AppointmentEnd = updatedAppointment.AppointmentEnd
             };
@@ -164,6 +158,10 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
         public List<Appointment> GetAppointmentFromHairdresser(int employeeId)
         {
             return _ctx.Appointments.Where(ae => ae.EmployeeId== employeeId)
+                .Include(a => a.Customer)
+                .Include(a => a.Employee)
+                .Include(a => a.TreatmentsList)
+                .ThenInclude(at => at.Treatment)
                 .Select(ae => new Appointment
                 {
                     Id = ae.Id,
@@ -173,10 +171,10 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Duration = ae.Duration,
                     TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
                     {
-                        Id = te.Id,
-                        Duration = te.Duration,
-                        Name = te.Name,
-                        Price = te.Price
+                        Id = te.Treatment.Id,
+                        Duration = te.Treatment.Duration,
+                        Name = te.Treatment.Name,
+                        Price = te.Treatment.Price
                     }).ToList() : null,
                     TotalPrice = ae.TotalPrice,
                     AppointmentEnd = ae.AppointmentEnd
@@ -187,20 +185,24 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
         public Appointment DeleteAppointment(int deletedAppointmentId)
         {
             var appointmentToDelete = _ctx.Appointments
+                .Include(a => a.Customer)
+                .Include(a => a.Employee)
+                .Include(a => a.TreatmentsList)
+                .ThenInclude(at => at.Treatment)
                 .Select(ae => new Appointment
                 {
                     Id = ae.Id,
-                    Customerid = ae.CustomerId,
-                    Employeeid = ae.EmployeeId,
+                    Customer = new Account{Id = ae.Customer.Id, Name = ae.Customer.Name, PhoneNumber = ae.Customer.PhoneNumber},
+                    Employee = new Account{Id = ae.Employee.Id, Name = ae.Employee.Name},
                     Date = ae.Date,
                     Duration = ae.Duration,
-                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => te.Treatment != null ? new Treatments
                     {
-                        Id = te.Id,
-                        Duration = te.Duration,
-                        Name = te.Name,
-                        Price = te.Price
-                    }).ToList() : null,
+                        Id = te.Treatment.Id,
+                        Duration = te.Treatment.Duration,
+                        Name = te.Treatment.Name,
+                        Price = te.Treatment.Price
+                    } : null).ToList() : null,
                     TotalPrice = ae.TotalPrice,
                     AppointmentEnd = ae.AppointmentEnd
                 })
