@@ -207,6 +207,14 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     AppointmentEnd = ae.AppointmentEnd
                 })
                 .FirstOrDefault(a => a.Id == deletedAppointmentId);
+            var OneDayFromNow = new DateTime();
+            OneDayFromNow = DateTime.Now;
+            OneDayFromNow = OneDayFromNow.AddHours(24);
+            var diffrence = (appointmentToDelete.Date - OneDayFromNow).TotalHours;
+            if (diffrence >= 0)
+            {
+                throw new Exception("You cannot delete an appointment less than 24 hours before");
+            }
             _ctx.Appointments.Remove(new AppointmentEntity() {Id = deletedAppointmentId});
             _ctx.SaveChanges();
             return appointmentToDelete;
