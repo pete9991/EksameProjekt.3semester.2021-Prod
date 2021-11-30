@@ -57,7 +57,7 @@ namespace Morales.BookingSystem.Domain.Services
         
         public List<Appointment> GetAppointmentsFromHairdresser(int employeeId)
         {
-            return _appointmentRepository.GetAppointmentFromHairdresser(employeeId);
+            return FilterOldAppointments(_appointmentRepository.GetAppointmentFromHairdresser(employeeId));
         }
 
         public double CalculateTotalPrice(Appointment appointment)
@@ -101,6 +101,23 @@ namespace Morales.BookingSystem.Domain.Services
                     throw new InvalidDataException("Invalid time, this appointment would end during another appointment");
                 }
             }
+        }
+
+        public List<Appointment> FilterOldAppointments(List<Appointment> appointmentList)
+        {
+            var tempAppointmentList = new List<Appointment>();
+            tempAppointmentList = appointmentList;
+            var timeNow = new DateTime();
+            timeNow = DateTime.Now;
+            foreach (var appointment in tempAppointmentList)
+            {
+                if (appointment.AppointmentEnd < timeNow)
+                {
+                    appointmentList.Remove(appointment);
+                }
+            }
+
+            return tempAppointmentList;
         }
 
         public DateTime CalculateAppointmentEnd(Appointment appointment)

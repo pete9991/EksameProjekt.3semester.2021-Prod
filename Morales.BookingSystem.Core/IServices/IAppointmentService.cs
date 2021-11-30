@@ -22,5 +22,7 @@ namespace Core.IServices
         TimeSpan CalculateDuration(Appointment appointment);
 
         void DetectAppointmentConflict(Appointment appointment);
+        
+        List<Appointment> FilterOldAppointments(List<Appointment> appointmentList);
     }
 }
