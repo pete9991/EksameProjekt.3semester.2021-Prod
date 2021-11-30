@@ -11,5 +11,6 @@ namespace Morales.BookingSystem.Domain.IRepositories
         Appointment UpdateById(int appointmentToUpdateId, Appointment updatedAppointment);
         List<Appointment> GetAppointmentFromHairdresser(int employeeId);
         Appointment DeleteAppointment(int deletedAppointmentId);
+        List<Appointment> GetAppointmentFromUser(int userId);
     }
 }

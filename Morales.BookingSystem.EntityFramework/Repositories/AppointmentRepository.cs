@@ -219,5 +219,32 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
             _ctx.SaveChanges();
             return appointmentToDelete;
         }
+
+        public List<Appointment> GetAppointmentFromUser(int userId)
+        {
+            return _ctx.Appointments.Where(ae => ae.CustomerId== userId)
+                .Include(a => a.Customer)
+                .Include(a => a.Employee)
+                .Include(a => a.TreatmentsList)
+                .ThenInclude(at => at.Treatment)
+                .Select(ae => new Appointment
+                {
+                    Id = ae.Id,
+                    Customerid = ae.CustomerId,
+                    Employeeid = ae.EmployeeId,
+                    Date = ae.Date,
+                    Duration = ae.Duration,
+                    TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments
+                    {
+                        Id = te.Treatment.Id,
+                        Duration = te.Treatment.Duration,
+                        Name = te.Treatment.Name,
+                        Price = te.Treatment.Price
+                    }).ToList() : null,
+                    TotalPrice = ae.TotalPrice,
+                    AppointmentEnd = ae.AppointmentEnd
+                })
+                .ToList();
+        }
     }
 }

@@ -120,6 +120,11 @@ namespace Morales.BookingSystem.Domain.Services
             return tempAppointmentList;
         }
 
+        public List<Appointment> GetAppointmentsFromUser(int userID)
+        {
+            return FilterOldAppointments(_appointmentRepository.GetAppointmentFromUser(userID));
+        }
+
         public DateTime CalculateAppointmentEnd(Appointment appointment)
         {
             var EndTime = new DateTime();

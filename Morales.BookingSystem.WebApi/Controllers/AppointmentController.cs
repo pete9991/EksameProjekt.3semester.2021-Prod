@@ -142,5 +142,29 @@ namespace Morales.BookingSystem.Controllers
             });
             
         }
+
+        [HttpGet("user/{userid:int}")]
+        
+            public ActionResult<AppointmentsDto> GetAppointmentsFromUser(int userid)
+            {
+                var appointment = _AppointmentService.GetAppointmentsFromHairdresser(userid)
+                    .Select(appointment => new AppointmentDto()
+                    {
+                        Id = appointment.Id,
+                        Customerid = appointment.Customerid,
+                        Employeeid = appointment.Employeeid,
+                        Date = appointment.Date,
+                        Duration = appointment.Duration,
+                        TreatmentsList = appointment.TreatmentsList,
+                        TotalPrice = appointment.TotalPrice,
+                        AppointmentEnd = appointment.AppointmentEnd
+                    })
+                    .ToList();
+                return Ok(new AppointmentsDto
+                {
+                    AppointmentList = appointment
+                });
+            }
+        
     }
 }

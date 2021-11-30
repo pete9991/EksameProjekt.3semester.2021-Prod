@@ -24,5 +24,7 @@ namespace Core.IServices
         void DetectAppointmentConflict(Appointment appointment);
         
         List<Appointment> FilterOldAppointments(List<Appointment> appointmentList);
+
+        List<Appointment> GetAppointmentsFromUser(int userID);
     }
 }
