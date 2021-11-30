@@ -66,6 +66,8 @@ namespace Morales.BookingSystem
 
                 mainDbContext.Database.EnsureDeleted();
                 mainDbContext.Database.EnsureCreated();
+
+                #region Account Seeding
                 mainDbContext.Accounts.Add(new AccountEntity
                 {
                     Id = 1,
@@ -102,6 +104,19 @@ namespace Morales.BookingSystem
                     Sex = "Female",
                     Type = "Employee"
                 });
+                #endregion
+
+                #region Treatment Seeding
+
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 1, Duration = new TimeSpan(0,30,0), Name = "Hair Cut(Man)",Price = 200});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 2, Duration = new TimeSpan(0,30,0), Name = "Hair Cut(Woman)",Price = 400});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 3, Duration = new TimeSpan(0,30,0), Name = "Hair colour",Price = 200});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 4, Duration = new TimeSpan(0,30,0), Name = "Beard Trim/Cut",Price = 200});
+                
+
+                #endregion
+
+                #region appointmentSeeding
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 1, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
@@ -119,6 +134,7 @@ namespace Morales.BookingSystem
                     Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                 });
                 mainDbContext.SaveChanges();
+                #endregion
 
                 #endregion
             }

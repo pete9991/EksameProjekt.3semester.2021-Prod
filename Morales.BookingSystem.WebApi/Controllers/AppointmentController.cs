@@ -31,8 +31,10 @@ namespace Morales.BookingSystem.Controllers
                     .Select(a => new AppointmentDto()
                     {
                         Id = a.Id,
-                        Customerid = a.Customerid,
-                        Employeeid = a.Employeeid,
+                        Customerid = a.Customer.Id,
+                        CustomerName = a.Customer.Name,
+                        Employeeid = a.Employee.Id,
+                        EmployeeName = a.Employee.Name,
                         Date = a.Date,
                         Duration = a.Duration,
                         TreatmentsList = a.TreatmentsList,
