@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Morales.BookingSystem.EntityFramework\Morales.BookingSystem.EntityFramework.csproj" />
+      <ProjectReference Include="..\Morales.BookingSystem.Security\Morales.BookingSystem.Security.csproj" />
     </ItemGroup>
 
 </Project>
