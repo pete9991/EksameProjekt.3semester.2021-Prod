@@ -42,7 +42,6 @@ namespace Morales.BookingSystem.Controllers
 
         [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet(nameof(GetProfile))]
-
         public ActionResult<ProfileDto> GetProfile()
         {
             var user = HttpContext.Items["LoginUser"] as LoginUser;
