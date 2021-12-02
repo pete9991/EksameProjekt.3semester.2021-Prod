@@ -62,7 +62,7 @@ namespace Morales.BookingSystem.Security.Services
         public List<Permission> GetPermissions(int userId)
         {
             return _authctx.UserPermissions
-                .Include(up => up.PermissionId)
+                .Include(up => up.Permission)
                 .Where(up => up.UserID == userId)
                 .Select(up => up.Permission)
                 .ToList();

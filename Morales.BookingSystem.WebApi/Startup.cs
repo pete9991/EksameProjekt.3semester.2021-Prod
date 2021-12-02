@@ -49,8 +49,8 @@ namespace Morales.BookingSystem
             services.AddControllers();
             services.AddSwaggerGen(opt =>
             {
-                opt.SwaggerDoc("v01", new OpenApiInfo {Title = "Morales.BookingSystem.WebApi", Version = "v1"});
-                opt.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+                opt.SwaggerDoc("v1", new OpenApiInfo {Title = "Morales.BookingSystem.WebApi", Version = "v1"});
+                opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
@@ -74,10 +74,6 @@ namespace Morales.BookingSystem
                         new string[] { }
                     }
                 });
-            });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Morales.BookingSystem.WebApi", Version = "v1"});
             });
             services.AddDbContext<MainDbContext>(opt =>
             {
@@ -176,6 +172,11 @@ namespace Morales.BookingSystem
                     Id = 3,
                     Name = "Customer"
                 });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 1,
+                    PermissionId = 3
+                });
                 authDbContext.SaveChanges();
 
                 #endregion
@@ -252,13 +253,14 @@ namespace Morales.BookingSystem
                 #endregion
             }
 
-            app.UseMiddleware<JWTMiddleware>();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseMiddleware<JWTMiddleware>();
             
             app.UseAuthorization();
 
