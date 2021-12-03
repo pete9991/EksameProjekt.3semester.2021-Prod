@@ -156,8 +156,17 @@ namespace Morales.BookingSystem
                 {
                     Id = 1,
                     UserName = "88888888",
-                    HashedPassword = "Kongo",
-                    AccountId = 1
+                    HashedPassword = "cDmBpvXrYRNHoFE3Mba3epSEGqaEaNdKqEax5qiXdcw=",
+                    AccountId = 1,
+                    Salt = "test1234"
+                });
+                authDbContext.LoginUsers.Add(new LoginUser
+                {
+                    Id = 2,
+                    UserName = "11111111",
+                    HashedPassword = "1m7bHm4KZQXGeXmmtSVTyO8+sZn2yAvJAq/GzqecbS0=",
+                    AccountId = 2,
+                    Salt = "Test4321"
                 });
                 authDbContext.Permissions.AddRange(new Permission
                 {
@@ -175,6 +184,21 @@ namespace Morales.BookingSystem
                 authDbContext.UserPermissions.Add(new UserPermission
                 {
                     UserID = 1,
+                    PermissionId = 3
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 2,
+                    PermissionId = 1
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 2,
+                    PermissionId = 2
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 2,
                     PermissionId = 3
                 });
                 authDbContext.SaveChanges();

@@ -30,7 +30,11 @@ namespace Morales.BookingSystem.Controllers
             var tokenString = _authService.GenerateJwtToken(new LoginUser
             {
                 UserName = dto.UserName,
-                HashedPassword = _authService.Hash(dto.Password)
+                HashedPassword = _authService.Hash(new LoginUser
+                {
+                    UserName = dto.UserName,
+                    HashedPassword = dto.Password
+                })
             });
             if (string.IsNullOrEmpty(tokenString))
             {
@@ -41,7 +45,6 @@ namespace Morales.BookingSystem.Controllers
         }
 
         [Authorize(Policy = nameof(CustomerHandler))]
-        //[AllowAnonymous]
         [HttpGet(nameof(GetProfile))]
         public ActionResult<ProfileDto> GetProfile()
         {
@@ -59,5 +62,6 @@ namespace Morales.BookingSystem.Controllers
             return Unauthorized();
         }
         
+
     }
 }

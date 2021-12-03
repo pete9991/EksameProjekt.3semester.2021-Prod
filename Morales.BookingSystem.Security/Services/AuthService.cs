@@ -4,6 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using Core.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -27,7 +29,7 @@ namespace Morales.BookingSystem.Security.Services
         public LoginUser IsValidUserInformation(LoginUser user)
         {
             return _authctx.LoginUsers.FirstOrDefault(u => u.UserName.Equals(user.UserName) &&
-                                                           u.HashedPassword.Equals(user.HashedPassword));
+                                                           u.HashedPassword.Equals(Hash(user)));
         }
         
         public string GenerateJwtToken(LoginUser user)
@@ -53,10 +55,30 @@ namespace Morales.BookingSystem.Security.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public string Hash(string password)
+        //Hashing method used ONLY for logging in a preexisting user 
+        public string Hash(LoginUser user)
         {
-            //Todo IMPLEMENT PETER! ELLERS KOMMER DER MYRER I BUKSERNE
-            return password;
+            var userFromDb = _authctx.LoginUsers.FirstOrDefault(u => u.UserName.Equals(user.UserName));
+            byte[] saltedByte = Encoding.ASCII.GetBytes(userFromDb.Salt);
+            user.HashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: user.HashedPassword,
+                salt: saltedByte,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
+            return user.HashedPassword;
+        }
+        //Hashing method used when creating a new account
+        public string HashNewPassword(string newPassword, string salt)
+        {
+            byte[] saltedByte = Encoding.ASCII.GetBytes(salt);
+            var hashedNewPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: newPassword,
+                salt: saltedByte,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
+            return hashedNewPassword;
         }
 
         public List<Permission> GetPermissions(int userId)
@@ -66,6 +88,27 @@ namespace Morales.BookingSystem.Security.Services
                 .Where(up => up.UserID == userId)
                 .Select(up => up.Permission)
                 .ToList();
+        }
+
+        public string CreateNewAccount(LoginUser newUser, Account userAccount)
+        {
+            var generatedSalt = GenerateSalt();
+            var newAccount = _authctx.Add(new LoginUser
+            {
+                UserName = newUser.UserName,
+                HashedPassword = HashNewPassword(newUser.HashedPassword, generatedSalt),
+                Salt = generatedSalt,
+                AccountId = userAccount.Id
+            }).Entity;
+            _authctx.SaveChanges();
+            return GenerateJwtToken(newUser);
+        }
+
+        public string GenerateSalt()
+        {
+            var random = new Random();
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
