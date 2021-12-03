@@ -29,7 +29,7 @@ namespace Morales.BookingSystem.Security.Services
         public LoginUser IsValidUserInformation(LoginUser user)
         {
             return _authctx.LoginUsers.FirstOrDefault(u => u.UserName.Equals(user.UserName) &&
-                                                           u.HashedPassword.Equals(Hash(user)));
+                                                           u.HashedPassword.Equals(user.HashedPassword));
         }
         
         public string GenerateJwtToken(LoginUser user)

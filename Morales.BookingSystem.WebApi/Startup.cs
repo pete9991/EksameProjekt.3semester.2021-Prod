@@ -156,7 +156,7 @@ namespace Morales.BookingSystem
                 {
                     Id = 1,
                     UserName = "88888888",
-                    HashedPassword = "cDmBpvXrYRNHoFE3Mba3epSEGqaEaNdKqEax5qiXdcw=",
+                    HashedPassword = "mj2aUQ9UDGTm/aFdMVWoNIIVg0IwYent+qMo9aPt3Bc=",
                     AccountId = 1,
                     Salt = "test1234"
                 });
@@ -164,7 +164,7 @@ namespace Morales.BookingSystem
                 {
                     Id = 2,
                     UserName = "11111111",
-                    HashedPassword = "1m7bHm4KZQXGeXmmtSVTyO8+sZn2yAvJAq/GzqecbS0=",
+                    HashedPassword = "PBz+Tp8l33n1+lD8a2fUpGDB5Fp4y+EBDvej3uChvEA=",
                     AccountId = 2,
                     Salt = "Test4321"
                 });
