@@ -7,6 +7,8 @@ using Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Morales.BookingSystem.Dtos.Accounts;
+using Morales.BookingSystem.Security;
+using Morales.BookingSystem.Security.Models;
 
 namespace Morales.BookingSystem.Controllers
 {
@@ -15,10 +17,12 @@ namespace Morales.BookingSystem.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountservice;
+        private readonly IAuthService _authService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IAuthService authService)
         {
             _accountservice = accountService;
+            _authService = authService;
         }
         [HttpGet]
         public ActionResult<AccountsDto> GetAll()
@@ -99,7 +103,7 @@ namespace Morales.BookingSystem.Controllers
         {
             try
             {
-                var accountToCreate = new Account()
+                var accountToCreate = new Account
                 {
                     Email = accountDto.Email,
                     Name = accountDto.Name,
@@ -107,7 +111,13 @@ namespace Morales.BookingSystem.Controllers
                     Sex = accountDto.Sex,
                     Type = accountDto.Type
                 };
+                var authAccountToCreate = new LoginUser
+                {
+                    UserName = accountDto.PhoneNumber,
+                    HashedPassword = accountDto.Password
+                };
                 var accountCreated = _accountservice.CreateAccount(accountToCreate);
+                _authService.CreateNewAccount(authAccountToCreate, _accountservice.GetAccountFromPhoneNumber(accountDto.PhoneNumber));
                 return Created($"https://localhost/api/Account/{accountCreated.Id}", accountCreated);
             }
             catch (Exception e)

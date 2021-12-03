@@ -93,15 +93,16 @@ namespace Morales.BookingSystem.Security.Services
         public string CreateNewAccount(LoginUser newUser, Account userAccount)
         {
             var generatedSalt = GenerateSalt();
+            var hashedNewPassword = HashNewPassword(newUser.HashedPassword, generatedSalt);
             var newAccount = _authctx.Add(new LoginUser
             {
                 UserName = newUser.UserName,
-                HashedPassword = HashNewPassword(newUser.HashedPassword, generatedSalt),
+                HashedPassword = hashedNewPassword,
                 Salt = generatedSalt,
                 AccountId = userAccount.Id
             }).Entity;
             _authctx.SaveChanges();
-            return GenerateJwtToken(newUser);
+            return "Success!";
         }
 
         public string GenerateSalt()

@@ -10,5 +10,6 @@ namespace Core.IServices
         public Account DeleteAccount(int accountId);
         public Account CreateAccount(Account accountToCreate);
         public Account UpdateAccount(Account accountToUpdate);
+        public Account GetAccountFromPhoneNumber(string phoneNumber);
     }
 }

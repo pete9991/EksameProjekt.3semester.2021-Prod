@@ -41,6 +41,19 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 })
                 .FirstOrDefault(a => a.Id == accountId);
         }
+        public Account GetAccountFromPhoneNumber(string phoneNumber)
+        {
+            return _ctx.Accounts.Select(ae => new Account
+                {
+                    Id = ae.Id,
+                    Type = ae.Type,
+                    Name = ae.Name,
+                    PhoneNumber = ae.PhoneNumber,
+                    Sex = ae.Sex,
+                    Email = ae.Email
+                })
+                .FirstOrDefault(a => a.PhoneNumber == phoneNumber);
+        }
 
         public Account DeleteAccount(int accountId)
         {
