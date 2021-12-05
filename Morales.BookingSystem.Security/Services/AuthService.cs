@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -110,6 +111,56 @@ namespace Morales.BookingSystem.Security.Services
             var random = new Random();
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             return new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        public void EstablishPermissions(Account newAccount)
+        {
+            var phoneNumber = newAccount.PhoneNumber;
+            var createdLoginUser = _authctx.LoginUsers.Where(lu => lu.UserName == phoneNumber)
+                .FirstOrDefault();
+            if (newAccount.Type == "Customer")
+            {
+                _authctx.UserPermissions.Add(new UserPermission
+                {
+                    UserID = createdLoginUser.Id,
+                    PermissionId = 3
+                });
+                _authctx.SaveChanges();
+            }
+            if (newAccount.Type == "Employee")
+            {
+                _authctx.UserPermissions.AddRange(new UserPermission
+                {
+                    UserID = createdLoginUser.Id,
+                    PermissionId = 3
+                }, new UserPermission
+                {
+                    UserID = createdLoginUser.Id,
+                    PermissionId = 2
+                });
+                _authctx.SaveChanges();
+            }
+            if (newAccount.Type == "Admin")
+            {
+                _authctx.UserPermissions.AddRange(new UserPermission
+                {
+                    UserID = createdLoginUser.Id,
+                    PermissionId = 3
+                }, new UserPermission
+                {
+                    UserID = createdLoginUser.Id,
+                    PermissionId = 2
+                }, new UserPermission
+                {
+                    UserID = createdLoginUser.Id,
+                    PermissionId = 1
+                });
+                _authctx.SaveChanges();
+            }
+            else if(newAccount.Type != "Admin" && newAccount.Type != "Employee" && newAccount.Type != "Customer")
+            {
+                throw new InvalidDataException("Invalid account type");
+            }
         }
     }
 }

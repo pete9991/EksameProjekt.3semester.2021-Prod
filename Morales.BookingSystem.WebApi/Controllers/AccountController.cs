@@ -118,6 +118,7 @@ namespace Morales.BookingSystem.Controllers
                 };
                 var accountCreated = _accountservice.CreateAccount(accountToCreate);
                 _authService.CreateNewAccount(authAccountToCreate, _accountservice.GetAccountFromPhoneNumber(accountDto.PhoneNumber));
+                _authService.EstablishPermissions(accountToCreate);
                 return Created($"https://localhost/api/Account/{accountCreated.Id}", accountCreated);
             }
             catch (Exception e)

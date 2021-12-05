@@ -10,5 +10,6 @@ namespace Morales.BookingSystem.Security
         string Hash(LoginUser user);
         List<Permission> GetPermissions(int userId);
         string CreateNewAccount(LoginUser newUser, Account userAccount);
+        void EstablishPermissions(Account newAccount);
     }
 }

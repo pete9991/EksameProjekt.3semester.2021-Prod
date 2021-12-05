@@ -222,25 +222,7 @@ namespace Morales.BookingSystem
                     Name = "Schwanz",
                     PhoneNumber = "32145487",
                     Sex = "Male",
-                    Type = "Customer"
-                });
-                mainDbContext.Accounts.Add(new AccountEntity
-                {
-                    Id = 3,
-                    Email = "Karen@swagmail.com",
-                    Name = "Karen",
-                    PhoneNumber = "71456588",
-                    Sex = "Female",
-                    Type = "Owner"
-                });
-                mainDbContext.Accounts.Add(new AccountEntity
-                {
-                    Id = 4,
-                    Email = "employee@bob.com",
-                    Name = "Lisa",
-                    PhoneNumber = "658987",
-                    Sex = "Female",
-                    Type = "Employee"
+                    Type = "Admin"
                 });
                 #endregion
 
@@ -257,19 +239,7 @@ namespace Morales.BookingSystem
                 #region appointmentSeeding
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
-                    Id = 1, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
-                });
-                mainDbContext.Appointments.Add(new AppointmentEntity
-                {
-                    Id = 2, CustomerId = 1, EmployeeId = 3, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
-                });
-                mainDbContext.Appointments.Add(new AppointmentEntity
-                {
-                    Id = 3, CustomerId = 1, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
-                });
-                mainDbContext.Appointments.Add(new AppointmentEntity
-                {
-                    Id = 4, CustomerId = 2, EmployeeId = 4, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
+                    Id = 1, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
                 });
                 mainDbContext.SaveChanges();
                 #endregion
