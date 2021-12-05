@@ -2,9 +2,11 @@ using System;
 using System.Linq;
 using Core.IServices;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Morales.BookingSystem.Dtos.Treatments;
 using Morales.BookingSystem.EntityFramework.Entities;
+using Morales.BookingSystem.PolicyHandlers;
 
 namespace Morales.BookingSystem.Controllers
 {
@@ -19,6 +21,7 @@ namespace Morales.BookingSystem.Controllers
             _treatmentService = treatmentService;
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet]
         public ActionResult<TreatmentsDto> GetAll()
         {
@@ -43,6 +46,7 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{TreatmentId:int}")]
         public ActionResult<TreatmentDto> GetTreatment(int TreatmentId)
         {
@@ -57,6 +61,7 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{sex:alpha}")]
         public ActionResult<TreatmentsDto> GetTreatmentBySex(string sex)
         {
@@ -76,6 +81,7 @@ namespace Morales.BookingSystem.Controllers
             });
         }
 
+        [Authorize(Policy = nameof(AdminHandler))]
         [HttpPost]
         public ActionResult<TreatmentsDto> CreateTreatment([FromBody] TreatmentDto treatmentDto)
         {
@@ -89,6 +95,7 @@ namespace Morales.BookingSystem.Controllers
             return Created($"https://localhost/api/Treatment/{treatmentCreated.Id}", treatmentCreated);
         }
 
+        [Authorize(Policy = nameof(AdminHandler))]
         [HttpPut("{id:int}")]
         public ActionResult<TreatmentsDto> UpdateTreatment(int id, [FromBody] TreatmentDto treatmentToUpdate)
         {
@@ -101,6 +108,7 @@ namespace Morales.BookingSystem.Controllers
             ));
         }
 
+        [Authorize(Policy = nameof(AdminHandler))]
         [HttpDelete("{id:int}")]
         public ActionResult<TreatmentDto> DeleteTreatment(int id)
         {

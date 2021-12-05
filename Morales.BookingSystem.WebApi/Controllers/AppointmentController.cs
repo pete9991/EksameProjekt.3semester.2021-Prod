@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.IServices;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Morales.BookingSystem.Dtos.Appointments;
+using Morales.BookingSystem.PolicyHandlers;
 
 namespace Morales.BookingSystem.Controllers
 {
@@ -22,6 +24,7 @@ namespace Morales.BookingSystem.Controllers
             _AppointmentService = appointmentService;
         }
 
+        [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpGet]
         public ActionResult<AppointmentsDto> GetAll()
         {
@@ -53,6 +56,7 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{AppointmentId:int}")]
         public ActionResult<AppointmentDto> GetAppointment(int AppointmentId)
         {
@@ -71,6 +75,7 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
+        [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpPost]
         public ActionResult<AppointmentDto> CreateAppointment([FromBody] AppointmentDto appointmentDto)
         {
@@ -88,6 +93,7 @@ namespace Morales.BookingSystem.Controllers
             return Created($"https//localhost/api/appointment/{appointmentToCreate.Id}", appointmentCreated);
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpPut("{id:int}")]
         public ActionResult<AppointmentsDto> UpdateAppointment(int id, [FromBody] AppointmentDto appointmentToUpdate)
         {
@@ -101,6 +107,7 @@ namespace Morales.BookingSystem.Controllers
             }));
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpDelete("{id:int}")]
         public ActionResult<AppointmentDto> DeleteAppointment(int id)
         {
@@ -118,8 +125,8 @@ namespace Morales.BookingSystem.Controllers
             };
             return Ok(dto);
         }
-
-
+        
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("hairdresser/{employeeid:int}")]
         public ActionResult<AppointmentsDto> GetAppointmentFromHairdresser(int employeeid)
         {
@@ -143,9 +150,9 @@ namespace Morales.BookingSystem.Controllers
             
         }
 
+        [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpGet("user/{userid:int}")]
-        
-            public ActionResult<AppointmentsDto> GetAppointmentsFromUser(int userid)
+        public ActionResult<AppointmentsDto> GetAppointmentsFromUser(int userid)
             {
                 var appointment = _AppointmentService.GetAppointmentsFromHairdresser(userid)
                     .Select(appointment => new AppointmentDto()

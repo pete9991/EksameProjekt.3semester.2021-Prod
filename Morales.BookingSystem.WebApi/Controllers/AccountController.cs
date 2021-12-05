@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.IServices;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Morales.BookingSystem.Dtos.Accounts;
+using Morales.BookingSystem.PolicyHandlers;
 using Morales.BookingSystem.Security;
 using Morales.BookingSystem.Security.Models;
 
@@ -24,6 +26,7 @@ namespace Morales.BookingSystem.Controllers
             _accountservice = accountService;
             _authService = authService;
         }
+        [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpGet]
         public ActionResult<AccountsDto> GetAll()
         {
@@ -52,6 +55,7 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{id:int}")]
         public ActionResult<AccountDto> GetAccount(int id)
         {
@@ -75,6 +79,8 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
+        //Not sure if admin of customer, should be diccussed
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpDelete("{id:int}")]
         public ActionResult<AccountDto> DeleteAccount(int id)
         {
@@ -98,6 +104,7 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult<AccountDto> CreateAccount([FromBody] AccountDto accountDto)
         {
@@ -127,6 +134,7 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpPut("{id}")]
         public ActionResult<AccountDto> UpdateAccount(int id, [FromBody] AccountDto accountToUpdate)
         {
