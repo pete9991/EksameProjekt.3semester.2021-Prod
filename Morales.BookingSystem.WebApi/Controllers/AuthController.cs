@@ -70,7 +70,6 @@ namespace Morales.BookingSystem.Controllers
                 {
                     Permission = permissions.Select(p => p.Name).ToList(),
                     Name = user.UserName,
-                    AccountId = user.AccountId
                 });
             }
 
