@@ -33,18 +33,18 @@ namespace Morales.BookingSystem.Controllers
             try
             {
                 var accounts = _accountservice.GetAll()
-                    .Select(p => new AccountDto()
+                    .Select(p => new GetAllAccountDto()
                     {
                         Id = p.Id,
                         Type = p.Type,
                         Name = p.Name,
                         Email = p.Email,
                         PhoneNumber = p.PhoneNumber,
-                        Sex = p.Sex
-                        
+                        Sex = p.Sex,
+
                     })
                     .ToList();
-                return Ok(new AccountsDto()
+                return Ok(new GetAllAccountsDto()
                 {
                     AccountList = accounts
                 });
@@ -104,7 +104,7 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
-        //we should probably make sepearte methods for creating admins/employees/customers
+        //we should probably make seperate methods for creating admins/employees/customers
         [AllowAnonymous]
         [HttpPost(nameof(CreateAccount))]
         public ActionResult<AccountDto> CreateAccount([FromBody] AccountDto accountDto)
