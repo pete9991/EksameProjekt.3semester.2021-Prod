@@ -25,7 +25,7 @@ namespace Morales.BookingSystem.Controllers
 
         [AllowAnonymous]
         [HttpPost(nameof(Login))]
-        public IActionResult Login([FromBody] LoginDto dto)
+        public ActionResult<TokenDto> Login([FromBody] LoginDto dto)
         {
             var tokenString = _authService.GenerateJwtToken(new LoginUser
             {
@@ -41,7 +41,11 @@ namespace Morales.BookingSystem.Controllers
                 return BadRequest("Username or Password is invalid");
             }
 
-            return Ok(new {Token = tokenString, Message = "Success"});
+            return new TokenDto
+            {
+                Jwt = tokenString,
+                Message = "Success"
+            };
         }
 
         [Authorize(Policy = nameof(CustomerHandler))]
