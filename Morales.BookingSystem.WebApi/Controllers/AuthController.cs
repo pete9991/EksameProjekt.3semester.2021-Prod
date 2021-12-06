@@ -25,8 +25,10 @@ namespace Morales.BookingSystem.Controllers
 
         [AllowAnonymous]
         [HttpPost(nameof(Login))]
-        public IActionResult Login([FromBody] LoginDto dto)
+        public ActionResult<TokenDto> Login([FromBody] LoginDto dto)
         {
+            var permissions = new List<Permission>();
+            var userInfo = new LoginUser();
             var tokenString = _authService.GenerateJwtToken(new LoginUser
             {
                 UserName = dto.UserName,
@@ -36,12 +38,24 @@ namespace Morales.BookingSystem.Controllers
                     HashedPassword = dto.Password
                 })
             });
+            
             if (string.IsNullOrEmpty(tokenString))
             {
                 return BadRequest("Username or Password is invalid");
             }
 
-            return Ok(new {Token = tokenString, Message = "Success"});
+            if (string.IsNullOrEmpty(tokenString) == false)
+            {
+                userInfo = _authService.GetUserInfo(dto.UserName);
+                permissions = _authService.GetPermissions(userInfo.Id);
+            }
+            return new TokenDto
+            {
+                Jwt = tokenString,
+                Message = "Success",
+                AccountId = userInfo.AccountId,
+                Permission = permissions.Select(p=>p.Name).ToList()
+            };
         }
 
         [Authorize(Policy = nameof(CustomerHandler))]
@@ -55,7 +69,7 @@ namespace Morales.BookingSystem.Controllers
                 return Ok(new ProfileDto
                 {
                     Permission = permissions.Select(p => p.Name).ToList(),
-                    Name = user.UserName
+                    Name = user.UserName,
                 });
             }
 
