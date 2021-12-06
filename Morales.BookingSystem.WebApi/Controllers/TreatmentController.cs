@@ -21,7 +21,7 @@ namespace Morales.BookingSystem.Controllers
             _treatmentService = treatmentService;
         }
 
-        [Authorize(Policy = nameof(CustomerHandler))]
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<TreatmentsDto> GetAll()
         {

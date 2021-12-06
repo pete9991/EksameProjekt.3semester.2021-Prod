@@ -162,5 +162,11 @@ namespace Morales.BookingSystem.Security.Services
                 throw new InvalidDataException("Invalid account type");
             }
         }
+
+        public LoginUser GetUserInfo(string username)
+        {
+            return _authctx.LoginUsers.Where(lu => lu.UserName == username)
+                .FirstOrDefault();
+        }
     }
 }

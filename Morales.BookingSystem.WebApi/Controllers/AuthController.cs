@@ -27,6 +27,8 @@ namespace Morales.BookingSystem.Controllers
         [HttpPost(nameof(Login))]
         public ActionResult<TokenDto> Login([FromBody] LoginDto dto)
         {
+            var permissions = new List<Permission>();
+            var userInfo = new LoginUser();
             var tokenString = _authService.GenerateJwtToken(new LoginUser
             {
                 UserName = dto.UserName,
@@ -36,15 +38,23 @@ namespace Morales.BookingSystem.Controllers
                     HashedPassword = dto.Password
                 })
             });
+            
             if (string.IsNullOrEmpty(tokenString))
             {
                 return BadRequest("Username or Password is invalid");
             }
 
+            if (string.IsNullOrEmpty(tokenString) == false)
+            {
+                userInfo = _authService.GetUserInfo(dto.UserName);
+                permissions = _authService.GetPermissions(userInfo.Id);
+            }
             return new TokenDto
             {
                 Jwt = tokenString,
-                Message = "Success"
+                Message = "Success",
+                AccountId = userInfo.AccountId,
+                Permission = permissions.Select(p=>p.Name).ToList()
             };
         }
 
@@ -59,7 +69,8 @@ namespace Morales.BookingSystem.Controllers
                 return Ok(new ProfileDto
                 {
                     Permission = permissions.Select(p => p.Name).ToList(),
-                    Name = user.UserName
+                    Name = user.UserName,
+                    AccountId = user.AccountId
                 });
             }
 
