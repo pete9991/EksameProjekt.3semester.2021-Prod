@@ -106,7 +106,7 @@ namespace Morales.BookingSystem.Controllers
 
         //we should probably make sepearte methods for creating admins/employees/customers
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost(nameof(CreateAccount))]
         public ActionResult<AccountDto> CreateAccount([FromBody] AccountDto accountDto)
         {
             try
