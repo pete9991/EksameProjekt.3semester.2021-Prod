@@ -168,6 +168,14 @@ namespace Morales.BookingSystem
                     AccountId = 2,
                     Salt = "Test4321"
                 });
+                authDbContext.LoginUsers.Add(new LoginUser
+                {
+                    Id = 3,
+                    UserName = "58889999",
+                    HashedPassword = "oB/g944gOnJFXFkZy/DXtjAzwziEyOoM4HJ8c2pWwJM=",
+                    AccountId = 3,
+                    Salt = "OUFOIUNXHP"
+                });
                 authDbContext.Permissions.AddRange(new Permission
                 {
                     Id = 1,
@@ -201,6 +209,11 @@ namespace Morales.BookingSystem
                     UserID = 2,
                     PermissionId = 3
                 });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 3,
+                    PermissionId = 3
+                });
                 authDbContext.SaveChanges();
 
                 #endregion
@@ -211,18 +224,27 @@ namespace Morales.BookingSystem
                     Id = 1,
                     Email = "bob@bob.com",
                     Name = "Schwanz",
-                    PhoneNumber = "3254566",
+                    PhoneNumber = "88888888",
                     Sex = "Male",
                     Type = "Customer"
                 });
                 mainDbContext.Accounts.Add(new AccountEntity
                 {
                     Id = 2,
-                    Email = "bob@schwanzmail.com",
-                    Name = "Schwanz",
-                    PhoneNumber = "32145487",
+                    Email = "Karl@schwanzmail.com",
+                    Name = "Karl",
+                    PhoneNumber = "11111111",
                     Sex = "Male",
                     Type = "Admin"
+                });
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 3,
+                    Email = "bob@bob.com",
+                    Name = "Lise",
+                    PhoneNumber = "58889999",
+                    Sex = "Female",
+                    Type = "Customer"
                 });
                 #endregion
 
@@ -239,7 +261,11 @@ namespace Morales.BookingSystem
                 #region appointmentSeeding
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
-                    Id = 1, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now, Duration = new TimeSpan(0,30,0),
+                    Id = 1, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(1), Duration = new TimeSpan(0,30,0),
+                });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 2, CustomerId = 3, EmployeeId = 2, Date = DateTime.Now.AddHours(2), Duration = new TimeSpan(0,30,0),
                 });
                 mainDbContext.SaveChanges();
                 #endregion
