@@ -250,10 +250,10 @@ namespace Morales.BookingSystem
 
                 #region Treatment Seeding
 
-                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 1, Duration = new TimeSpan(0,30,0), Name = "Hair Cut(Man)",Price = 200});
-                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 2, Duration = new TimeSpan(0,30,0), Name = "Hair Cut(Woman)",Price = 400});
-                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 3, Duration = new TimeSpan(0,30,0), Name = "Hair colour",Price = 200});
-                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 4, Duration = new TimeSpan(0,30,0), Name = "Beard Trim/Cut",Price = 200});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 1, Duration = new TimeSpan(0,30,0), Name = "Herre Klip",Price = 275});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 2, Duration = new TimeSpan(0,30,0), Name = "Dame Klip",Price = 345});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 3, Duration = new TimeSpan(0,30,0), Name = "Helfarve langthår",Price = 200});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 4, Duration = new TimeSpan(0,30,0), Name = "Reflekser langthår",Price = 200});
                 
 
                 #endregion
