@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using Core.IServices;
 using Core.Models;
@@ -105,19 +106,19 @@ namespace Morales.BookingSystem.Domain.Services
 
         public List<Appointment> FilterOldAppointments(List<Appointment> appointmentList)
         {
-            var tempAppointmentList = new List<Appointment>();
-            tempAppointmentList = appointmentList;
+            var toRemoveList = new List<Appointment>();
             var timeNow = new DateTime();
             timeNow = DateTime.Now;
-            foreach (var appointment in tempAppointmentList)
+            foreach (var appointment in appointmentList)
             {
                 if (appointment.AppointmentEnd < timeNow)
                 {
-                    appointmentList.Remove(appointment);
+                    toRemoveList.Add(appointment);
                 }
             }
 
-            return tempAppointmentList;
+            appointmentList = appointmentList.Except(toRemoveList).ToList();
+            return appointmentList;
         }
 
         public List<Appointment> GetAppointmentsFromUser(int userID)

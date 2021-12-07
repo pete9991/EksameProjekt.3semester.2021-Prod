@@ -67,7 +67,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
         #endregion
 
-        #region AccountService GetProduct Tests
+        #region AccountService GetAccount Tests
 
         [Fact]
         public void GetAccount_WithParams_CallsAccountRepositoryOnce()
@@ -183,6 +183,36 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
         #endregion
 
+        #region AccountService GetAccountFromPhoneNumber Test
+
+        [Fact]
+        public void GetAccountFromPhone_WithParams_CallsAccountRepositoryOnce()
+        {
+            var mockRepo = new Mock<IAccountRepository>();
+            var accountService = new AccountService(mockRepo.Object);
+            var phoneNumber = "11111111";
+
+            accountService.GetAccountFromPhoneNumber(phoneNumber);
+            
+            mockRepo.Verify(r => r.GetAccountFromPhoneNumber(phoneNumber), Times.Once);
+        }
+
+        [Fact]
+        public void GetAccountFromPhone_WithParams_ReturnsSingleProduct()
+        {
+            var expected = new Account {Id = 1, Name = "Brie", PhoneNumber = "11111111"};
+            var mockRepo = new Mock<IAccountRepository>();
+            mockRepo
+                .Setup(s => s.GetAccountFromPhoneNumber(expected.PhoneNumber))
+                .Returns(expected);
+            var accountService = new AccountService(mockRepo.Object);
+
+            accountService.GetAccountFromPhoneNumber(expected.PhoneNumber);
+            
+            Assert.Equal(expected, accountService.GetAccountFromPhoneNumber(expected.PhoneNumber), new AccountComparer());
+        }
+
+        #endregion
     }
 
     #region Account Comparer

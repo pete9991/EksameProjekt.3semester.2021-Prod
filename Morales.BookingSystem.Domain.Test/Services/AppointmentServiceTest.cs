@@ -14,7 +14,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
     public class AppointmentServiceTest
     {
         #region Appointment Service Initalization Test
-        
+
         [Fact]
         public void AppointmentService_IsIAppointmentService()
         {
@@ -37,6 +37,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
                 .Throws<InvalidDataException>(() => new AppointmentService(null));
             Assert.Equal("An AppointmentService need an appointmentRepository", exception.Message);
         }
+
         #endregion
 
         #region Appointment Service GetAll Test
@@ -48,12 +49,12 @@ namespace Morales.BookingSystem.Domain.Test.Services
             //Arrange
             var serviceMock = new Mock<IAppointmentRepository>();
             var appointmentService = new AppointmentService(serviceMock.Object);
-            
+
             //Act
             appointmentService.GetAllAppointments();
-            
+
             //Assert
-            serviceMock.Verify(r => r.readAllAppointments(),Times.Once);
+            serviceMock.Verify(r => r.readAllAppointments(), Times.Once);
         }
 
         [Fact]
@@ -66,10 +67,10 @@ namespace Morales.BookingSystem.Domain.Test.Services
                 .Setup(r => r.readAllAppointments())
                 .Returns(expected);
             var appointmentService = new AppointmentService(mockRepo.Object);
-            
+
             //Act
             appointmentService.GetAllAppointments();
-            
+
             //Assert
             Assert.Equal(expected, appointmentService.GetAllAppointments(), new AppointmentComparer());
         }
@@ -86,8 +87,8 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var appointmentId = 1;
 
             appointmentService.ReadById(appointmentId);
-            
-            mockRepo.Verify(r => r.ReadById(appointmentId),Times.Once);
+
+            mockRepo.Verify(r => r.ReadById(appointmentId), Times.Once);
         }
 
         [Fact]
@@ -102,7 +103,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var appointmentId = 1;
 
             appointmentService.ReadById(appointmentId);
-            
+
             Assert.Equal(expected, appointmentService.ReadById(expected.Id), new AppointmentComparer());
 
         }
@@ -110,28 +111,30 @@ namespace Morales.BookingSystem.Domain.Test.Services
         #endregion
 
         #region Create Appointment Test
-        
+
         [Fact]
         public void CreateAppointment_WithParam_CallsAppointmentRepositoryOnce()
-        { 
-            var TestList = new List<Appointment>(); 
-            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1, TreatmentsList = new List<Treatments>()};
-          var mockRepo = new Mock<IAppointmentRepository>();
-          mockRepo
-              .Setup(r => r.readAllAppointments())
-              .Returns(TestList);
-          var appointmentService = new AppointmentService(mockRepo.Object);
+        {
+            var TestList = new List<Appointment>();
+            var testAppointment = new Appointment
+                {Id = 1, Customerid = 1, Employeeid = 1, TreatmentsList = new List<Treatments>()};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.readAllAppointments())
+                .Returns(TestList);
+            var appointmentService = new AppointmentService(mockRepo.Object);
 
-          appointmentService.CreateAppointment(testAppointment);
-            
-          mockRepo.Verify(r => r.CreateAppointment(testAppointment), Times.Once);
+            appointmentService.CreateAppointment(testAppointment);
+
+            mockRepo.Verify(r => r.CreateAppointment(testAppointment), Times.Once);
         }
 
         [Fact]
         public void CreateAppointment_WithParam_ReturnsAppointmentWhenCompleted()
         {
             var TestList = new List<Appointment>();
-            var testAppointment = new Appointment {Id = 1, Customerid = 1, Employeeid = 1, TreatmentsList = new List<Treatments>()};
+            var testAppointment = new Appointment
+                {Id = 1, Customerid = 1, Employeeid = 1, TreatmentsList = new List<Treatments>()};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.CreateAppointment(testAppointment))
@@ -142,7 +145,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var appointmentService = new AppointmentService(mockRepo.Object);
 
             appointmentService.CreateAppointment(testAppointment);
-            
+
             Assert.NotNull(appointmentService.CreateAppointment(testAppointment));
         }
 
@@ -150,22 +153,23 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
         #region Update Appointment Test
 
-        
+
         [Fact]
         public void UpdateAppointment_WithParam_CallsAppointmentRepositoryOnce()
         {
             var testList = new List<Appointment>();
-          var appointmentToUpdateId = 1;
-          var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1, TreatmentsList = new List<Treatments>()};
-          var mockRepo = new Mock<IAppointmentRepository>();
-          mockRepo
-              .Setup(r => r.readAllAppointments())
-              .Returns(testList);
-          var appointmentService = new AppointmentService(mockRepo.Object);
+            var appointmentToUpdateId = 1;
+            var updatedAppointment = new Appointment
+                {Id = 1, Employeeid = 1, Customerid = 1, TreatmentsList = new List<Treatments>()};
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.readAllAppointments())
+                .Returns(testList);
+            var appointmentService = new AppointmentService(mockRepo.Object);
 
-          appointmentService.UpdateById(appointmentToUpdateId,updatedAppointment);
-            
-          mockRepo.Verify(r => r.UpdateById(appointmentToUpdateId, updatedAppointment), Times.Once);
+            appointmentService.UpdateById(appointmentToUpdateId, updatedAppointment);
+
+            mockRepo.Verify(r => r.UpdateById(appointmentToUpdateId, updatedAppointment), Times.Once);
         }
 
         [Fact]
@@ -173,7 +177,8 @@ namespace Morales.BookingSystem.Domain.Test.Services
         {
             var TestList = new List<Appointment>();
             var appointmentToUpdateId = 1;
-            var updatedAppointment = new Appointment {Id = 1, Employeeid = 1, Customerid = 1, TreatmentsList = new List<Treatments>()};
+            var updatedAppointment = new Appointment
+                {Id = 1, Employeeid = 1, Customerid = 1, TreatmentsList = new List<Treatments>()};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.UpdateById(appointmentToUpdateId, updatedAppointment))
@@ -184,8 +189,9 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var appointmentService = new AppointmentService(mockRepo.Object);
 
             appointmentService.UpdateById(appointmentToUpdateId, updatedAppointment);
-            
-            Assert.Equal(updatedAppointment, appointmentService.UpdateById(appointmentToUpdateId,updatedAppointment), new AppointmentComparer());
+
+            Assert.Equal(updatedAppointment, appointmentService.UpdateById(appointmentToUpdateId, updatedAppointment),
+                new AppointmentComparer());
         }
 
         #endregion
@@ -200,7 +206,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var appointmentService = new AppointmentService(mockRepo.Object);
 
             appointmentService.DeleteAppointment(testId);
-            
+
             mockRepo.Verify(r => r.DeleteAppointment(testId), Times.Once);
         }
 
@@ -216,43 +222,68 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var appointmentService = new AppointmentService(mockRepo.Object);
 
             appointmentService.DeleteAppointment(testId);
-            
+
             Assert.NotNull(appointmentService.DeleteAppointment(testId));
         }
-        
+
         #endregion
 
         #region Get Appointment From Hairdresser Test
-        
+
         [Fact]
         public void GetAppointmentsFromHairdresser_WithNoParams_CallAppointmentRepositoryOnce()
         {
+            var testlist = new List<Appointment>();
+            testlist.Add(new Appointment
+            {
+                AppointmentEnd = DateTime.Now.AddHours(1),
+                Customerid = 2,
+                Date = DateTime.Now.AddMinutes(30),
+                Duration = new TimeSpan(0, 30, 0),
+                Employeeid = 1,
+                Id = 1,
+                TotalPrice = 150,
+            });
             var employeeId = 1;
             var serviceMock = new Mock<IAppointmentRepository>();
+            serviceMock
+                .Setup(r => r.GetAppointmentFromHairdresser(employeeId))
+                .Returns(testlist);
             var appointmentService = new AppointmentService(serviceMock.Object);
 
             appointmentService.GetAppointmentsFromHairdresser(employeeId);
-            
-            serviceMock.Verify(r => r.GetAppointmentFromHairdresser(employeeId),Times.Once);
+
+            serviceMock.Verify(r => r.GetAppointmentFromHairdresser(employeeId), Times.Once);
         }
 
         [Fact]
         public void GetAppointmentsFromHairdresser_WithNoParam_ReturnAllAppointmentsAsList()
         {
+            var testlist = new List<Appointment>();
+            testlist.Add(new Appointment
+            {
+                AppointmentEnd = DateTime.Now.AddHours(1),
+                Customerid = 2,
+                Date = DateTime.Now.AddMinutes(30),
+                Duration = new TimeSpan(0, 30, 0),
+                Employeeid = 1,
+                Id = 1,
+                TotalPrice = 150,
+            });
             var employeeId = 1;
-            var expected = new List<Appointment> {new Appointment {Employeeid = 1}};
             var mockRepo = new Mock<IAppointmentRepository>();
             mockRepo
                 .Setup(r => r.GetAppointmentFromHairdresser(employeeId))
-                .Returns(expected);
+                .Returns(testlist);
             var appointmentService = new AppointmentService(mockRepo.Object);
 
-            appointmentService.GetAppointmentsFromHairdresser(employeeId:1);
-            
-            Assert.Equal(expected, appointmentService.GetAppointmentsFromHairdresser(employeeId:1), new AppointmentComparer());
+            appointmentService.GetAppointmentsFromHairdresser(employeeId: 1);
+
+            Assert.Equal(testlist, appointmentService.GetAppointmentsFromHairdresser(employeeId: 1),
+                new AppointmentComparer());
 
         }
-        
+
         #endregion
 
         #region price Calculation test
@@ -267,7 +298,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var testApointment = new Appointment {TreatmentsList = treamentList};
             Assert.Equal(expectedResult, appointmentService.CalculateTotalPrice(testApointment));
         }
-        
+
         [Fact]
         public void CalculatePrice_withParams_onlyOneTreament()
         {
@@ -309,10 +340,10 @@ namespace Morales.BookingSystem.Domain.Test.Services
             };
             var mockRepo = new Mock<IAppointmentRepository>();
             var appointmentService = new AppointmentService(mockRepo.Object);
-            
+
             appointmentService.CalculateDuration(appointment);
-            
-            Assert.Equal(timespan,appointmentService.CalculateDuration(appointment));
+
+            Assert.Equal(timespan, appointmentService.CalculateDuration(appointment));
         }
 
         [Fact]
@@ -329,7 +360,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var expectedResult = new TimeSpan(0, 30, 0);
 
             appointmentService.CalculateDuration(testAppointment);
-            
+
             Assert.Equal(expectedResult, appointmentService.CalculateDuration(testAppointment));
 
         }
@@ -350,7 +381,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
             var expectedResult = new TimeSpan(1, 30, 0);
 
             appointmentService.CalculateDuration(testAppointment);
-            
+
             Assert.Equal(expectedResult, appointmentService.CalculateDuration(testAppointment));
         }
 
@@ -365,7 +396,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
             };
             var mockRepo = new Mock<IAppointmentRepository>();
             var appointmentService = new AppointmentService(mockRepo.Object);
-            
+
             appointmentService.CalculateAppointmentEnd(appointment);
         }
 
@@ -386,11 +417,11 @@ namespace Morales.BookingSystem.Domain.Test.Services
                 Duration = duration
             };
             appointmentService.CalculateAppointmentEnd(testAppointment);
-            
+
             Assert.Equal(expectedResult, appointmentService.CalculateAppointmentEnd(testAppointment));
 
         }
-        
+
         #endregion
 
         #region Appointment conflict tests
@@ -438,10 +469,12 @@ namespace Morales.BookingSystem.Domain.Test.Services
                 .Setup(r => r.readAllAppointments())
                 .Returns(TestList);
             var appointmentService = new AppointmentService(mockRepo.Object);
-            
-            var ex = Assert.Throws<InvalidDataException>(() => appointmentService.DetectAppointmentConflict(TestAppointment));
+
+            var ex = Assert.Throws<InvalidDataException>(() =>
+                appointmentService.DetectAppointmentConflict(TestAppointment));
             Assert.Equal("Invalid time, this appointment would start during another appointment", ex.Message);
         }
+
         [Fact]
         public void ConflictDetection_withParams_throwsExceptionWhenEndIsDuringAnotherAppointment()
         {
@@ -462,29 +495,127 @@ namespace Morales.BookingSystem.Domain.Test.Services
                 .Setup(r => r.readAllAppointments())
                 .Returns(TestList);
             var appointmentService = new AppointmentService(mockRepo.Object);
-            
-            var ex = Assert.Throws<InvalidDataException>(() => appointmentService.DetectAppointmentConflict(TestAppointment));
+
+            var ex = Assert.Throws<InvalidDataException>(() =>
+                appointmentService.DetectAppointmentConflict(TestAppointment));
             Assert.Equal("Invalid time, this appointment would end during another appointment", ex.Message);
         }
-        
+
 
         #endregion
-    }
-    
-    public class AppointmentComparer : IEqualityComparer<Appointment>
-    {
-        public bool Equals(Appointment x, Appointment y)
+
+        #region appointment date filter tests
+
+        [Fact]
+        public void Filter_withParams_RemovesOutdatedAppointments()
         {
-            if (ReferenceEquals(x, y)) return true;
-            if (ReferenceEquals(x, null)) return false;
-            if (ReferenceEquals(y, null)) return false;
-            if (x.GetType() != y.GetType()) return false;
-            return x.Id == y.Id && x.Customerid == y.Customerid && x.Employeeid == y.Employeeid && x.Date.Equals(y.Date) && x.Duration == y.Duration;
+            var testlist = new List<Appointment>();
+            var expectedList = new List<Appointment>();
+            expectedList.Add(new Appointment
+            {
+                AppointmentEnd = new DateTime(2022, 6, 6, 12, 12, 12),
+                Customerid = 2,
+                Date = new DateTime(2022, 6, 6, 12, 12, 12),
+                Employeeid = 1,
+                Id = 1,
+            });
+            testlist.Add(new Appointment
+            {
+                AppointmentEnd = new DateTime(2022, 6, 6, 12, 12, 12),
+                Customerid = 2,
+                Date = new DateTime(2022, 6, 6, 12, 12, 12),
+                Employeeid = 1,
+                Id = 1,
+            });
+            testlist.Add(new Appointment
+            {
+                AppointmentEnd = new DateTime(2020, 6, 6, 12, 12, 12),
+                Customerid = 2,
+                Date = new DateTime(2020, 6, 6, 12, 12, 12),
+                Employeeid = 1,
+                Id = 2,
+            });
+            var serviceMock = new Mock<IAppointmentRepository>();
+            var appointmentService = new AppointmentService(serviceMock.Object);
+            testlist = appointmentService.FilterOldAppointments(testlist);
+            Assert.Equal(expectedList, testlist, new AppointmentComparer());
         }
 
-        public int GetHashCode(Appointment obj)
+        #endregion
+
+        #region get appointment from user tests
+
+        [Fact]
+        public void GetAppointmentsFromUser_WithNoParams_CallAppointmentRepositoryOnce()
         {
-            return HashCode.Combine(obj.Id, obj.Customerid, obj.Employeeid, obj.Date, obj.Duration);
+            var testlist = new List<Appointment>();
+            testlist.Add(new Appointment
+            {
+                AppointmentEnd = DateTime.Now.AddHours(1),
+                Customerid = 2,
+                Date = DateTime.Now.AddMinutes(30),
+                Duration = new TimeSpan(0, 30, 0),
+                Employeeid = 1,
+                Id = 1,
+                TotalPrice = 150,
+            });
+            var userId = 1;
+            var serviceMock = new Mock<IAppointmentRepository>();
+            serviceMock
+                .Setup(r => r.GetAppointmentFromUser(userId))
+                .Returns(testlist);
+            var appointmentService = new AppointmentService(serviceMock.Object);
+
+            appointmentService.GetAppointmentsFromUser(userId);
+
+            serviceMock.Verify(r => r.GetAppointmentFromUser(userId), Times.Once);
+        }
+
+        [Fact]
+        public void GetAppointmentsFromUser_WithNoParam_ReturnAllAppointmentsAsList()
+        {
+            var testlist = new List<Appointment>();
+            testlist.Add(new Appointment
+            {
+                AppointmentEnd = DateTime.Now.AddHours(1),
+                Customerid = 2,
+                Date = DateTime.Now.AddMinutes(30),
+                Duration = new TimeSpan(0, 30, 0),
+                Employeeid = 1,
+                Id = 1,
+                TotalPrice = 150,
+            });
+            var userId = 1;
+            var mockRepo = new Mock<IAppointmentRepository>();
+            mockRepo
+                .Setup(r => r.GetAppointmentFromUser(userId))
+                .Returns(testlist);
+            var appointmentService = new AppointmentService(mockRepo.Object);
+
+            appointmentService.GetAppointmentsFromUser(userId);
+
+            Assert.Equal(testlist, appointmentService.GetAppointmentsFromUser(userId),
+                new AppointmentComparer());
+        }
+        
+        #endregion
+
+        public class AppointmentComparer : IEqualityComparer<Appointment>
+        {
+            public bool Equals(Appointment x, Appointment y)
+            {
+                if (ReferenceEquals(x, y)) return true;
+                if (ReferenceEquals(x, null)) return false;
+                if (ReferenceEquals(y, null)) return false;
+                if (x.GetType() != y.GetType()) return false;
+                return x.Id == y.Id && x.Customerid == y.Customerid && x.Employeeid == y.Employeeid &&
+                       x.Date.Equals(y.Date) && x.Duration == y.Duration;
+            }
+
+            public int GetHashCode(Appointment obj)
+            {
+                return HashCode.Combine(obj.Id, obj.Customerid, obj.Employeeid, obj.Date, obj.Duration);
+            }
         }
     }
 }
