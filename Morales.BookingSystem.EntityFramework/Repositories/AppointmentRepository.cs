@@ -222,11 +222,12 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
 
         public List<Appointment> GetAppointmentFromUser(int userId)
         {
-            return _ctx.Appointments.Where(ae => ae.CustomerId== userId)
+            return _ctx.Appointments
                 .Include(a => a.Customer)
                 .Include(a => a.Employee)
                 .Include(a => a.TreatmentsList)
                 .ThenInclude(at => at.Treatment)
+                .Where(ae => ae.CustomerId== userId)
                 .Select(ae => new Appointment
                 {
                     Id = ae.Id,

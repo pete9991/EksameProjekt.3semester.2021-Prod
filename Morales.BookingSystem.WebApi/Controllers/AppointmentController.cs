@@ -177,11 +177,11 @@ namespace Morales.BookingSystem.Controllers
             
         }
 
-        [Authorize(Policy = nameof(EmployeeHandler))]
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("user/{userid:int}")]
         public ActionResult<AppointmentsDto> GetAppointmentsFromUser(int userid)
             {
-                var appointment = _AppointmentService.GetAppointmentsFromHairdresser(userid)
+                var appointment = _AppointmentService.GetAppointmentsFromUser(userid)
                     .Select(appointment => new AppointmentDto()
                     {
                         Id = appointment.Id,
@@ -205,7 +205,7 @@ namespace Morales.BookingSystem.Controllers
         [HttpGet("user/events/{userid:int}")]
         public ActionResult<AppointmentsDto> GetAppointmentEventsFromUser(int userid)
         {
-            var appointment = _AppointmentService.GetAppointmentsFromHairdresser(userid)
+            var appointment = _AppointmentService.GetAppointmentsFromUser(userid)
                 .Select(a => new AppointmentEventDto()
                 {
                     SubjectName = a.Employee.Name,
