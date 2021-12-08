@@ -56,6 +56,33 @@ namespace Morales.BookingSystem.Controllers
             }
         }
 
+        [Authorize(Policy = nameof(EmployeeHandler))]
+        [HttpGet("employee/events")]
+        public ActionResult<AppointmentsDto> GetAllAppointmentEvents()
+        {
+            try
+            {
+                var appointments = _AppointmentService.GetAllAppointments()
+                    .Select(a => new AppointmentEventDto()
+                    {
+                        SubjectName = a.Customer.Name,
+                        StartInMillis = a.Date
+                            .ToUniversalTime().Subtract(new DateTime(1970,1,1,0,0,0))
+                            .TotalMilliseconds,
+                        DurationInMinuts = a.Duration.Minutes
+                    })
+                    .ToList();
+                return Ok(new AppointmentEventsDto
+                {
+                    AppointmentEvents = appointments
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+        
         [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{AppointmentId:int}")]
         public ActionResult<AppointmentDto> GetAppointment(int AppointmentId)
@@ -171,7 +198,29 @@ namespace Morales.BookingSystem.Controllers
                 {
                     AppointmentList = appointment
                 });
+                
             }
+        
+        [Authorize(Policy = nameof(CustomerHandler))]
+        [HttpGet("user/events/{userid:int}")]
+        public ActionResult<AppointmentsDto> GetAppointmentEventsFromUser(int userid)
+        {
+            var appointment = _AppointmentService.GetAppointmentsFromHairdresser(userid)
+                .Select(a => new AppointmentEventDto()
+                {
+                    SubjectName = a.Employee.Name,
+                    StartInMillis = (long)a.Date
+                        .ToUniversalTime().Subtract(new DateTime(1970,1,1,0,0,0))
+                        .TotalMilliseconds,
+                    DurationInMinuts = a.Duration.Minutes
+                })
+                .ToList();
+            return Ok(new AppointmentEventsDto
+            {
+                AppointmentEvents = appointment
+            });
+                
+        }
         
     }
 }
