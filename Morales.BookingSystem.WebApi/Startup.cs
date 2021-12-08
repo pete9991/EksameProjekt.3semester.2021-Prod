@@ -252,8 +252,15 @@ namespace Morales.BookingSystem
 
                 mainDbContext.Treatments.Add(new TreatmentEntity {Id = 1, Duration = new TimeSpan(0,30,0), Name = "Herre Klip",Price = 275});
                 mainDbContext.Treatments.Add(new TreatmentEntity {Id = 2, Duration = new TimeSpan(0,30,0), Name = "Dame Klip",Price = 345});
-                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 3, Duration = new TimeSpan(0,30,0), Name = "Helfarve langthår",Price = 200});
-                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 4, Duration = new TimeSpan(0,30,0), Name = "Reflekser langthår",Price = 200});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 3, Duration = new TimeSpan(0,30,0), Name = "Børneklip",Price = 225});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 4, Duration = new TimeSpan(0,30,0), Name = "Balayage inkl.toning",Price = 1800});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 5, Duration = new TimeSpan(0,30,0), Name = "Babylights",Price = 1300});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 6, Duration = new TimeSpan(0,30,0), Name = "Toning",Price = 500});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 7, Duration = new TimeSpan(0,30,0), Name = "Dame kli og farve",Price = 925});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 8, Duration = new TimeSpan(0,30,0), Name = "Dame Reflekser og klip",Price = 1050});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 9, Duration = new TimeSpan(0,30,0), Name = "Bryn og Vipper",Price = 275});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 10, Duration = new TimeSpan(0,30,0), Name = "Olaplex behandling",Price = 550});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 11, Duration = new TimeSpan(0,30,0), Name = "Kurbehandling ved farve",Price = 75});
                 
 
                 #endregion
