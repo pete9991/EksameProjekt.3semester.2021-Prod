@@ -82,6 +82,7 @@ namespace Morales.BookingSystem.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
         [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpGet("employee/events/user")]
         public ActionResult<AppointmentsDto> GetAllHairdresserEvents()
@@ -130,17 +131,14 @@ namespace Morales.BookingSystem.Controllers
 
         [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpPost]
-        public ActionResult<AppointmentDto> CreateAppointment([FromBody] AppointmentDto appointmentDto)
+        public ActionResult<AppointmentDto> CreateAppointment([FromBody] AppointmentCreationDto appointmentDto)
         {
             var appointmentToCreate = new Appointment()
             {
                 Customerid = appointmentDto.Customerid,
                 Employeeid = appointmentDto.Employeeid,
                 Date = appointmentDto.Date,
-                Duration = appointmentDto.Duration,
-                TreatmentsList = appointmentDto.TreatmentsList,
-                TotalPrice = appointmentDto.TotalPrice,
-                AppointmentEnd = appointmentDto.AppointmentEnd
+                TreatmentsList = appointmentDto.TreatmentsList
             };
             var appointmentCreated = _AppointmentService.CreateAppointment(appointmentToCreate);
             return Created($"https//localhost/api/appointment/{appointmentToCreate.Id}", appointmentCreated);
