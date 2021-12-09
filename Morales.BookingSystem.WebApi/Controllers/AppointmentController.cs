@@ -82,6 +82,32 @@ namespace Morales.BookingSystem.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [Authorize(Policy = nameof(EmployeeHandler))]
+        [HttpGet("employee/events/user")]
+        public ActionResult<AppointmentsDto> GetAllHairdresserEvents()
+        {
+            try
+            {
+                var appointments = _AppointmentService.GetAllAppointments()
+                    .Select(a => new AppointmentEventDto()
+                    {
+                        SubjectName = a.Employee.Name,
+                        StartInMillis = a.Date
+                            .ToUniversalTime().Subtract(new DateTime(1970,1,1,0,0,0))
+                            .TotalMilliseconds,
+                        DurationInMinuts = a.Duration.Minutes
+                    })
+                    .ToList();
+                return Ok(new AppointmentEventsDto
+                {
+                    AppointmentEvents = appointments
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
         
         [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{AppointmentId:int}")]
