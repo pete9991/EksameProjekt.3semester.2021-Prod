@@ -27,6 +27,7 @@ namespace Morales.BookingSystem.Controllers
             _authService = authService;
         }
 
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{type:alpha}")]
         public ActionResult<AccountsDto> GetAccountByType(string type)
         {
@@ -55,6 +56,7 @@ namespace Morales.BookingSystem.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
         [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpGet]
         public ActionResult<AccountsDto> GetAll()

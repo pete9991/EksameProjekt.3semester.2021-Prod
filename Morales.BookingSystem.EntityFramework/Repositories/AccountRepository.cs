@@ -67,7 +67,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Sex = ae.Sex,
                     Email = ae.Email
                 })
-                .Where(ae => ae.Type == type)
+                .Where(ae => ae.Type == "Employee")
                 .ToList();
 
         }

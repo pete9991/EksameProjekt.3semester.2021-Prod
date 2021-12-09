@@ -54,5 +54,6 @@ namespace Morales.BookingSystem.Domain.Services
         {
             return _accountRepo.GetAccountFromType(type);
         }
+        
     }
 }

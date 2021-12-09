@@ -32,7 +32,20 @@ namespace Morales.BookingSystem.Controllers
                     {
                         Id = t.Id,
                         Name = t.Name,
-                        Duration = t.Duration,
+                        Duration = new TimeSpanDto()
+                        {
+                            ticks = t.Duration.Ticks,
+                            days = t.Duration.Days,
+                            hours = t.Duration.Hours,
+                            milliseconds = t.Duration.Milliseconds,
+                            minutes = t.Duration.Minutes,
+                            seconds = t.Duration.Seconds,
+                            totalDays = t.Duration.TotalDays,
+                            totalHours = t.Duration.TotalHours,
+                            totalMilliseconds = t.Duration.TotalMilliseconds,
+                            totalMinutes = t.Duration.TotalMinutes,
+                            totalSeconds = t.Duration.TotalSeconds
+                        },
                         Price = t.Price
                     }).ToList();
                 return Ok(new TreatmentsDto
@@ -55,7 +68,10 @@ namespace Morales.BookingSystem.Controllers
             {
                 Id = treatment.Id,
                 Name = treatment.Name,
-                Duration = treatment.Duration,
+                Duration = new TimeSpanDto()
+                {
+                    minutes = treatment.Duration.Minutes
+                },
                 Price = treatment.Price
             };
             return Ok(dto);
@@ -70,7 +86,10 @@ namespace Morales.BookingSystem.Controllers
                 {
                     Id = treatments.Id,
                     Name = treatments.Name,
-                    Duration = treatments.Duration,
+                    Duration = new TimeSpanDto()
+                    {
+                        minutes = treatments.Duration.Minutes
+                    },
                     Price = treatments.Price,
                     Sex = treatments.Sex
                 })
@@ -88,7 +107,7 @@ namespace Morales.BookingSystem.Controllers
             var treatmentToCreate = new Treatments()
             {
                 Name = treatmentDto.Name,
-                Duration = treatmentDto.Duration,
+                Duration = TimeSpan.FromMinutes(treatmentDto.Duration.minutes),
                 Price = treatmentDto.Price
             };
             var treatmentCreated = _treatmentService.CreateTreatment(treatmentToCreate);
@@ -102,7 +121,7 @@ namespace Morales.BookingSystem.Controllers
             return Ok(_treatmentService.UpdateTreatment(new Treatments()
                 {
                     Name = treatmentToUpdate.Name,
-                    Duration = treatmentToUpdate.Duration,
+                    Duration = TimeSpan.FromMinutes(treatmentToUpdate.Duration.minutes),
                     Price = treatmentToUpdate.Price
                 }
             ));
@@ -117,7 +136,10 @@ namespace Morales.BookingSystem.Controllers
             {
                 Id = treatment.Id,
                 Name = treatment.Name,
-                Duration = treatment.Duration,
+                Duration = new TimeSpanDto()
+                {
+                    minutes = treatment.Duration.Minutes
+                },
                 Price = treatment.Price
             };
 

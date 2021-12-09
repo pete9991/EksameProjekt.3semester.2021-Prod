@@ -8,7 +8,7 @@ namespace Morales.BookingSystem.Dtos.Treatments
         public string Name { get; set; }
         
         public string Sex { get; set; }
-        public TimeSpan Duration { get; set; }
+        public TimeSpanDto Duration { get; set; }
         public double Price { get; set; }
     }
 }

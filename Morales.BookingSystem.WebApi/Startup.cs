@@ -235,7 +235,7 @@ namespace Morales.BookingSystem
                     Name = "Karl",
                     PhoneNumber = "11111111",
                     Sex = "Male",
-                    Type = "Admin"
+                    Type = "Employee"
                 });
                 mainDbContext.Accounts.Add(new AccountEntity
                 {
@@ -268,7 +268,7 @@ namespace Morales.BookingSystem
                 #region appointmentSeeding
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
-                    Id = 1, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(1), Duration = new TimeSpan(0,30,0),
+                    Id = 1, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(1), Duration = new TimeSpan(1,0,0),
                     AppointmentEnd = DateTime.Now.AddHours(2),
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity

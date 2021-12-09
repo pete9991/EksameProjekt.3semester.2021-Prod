@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.IServices;
@@ -69,7 +70,7 @@ namespace Morales.BookingSystem.Controllers
                         StartInMillis = a.Date
                             .ToUniversalTime().Subtract(new DateTime(1970,1,1,0,0,0))
                             .TotalMilliseconds,
-                        DurationInMinuts = a.Duration.Minutes
+                        DurationInMinuts = (int)a.Duration.TotalMinutes
                     })
                     .ToList();
                 return Ok(new AppointmentEventsDto
@@ -96,7 +97,7 @@ namespace Morales.BookingSystem.Controllers
                         StartInMillis = a.Date
                             .ToUniversalTime().Subtract(new DateTime(1970,1,1,0,0,0))
                             .TotalMilliseconds,
-                        DurationInMinuts = a.Duration.Minutes
+                        DurationInMinuts = (int)a.Duration.TotalMinutes
                     })
                     .ToList();
                 return Ok(new AppointmentEventsDto
@@ -131,9 +132,24 @@ namespace Morales.BookingSystem.Controllers
 
         [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpPost]
-        public ActionResult<AppointmentDto> CreateAppointment([FromBody] AppointmentCreationDto appointmentDto)
+        public ActionResult<AppointmentCreationDto> CreateAppointment([FromBody] AppointmentCreationDto appointmentDto)
         {
+            var tempDuration = new TimeSpan();
             var appointmentToCreate = new Appointment()
+            {
+                Customerid = appointmentDto.Customerid,
+                Employeeid = appointmentDto.Employeeid,
+                Date = DateTime.ParseExact(appointmentDto.Date, "yyyy-MM-dd HH:mm:ss",CultureInfo.CurrentCulture),
+                TreatmentsList = appointmentDto.TreatmentsList.Select(tDto => new Treatments()
+                {
+                    Id = tDto.Id,
+                    Duration = TimeSpan.FromMinutes(tDto.Duration.minutes),
+                    Name = tDto.Name,
+                    Price = tDto.Price,
+                    Sex = tDto.Sex
+                }).ToList()
+            };
+            var appointmentReturn = new AppointmentCreationDto()
             {
                 Customerid = appointmentDto.Customerid,
                 Employeeid = appointmentDto.Employeeid,
@@ -141,7 +157,7 @@ namespace Morales.BookingSystem.Controllers
                 TreatmentsList = appointmentDto.TreatmentsList
             };
             var appointmentCreated = _AppointmentService.CreateAppointment(appointmentToCreate);
-            return Created($"https//localhost/api/appointment/{appointmentToCreate.Id}", appointmentCreated);
+            return Created($"https//localhost/api/appointment/{appointmentToCreate.Id}", appointmentReturn);
         }
 
         [Authorize(Policy = nameof(CustomerHandler))]
@@ -236,7 +252,7 @@ namespace Morales.BookingSystem.Controllers
                     StartInMillis = (long)a.Date
                         .ToUniversalTime().Subtract(new DateTime(1970,1,1,0,0,0))
                         .TotalMilliseconds,
-                    DurationInMinuts = a.Duration.Minutes
+                    DurationInMinuts = (int)a.Duration.TotalMinutes
                 })
                 .ToList();
             return Ok(new AppointmentEventsDto

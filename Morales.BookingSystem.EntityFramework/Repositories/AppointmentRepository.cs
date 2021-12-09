@@ -80,15 +80,21 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 EmployeeId = appointmentToCreate.Employeeid,
                 Date = appointmentToCreate.Date,
                 Duration = appointmentToCreate.Duration,
-                TreatmentsList = appointmentToCreate.TreatmentsList != null ? appointmentToCreate.TreatmentsList
-                    .Select(t => new AppointmentTreatmentEntity
-                {
-                    TreatmentId = t.Id
-                }).ToList() : null,
                 TotalPrice = appointmentToCreate.TotalPrice,
                 AppointmentEnd = appointmentToCreate.AppointmentEnd
             }).Entity;
             _ctx.SaveChanges();
+            if (appointmentToCreate.TreatmentsList != null)
+            {
+                var appointmentTreatments = appointmentToCreate.TreatmentsList
+                    .Select(t => new AppointmentTreatmentEntity
+                    {
+                        ApppointmentId = entity.Id,
+                        TreatmentId = t.Id
+                    }).ToList();
+                _ctx.AddRange(appointmentTreatments);
+                _ctx.SaveChanges();
+            }
             return new Appointment()
             {
                 Id = entity.Id,
