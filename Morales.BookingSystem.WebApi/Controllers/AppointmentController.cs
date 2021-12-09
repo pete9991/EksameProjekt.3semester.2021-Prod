@@ -83,6 +83,33 @@ namespace Morales.BookingSystem.Controllers
             }
         }
         
+        [Authorize(Policy = nameof(EmployeeHandler))]
+        [HttpGet("employee/events/user")]
+        public ActionResult<AppointmentsDto> GetAllHairdresserEvents()
+        {
+            try
+            {
+                var appointments = _AppointmentService.GetAllAppointments()
+                    .Select(a => new AppointmentEventDto()
+                    {
+                        SubjectName = a.Employee.Name,
+                        StartInMillis = a.Date
+                            .ToUniversalTime().Subtract(new DateTime(1970,1,1,0,0,0))
+                            .TotalMilliseconds,
+                        DurationInMinuts = a.Duration.Minutes
+                    })
+                    .ToList();
+                return Ok(new AppointmentEventsDto
+                {
+                    AppointmentEvents = appointments
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+        
         [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("{AppointmentId:int}")]
         public ActionResult<AppointmentDto> GetAppointment(int AppointmentId)
@@ -104,17 +131,14 @@ namespace Morales.BookingSystem.Controllers
 
         [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpPost]
-        public ActionResult<AppointmentDto> CreateAppointment([FromBody] AppointmentDto appointmentDto)
+        public ActionResult<AppointmentDto> CreateAppointment([FromBody] AppointmentCreationDto appointmentDto)
         {
             var appointmentToCreate = new Appointment()
             {
                 Customerid = appointmentDto.Customerid,
                 Employeeid = appointmentDto.Employeeid,
                 Date = appointmentDto.Date,
-                Duration = appointmentDto.Duration,
-                TreatmentsList = appointmentDto.TreatmentsList,
-                TotalPrice = appointmentDto.TotalPrice,
-                AppointmentEnd = appointmentDto.AppointmentEnd
+                TreatmentsList = appointmentDto.TreatmentsList
             };
             var appointmentCreated = _AppointmentService.CreateAppointment(appointmentToCreate);
             return Created($"https//localhost/api/appointment/{appointmentToCreate.Id}", appointmentCreated);
