@@ -49,5 +49,10 @@ namespace Morales.BookingSystem.Domain.Services
         {
            return _accountRepo.GetAccountFromPhoneNumber(phoneNumber);
         }
+
+        public List<Account> getAccountFromType(string type)
+        {
+            return _accountRepo.GetAccountFromType(type);
+        }
     }
 }

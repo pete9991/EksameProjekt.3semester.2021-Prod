@@ -11,5 +11,6 @@ namespace Morales.BookingSystem.Domain.IRepositories
         public Account CreateAccount(Account accountToCreate);
         public Account UpdateAccount(Account account);
         public Account GetAccountFromPhoneNumber(string phoneNumber);
+        public List<Account> GetAccountFromType(string type);
     }
 }

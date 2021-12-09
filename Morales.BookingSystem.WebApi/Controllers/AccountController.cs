@@ -26,6 +26,35 @@ namespace Morales.BookingSystem.Controllers
             _accountservice = accountService;
             _authService = authService;
         }
+
+        [HttpGet("{type:alpha}")]
+        public ActionResult<AccountsDto> GetAccountByType(string type)
+        {
+            try
+            {
+                var accounts = _accountservice.getAccountFromType(type)
+                    .Select(p => new GetAllAccountDto()
+                    {
+                        Id = p.Id,
+                        Type = p.Type,
+                        Name = p.Name,
+                        Email = p.Email,
+                        PhoneNumber = p.PhoneNumber,
+                        Sex = p.Sex,
+
+                    })
+                    .ToList();
+                return Ok(new GetAllAccountsDto()
+                {
+                    AccountList = accounts
+                });
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
         [Authorize(Policy = nameof(EmployeeHandler))]
         [HttpGet]
         public ActionResult<AccountsDto> GetAll()

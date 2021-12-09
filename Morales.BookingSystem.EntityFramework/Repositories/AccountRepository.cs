@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 using Morales.BookingSystem.Domain.IRepositories;
 using Morales.BookingSystem.EntityFramework.Entities;
 
@@ -53,6 +54,22 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Email = ae.Email
                 })
                 .FirstOrDefault(a => a.PhoneNumber == phoneNumber);
+        }
+
+        public List<Account> GetAccountFromType(string type)
+        {
+            return _ctx.Accounts.Select(ae => new Account
+                {
+                    Id = ae.Id,
+                    Type = ae.Type,
+                    Name = ae.Name,
+                    PhoneNumber = ae.PhoneNumber,
+                    Sex = ae.Sex,
+                    Email = ae.Email
+                })
+                .Where(ae => ae.Type == type)
+                .ToList();
+
         }
 
         public Account DeleteAccount(int accountId)
