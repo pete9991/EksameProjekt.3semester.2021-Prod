@@ -55,6 +55,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 .Select(ae => new Appointment
                 {
                     Id = ae.Id,
+                    Employeeid = ae.EmployeeId,
                     Customer = new Account{Id = ae.Customer.Id, Name = ae.Customer.Name, PhoneNumber = ae.Customer.PhoneNumber},
                     Employee = new Account{Id = ae.Employee.Id, Name = ae.Employee.Name},
                     Date = ae.Date,
@@ -89,7 +90,7 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                 var appointmentTreatments = appointmentToCreate.TreatmentsList
                     .Select(t => new AppointmentTreatmentEntity
                     {
-                        ApppointmentId = entity.Id,
+                        AppointmentId = entity.Id,
                         TreatmentId = t.Id
                     }).ToList();
                 _ctx.AddRange(appointmentTreatments);
@@ -239,6 +240,8 @@ namespace Morales.BookingSystem.EntityFramework.Repositories
                     Id = ae.Id,
                     Customerid = ae.CustomerId,
                     Employeeid = ae.EmployeeId,
+                    Customer = new Account{Id = ae.Customer.Id, Name = ae.Customer.Name, PhoneNumber = ae.Customer.PhoneNumber},
+                    Employee = new Account{Id = ae.Employee.Id, Name = ae.Employee.Name},
                     Date = ae.Date,
                     Duration = ae.Duration,
                     TreatmentsList = ae.TreatmentsList != null ? ae.TreatmentsList.Select(te => new Treatments

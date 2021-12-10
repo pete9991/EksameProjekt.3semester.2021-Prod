@@ -84,7 +84,7 @@ namespace Morales.BookingSystem.Controllers
             }
         }
         
-        [Authorize(Policy = nameof(EmployeeHandler))]
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpGet("employee/events/user")]
         public ActionResult<AppointmentsDto> GetAllHairdresserEvents()
         {
@@ -130,7 +130,7 @@ namespace Morales.BookingSystem.Controllers
             return Ok(dto);
         }
 
-        [Authorize(Policy = nameof(EmployeeHandler))]
+        [Authorize(Policy = nameof(CustomerHandler))]
         [HttpPost]
         public ActionResult<AppointmentCreationDto> CreateAppointment([FromBody] AppointmentCreationDto appointmentDto)
         {
@@ -162,15 +162,21 @@ namespace Morales.BookingSystem.Controllers
 
         [Authorize(Policy = nameof(CustomerHandler))]
         [HttpPut("{id:int}")]
-        public ActionResult<AppointmentsDto> UpdateAppointment(int id, [FromBody] AppointmentDto appointmentToUpdate)
+        public ActionResult<AppointmentsDto> UpdateAppointment([FromBody] AppointmentUpdateDto appointmentToUpdate)
         {
+            var id = appointmentToUpdate.appointmentId;
             return Ok(_AppointmentService.UpdateById(id, new Appointment()
             {
                 Employeeid = appointmentToUpdate.Employeeid,
-                Date = appointmentToUpdate.Date,
-                Duration = appointmentToUpdate.Duration,
-                TreatmentsList = appointmentToUpdate.TreatmentsList,
-                AppointmentEnd = appointmentToUpdate.AppointmentEnd
+                Date = DateTime.ParseExact(appointmentToUpdate.Date, "yyyy-MM-dd HH:mm:ss",CultureInfo.CurrentCulture),
+                TreatmentsList = appointmentToUpdate.TreatmentsList.Select(tDto => new Treatments()
+                {
+                    Id = tDto.Id,
+                    Duration = TimeSpan.FromMinutes(tDto.Duration.minutes),
+                    Name = tDto.Name,
+                    Price = tDto.Price,
+                    Sex = tDto.Sex
+                }).ToList()
             }));
         }
 

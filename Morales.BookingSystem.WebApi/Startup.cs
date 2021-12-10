@@ -269,21 +269,42 @@ namespace Morales.BookingSystem
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 1, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(1), Duration = new TimeSpan(1,0,0),
-                    AppointmentEnd = DateTime.Now.AddHours(2),
+                    AppointmentEnd = DateTime.Now.AddHours(2), 
+                    
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 2, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(22), Duration = new TimeSpan(0,30,0),
+                    AppointmentEnd = DateTime.Now.AddHours(24)
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 3, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(40), Duration = new TimeSpan(0,30,0),
+                    AppointmentEnd = DateTime.Now.AddHours(42)
                 });
                 mainDbContext.Appointments.Add(new AppointmentEntity
                 {
                     Id = 4, CustomerId = 3, EmployeeId = 2, Date = DateTime.Now.AddHours(2), Duration = new TimeSpan(0,30,0),
+                    AppointmentEnd = DateTime.Now.AddHours(3)
                 });
                 mainDbContext.SaveChanges();
+                #endregion
+
+                #region appointmentTreatment Seeding
+
+                mainDbContext.Add(new AppointmentTreatmentEntity()
+                {
+                    AppointmentId = 1,
+                    TreatmentId = 1
+                });
+                mainDbContext.Add(new AppointmentTreatmentEntity()
+                {
+                    AppointmentId = 3,
+                    TreatmentId = 1
+                });
+
+                mainDbContext.SaveChanges();
+
                 #endregion
 
                 #endregion
