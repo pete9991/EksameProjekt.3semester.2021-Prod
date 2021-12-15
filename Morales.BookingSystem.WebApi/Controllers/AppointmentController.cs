@@ -233,6 +233,7 @@ namespace Morales.BookingSystem.Controllers
                         Id = appointment.Id,
                         Customerid = appointment.Customerid,
                         Employeeid = appointment.Employeeid,
+                        EmployeeName = appointment.Employee.Name,
                         Date = appointment.Date,
                         Duration = appointment.Duration,
                         TreatmentsList = appointment.TreatmentsList,
