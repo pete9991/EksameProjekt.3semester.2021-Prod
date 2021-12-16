@@ -100,7 +100,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
 
         #endregion
 
-        #region Create Account Test
+        #region AccountService Create Account Test
 
         [Fact]
         public void CreateAccount_WithParams_CallAccountRepositoryOnce()
@@ -159,7 +159,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
         #endregion
 
-        #region UpdateAccount Test
+        #region AccountService UpdateAccount Test
         
         [Fact]
         public void UpdateAccount_WithParams_ReturnsSingleAccount()
@@ -198,7 +198,7 @@ namespace Morales.BookingSystem.Domain.Test.Services
         }
 
         [Fact]
-        public void GetAccountFromPhone_WithParams_ReturnsSingleProduct()
+        public void GetAccountFromPhone_WithParams_ReturnsSingleAccount()
         {
             var expected = new Account {Id = 1, Name = "Brie", PhoneNumber = "11111111"};
             var mockRepo = new Mock<IAccountRepository>();
@@ -212,6 +212,38 @@ namespace Morales.BookingSystem.Domain.Test.Services
             Assert.Equal(expected, accountService.GetAccountFromPhoneNumber(expected.PhoneNumber), new AccountComparer());
         }
 
+        #endregion
+
+        #region AccountService GetAccountFromType Test
+
+        [Fact]
+        public void GetAccountsFromType_WithParams_CallsAccountRepositoryOnce()
+        {
+            var mockRepo = new Mock<IAccountRepository>();
+            var accountService = new AccountService(mockRepo.Object);
+            var accountType = "Employee";
+
+            accountService.GetAccountsFromType(accountType);
+            
+            mockRepo.Verify(r => r.GetAccountFromType(accountType), Times.Once);
+        }
+
+        [Fact]
+        public void GetAccountsFromType_WithParams_ReturnsSingleAccount()
+        {
+            var expected = new Account {Id = 1, Name = "Brie", Type = "Employee"};
+            var expectedList = new List<Account>();
+            expectedList.Add(expected);
+            var mockRepo = new Mock<IAccountRepository>();
+            mockRepo.Setup(s => s.GetAccountFromType(expected.Type))
+                .Returns(expectedList);
+            var accountService = new AccountService(mockRepo.Object);
+
+            accountService.GetAccountsFromType(expected.Type);
+            
+            Assert.Equal(expectedList, accountService.GetAccountsFromType(expected.Type), new AccountComparer());
+        }
+        
         #endregion
     }
 

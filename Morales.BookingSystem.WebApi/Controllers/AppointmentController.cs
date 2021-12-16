@@ -134,7 +134,6 @@ namespace Morales.BookingSystem.Controllers
         [HttpPost]
         public ActionResult<AppointmentCreationDto> CreateAppointment([FromBody] AppointmentCreationDto appointmentDto)
         {
-            var tempDuration = new TimeSpan();
             var appointmentToCreate = new Appointment()
             {
                 Customerid = appointmentDto.Customerid,
@@ -156,7 +155,7 @@ namespace Morales.BookingSystem.Controllers
                 Date = appointmentDto.Date,
                 TreatmentsList = appointmentDto.TreatmentsList
             };
-            var appointmentCreated = _AppointmentService.CreateAppointment(appointmentToCreate);
+            _AppointmentService.CreateAppointment(appointmentToCreate);
             return Created($"https//localhost/api/appointment/{appointmentToCreate.Id}", appointmentReturn);
         }
 

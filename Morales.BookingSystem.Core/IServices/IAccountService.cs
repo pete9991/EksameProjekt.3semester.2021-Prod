@@ -11,6 +11,6 @@ namespace Core.IServices
         public Account CreateAccount(Account accountToCreate);
         public Account UpdateAccount(Account accountToUpdate);
         public Account GetAccountFromPhoneNumber(string phoneNumber);
-        public List<Account> getAccountFromType(string type);
+        public List<Account> GetAccountsFromType(string type);
     }
 }

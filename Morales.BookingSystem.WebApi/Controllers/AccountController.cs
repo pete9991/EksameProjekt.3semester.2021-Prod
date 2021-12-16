@@ -33,7 +33,7 @@ namespace Morales.BookingSystem.Controllers
         {
             try
             {
-                var accounts = _accountservice.getAccountFromType(type)
+                var accounts = _accountservice.GetAccountsFromType(type)
                     .Select(p => new GetAllAccountDto()
                     {
                         Id = p.Id,

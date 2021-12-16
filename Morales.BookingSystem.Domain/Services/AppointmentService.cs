@@ -130,9 +130,7 @@ namespace Morales.BookingSystem.Domain.Services
         {
             var EndTime = new DateTime();
             EndTime = appointment.Date.Add(appointment.Duration);
-            appointment.AppointmentEnd = EndTime;
-            
-            return appointment.AppointmentEnd;
+            return EndTime;
         }
     }
 }
