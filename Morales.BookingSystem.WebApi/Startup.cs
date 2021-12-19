@@ -130,6 +130,15 @@ namespace Morales.BookingSystem
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 }));
+            services.AddCors(opt => opt
+                .AddPolicy("prod-policy", policy =>
+                {
+                    policy
+                        .WithOrigins("https://booking-system-exam2021.firebaseapp.com/")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                }));
+            
 
         }
 
@@ -311,6 +320,7 @@ namespace Morales.BookingSystem
             }
             else
             {
+                app.UseCors("prod-policy");
                  #region Setup Contexts
 
                 mainDbContext.Database.EnsureDeleted();
