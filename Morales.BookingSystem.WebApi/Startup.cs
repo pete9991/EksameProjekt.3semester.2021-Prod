@@ -130,15 +130,17 @@ namespace Morales.BookingSystem
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 }));
-            services.AddCors(opt => opt
-                .AddPolicy("prod-policy", policy =>
+            services.AddCors(options =>
+            {
+                options.AddPolicy("prod-policy", policy =>
                 {
                     policy
                         .WithOrigins("https://booking-system-exam2021.firebaseapp.com/")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
-                }));
-            
+                });
+            });
+
 
         }
 
