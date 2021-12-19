@@ -309,6 +309,184 @@ namespace Morales.BookingSystem
 
                 #endregion
             }
+            else
+            {
+                 #region Setup Contexts
+
+                mainDbContext.Database.EnsureDeleted();
+                mainDbContext.Database.EnsureCreated();
+                authDbContext.Database.EnsureDeleted();
+                authDbContext.Database.EnsureCreated();
+
+                #region AuthSeeding
+
+                authDbContext.LoginUsers.Add(new LoginUser
+                {
+                    Id = 1,
+                    UserName = "88888888",
+                    HashedPassword = "mj2aUQ9UDGTm/aFdMVWoNIIVg0IwYent+qMo9aPt3Bc=",
+                    AccountId = 1,
+                    Salt = "test1234"
+                });
+                authDbContext.LoginUsers.Add(new LoginUser
+                {
+                    Id = 2,
+                    UserName = "11111111",
+                    HashedPassword = "PBz+Tp8l33n1+lD8a2fUpGDB5Fp4y+EBDvej3uChvEA=",
+                    AccountId = 2,
+                    Salt = "Test4321"
+                });
+                authDbContext.LoginUsers.Add(new LoginUser
+                {
+                    Id = 3,
+                    UserName = "58889999",
+                    HashedPassword = "oB/g944gOnJFXFkZy/DXtjAzwziEyOoM4HJ8c2pWwJM=",
+                    AccountId = 3,
+                    Salt = "OUFOIUNXHP"
+                });
+                authDbContext.Permissions.AddRange(new Permission
+                {
+                    Id = 1,
+                    Name = "Owner"
+                }, new Permission
+                {
+                    Id = 2,
+                    Name = "Employee"
+                }, new Permission
+                {
+                    Id = 3,
+                    Name = "Customer"
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 1,
+                    PermissionId = 3
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 2,
+                    PermissionId = 1
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 2,
+                    PermissionId = 2
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 2,
+                    PermissionId = 3
+                });
+                authDbContext.UserPermissions.Add(new UserPermission
+                {
+                    UserID = 3,
+                    PermissionId = 3
+                });
+                authDbContext.SaveChanges();
+
+                #endregion
+
+                #region Account Seeding
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 1,
+                    Email = "bob@bob.com",
+                    Name = "Schwanz",
+                    PhoneNumber = "88888888",
+                    Sex = "Male",
+                    Type = "Customer"
+                });
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 2,
+                    Email = "Karl@schwanzmail.com",
+                    Name = "Karl",
+                    PhoneNumber = "11111111",
+                    Sex = "Male",
+                    Type = "Employee"
+                });
+                mainDbContext.Accounts.Add(new AccountEntity
+                {
+                    Id = 3,
+                    Email = "bob@bob.com",
+                    Name = "Lise",
+                    PhoneNumber = "58889999",
+                    Sex = "Female",
+                    Type = "Customer"
+                });
+                #endregion
+
+                #region Treatment Seeding
+
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 1, Duration = new TimeSpan(0,30,0), Name = "Herre Klip",Price = 275});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 2, Duration = new TimeSpan(0,30,0), Name = "Dame Klip",Price = 345});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 3, Duration = new TimeSpan(0,30,0), Name = "Børneklip",Price = 225});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 4, Duration = new TimeSpan(0,30,0), Name = "Balayage inkl.toning",Price = 1800});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 5, Duration = new TimeSpan(0,30,0), Name = "Babylights",Price = 1300});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 6, Duration = new TimeSpan(0,30,0), Name = "Toning",Price = 500});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 7, Duration = new TimeSpan(0,30,0), Name = "Dame kli og farve",Price = 925});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 8, Duration = new TimeSpan(0,30,0), Name = "Dame Reflekser og klip",Price = 1050});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 9, Duration = new TimeSpan(0,30,0), Name = "Bryn og Vipper",Price = 275});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 10, Duration = new TimeSpan(0,30,0), Name = "Olaplex behandling",Price = 550});
+                mainDbContext.Treatments.Add(new TreatmentEntity {Id = 11, Duration = new TimeSpan(0,30,0), Name = "Kurbehandling ved farve",Price = 75});
+                
+
+                #endregion
+
+                #region appointmentSeeding
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 1, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(1), Duration = new TimeSpan(1,0,0),
+                    AppointmentEnd = DateTime.Now.AddHours(2), 
+                    
+                });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 2, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(22), Duration = new TimeSpan(0,30,0),
+                    AppointmentEnd = DateTime.Now.AddHours(24)
+                });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 3, CustomerId = 1, EmployeeId = 2, Date = DateTime.Now.AddHours(40), Duration = new TimeSpan(0,30,0),
+                    AppointmentEnd = DateTime.Now.AddHours(42)
+                });
+                mainDbContext.Appointments.Add(new AppointmentEntity
+                {
+                    Id = 4, CustomerId = 3, EmployeeId = 2, Date = DateTime.Now.AddHours(2), Duration = new TimeSpan(0,30,0),
+                    AppointmentEnd = DateTime.Now.AddHours(3)
+                });
+                mainDbContext.SaveChanges();
+                #endregion
+
+                #region appointmentTreatment Seeding
+
+                mainDbContext.Add(new AppointmentTreatmentEntity()
+                {
+                    AppointmentId = 1,
+                    TreatmentId = 1
+                });
+                mainDbContext.Add(new AppointmentTreatmentEntity()
+                {
+                    AppointmentId = 3,
+                    TreatmentId = 1
+                });
+                mainDbContext.Add(new AppointmentTreatmentEntity()
+                {
+                    AppointmentId = 2,
+                    TreatmentId = 1
+                });
+                mainDbContext.Add(new AppointmentTreatmentEntity()
+                {
+                    AppointmentId = 2,
+                    TreatmentId = 2
+                });
+
+                mainDbContext.SaveChanges();
+
+                #endregion
+
+                #endregion
+            }
 
 
             app.UseHttpsRedirection();
