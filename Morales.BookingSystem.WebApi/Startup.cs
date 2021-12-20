@@ -135,9 +135,9 @@ namespace Morales.BookingSystem
                 options.AddPolicy("prod-policy", policy =>
                 {
                     policy
-                        .AllowAnyOrigin()
-                        //.WithOrigins("https://booking-system-exam2021.firebaseapp.com/",
-                        //    "https://booking-system-exam2021.web.app/")
+                        //.AllowAnyOrigin()
+                        .WithOrigins("https://booking-system-exam2021.firebaseapp.com",
+                            "https://booking-system-exam2021.web.app")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
